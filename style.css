@@ -1,3 +1,33 @@
+:root {
+    --bg-primary: #ffffff;
+    --bg-sidebar: #f0f0f0;
+    --border-sidebar: #e0e0e0;
+    --border-list: #ddd;
+    --text-primary: #000;
+    --text-nav: #333;
+    --text-body: #444;
+    --text-muted: #888;
+    --text-link: #999;
+    --text-sidebar-hover: #4AA9C5;
+    --text-list-hover: #4AA9C5;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #000000;
+        --bg-sidebar: #0f0f0f;
+        --border-sidebar: #1f1f1f;
+        --border-list: #222;
+        --text-primary: #fff;
+        --text-nav: #ccc;
+        --text-body: #bbb;
+        --text-muted: #777;
+        --text-link: #666;
+        --text-sidebar-hover: #B5563A;
+        --text-list-hover: #B5563A;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +36,7 @@
 
 html {
     height: 100%;
-    background-color: #ffffff;
+    background-color: var(--bg-primary);
 }
 
 body {
@@ -14,6 +44,7 @@ body {
     font-family:
         -apple-system, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
         sans-serif;
+    color: var(--text-primary);
 }
 
 body {
@@ -32,8 +63,8 @@ header {
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    border-right: 1px solid #e0e0e0;
-    background-color: #f0f0f0;
+    border-right: 1px solid var(--border-sidebar);
+    background-color: var(--bg-sidebar);
 }
 
 header > a {
@@ -42,7 +73,7 @@ header > a {
 }
 
 header > a:hover {
-    color: #ffffff;
+    color: var(--text-sidebar-hover);
 }
 
 header > a:hover h1 {
@@ -73,14 +104,14 @@ header nav {
 
 header nav a {
     text-decoration: none;
-    color: #333;
+    color: var(--text-nav);
     font-size: 1rem;
     padding: 0.25rem 0;
     text-align: left;
 }
 
 header nav a:hover {
-    color: #ffffff;
+    color: var(--text-sidebar-hover);
     text-decoration: underline;
     text-underline-offset: 4px;
 }
@@ -90,7 +121,7 @@ main {
     width: calc(100% / 32 * 25);
     min-height: 100vh;
     padding: 3rem 4rem;
-    background-color: #ffffff;
+    background-color: var(--bg-primary);
 }
 
 main h2 {
@@ -100,23 +131,23 @@ main h2 {
 
 main hr {
     border: none;
-    border-top: 1px solid #888;
+    border-top: 1px solid var(--text-muted);
     margin: 0.25rem 0;
 }
 
 main p {
     font-size: 1rem;
     line-height: 1.8;
-    color: #444;
+    color: var(--text-body);
     margin-bottom: 1rem;
 }
 
 main a {
-    color: #999;
+    color: var(--text-link);
 }
 
 main a:hover {
-    color: #444;
+    color: var(--text-body);
 }
 
 main img {
@@ -137,24 +168,22 @@ main ul {
 
 main ul li {
     padding: 0.75rem 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-list);
 }
 
-
-
 main ul li a {
-    color: #000;
+    color: var(--text-primary);
     text-decoration: none;
     font-weight: bold;
 }
 
 main ul li a:hover {
-    color: #888;
+    color: var(--text-list-hover);
 }
 
 .post-date {
     font-size: 0.85rem;
-    color: #888;
+    color: var(--text-muted);
     margin-top: -1rem;
     margin-bottom: 1.5rem;
     font-weight: normal;
@@ -162,7 +191,7 @@ main ul li a:hover {
 
 main ul li .article-date {
     font-size: 0.85rem;
-    color: #888;
+    color: var(--text-muted);
     margin-top: 0.25rem;
     margin-bottom: 0;
     font-weight: normal;
@@ -171,7 +200,7 @@ main ul li .article-date {
 .signature {
     text-align: center;
     font-style: italic;
-    color: #888;
+    color: var(--text-muted);
     margin-top: 3rem;
     line-height: 2;
 }
