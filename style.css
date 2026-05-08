@@ -45,10 +45,8 @@ body {
         -apple-system, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
         sans-serif;
     color: var(--text-primary);
-}
-
-body {
     display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -117,9 +115,9 @@ header nav a:hover {
 }
 
 main {
+    flex: 1;
     margin-left: calc(100% / 32 * 7);
     width: calc(100% / 32 * 25);
-    min-height: 100vh;
     padding: 3rem 4rem;
     background-color: var(--bg-primary);
 }
@@ -206,7 +204,14 @@ main ul li .article-date {
 }
 
 footer {
-    display: none;
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background-color: var(--bg-primary);
+    margin-left: calc(100% / 32 * 7);
+    width: calc(100% / 32 * 25);
 }
 
 .header-bar {
@@ -217,6 +222,15 @@ footer {
 .nav-toggle-btn,
 .nav-toggle {
     display: none;
+}
+
+footer a {
+    color: var(--text-link);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--text-body);
 }
 
 @media (max-aspect-ratio: 1/1) {
@@ -346,5 +360,10 @@ footer {
         max-width: 100%;
         max-height: 80vh;
         height: auto;
+    }
+
+    footer {
+        margin-left: 0;
+        width: 100%;
     }
 }
