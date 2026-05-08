@@ -252,7 +252,8 @@ footer {
     width: calc(100% / 32 * 25);
 }
 
-footer a {
+footer a,
+footer a:visited {
     color: var(--text-link);
     text-decoration: none;
 }
