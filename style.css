@@ -201,6 +201,30 @@ main ul li a:hover {
     font-weight: normal;
 }
 
+main table {
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-body);
+}
+
+main table th,
+main table td {
+    border: 1px solid var(--border-list);
+    padding: 0.4rem 1rem;
+    text-align: center;
+}
+
+main table th {
+    background-color: var(--bg-sidebar);
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+main table tr:nth-child(even) {
+    background-color: var(--bg-sidebar);
+}
+
 main ul li .article-date {
     font-size: 0.85rem;
     color: var(--text-muted);
