@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "LXGW Bright";
+    src: url("assets/fonts/LXGWBright-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: block;
+}
+
 :root {
     --bg-primary: #ffffff;
     --bg-sidebar: #f0f0f0;
@@ -42,7 +50,7 @@ html {
 body {
     min-height: 100vh;
     font-family:
-        -apple-system, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+        "LXGW Bright", -apple-system, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
         sans-serif;
     color: var(--text-primary);
     display: flex;
