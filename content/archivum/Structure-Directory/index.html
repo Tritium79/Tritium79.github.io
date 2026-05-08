@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>目录结构 | Tritium79's Blog</title>
+        <link rel="stylesheet" href="../../../style.css" />
+    </head>
+    <body>
+        <header>
+            <div class="header-bar">
+            <a href="../../../index.html"
+                ><img src="../../../assets/icons/avatar.png" alt="avatar"
+            /></a>
+            <a href="../../../index.html"><h1>Tritium79's Blog</h1></a>
+            <span class="current-section">存档</span>
+            <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+            <nav>
+                <a href="../../../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../../../pages/silvae.html"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Silvae</span></a>
+                <a href="../../../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../../../pages/versiones.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Versiones</span></a>
+                <a href="../../../pages/archivum.html"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Archivum</span></a>
+                <a href="../../../pages/nexus.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Nexus</span></a>
+                <a href="../../../pages/deme.html"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
+            </nav>
+        </header>
+        <main>
+            <h2>目录结构</h2>
+            <p class="post-date">9 May. 2026 / 丙午年 癸巳月 癸未日</p>
+
+            <h3>目录结构</h3>
+<pre><code>Tritium79.github.io/
+    index.html                        # 首页（网站入口）
+    style.css                         # 全局样式（唯一样式文件）
+    pages/                            # 分类导航页（扁平，7 页）
+        commentarii.html              # 记录 / Commentarii
+        silvae.html                   # 随笔 / Silvae
+        versiones.html                # 译文 / Versiones
+        archivum.html                 # 存档 / Archivum
+        nexus.html                    # 友链 / Nexus
+        deme.html                     # 关于 / De Me
+    content/                          # 文章内容（分类/文章 两层）
+        commentarii/
+            Cat-Record/               # 帕斯卡+连字符命名
+                index.html            # 固定文件名
+                Cat.jpg               # 资源平放
+        silvae/
+            Blog-Init/
+        versiones/
+            OA-Introduction-Translation/
+        archivum/
+            Article-Template/
+    template/
+        article.html                  # 模板（存档 已变量化）
+    scripts/
+        build.py                      # 发布脚本
+        build.sh                      # Shell 封装
+        requirements.txt
+    assets/
+        icons/
+            avatar.png
+        fonts/
+            LXGWBright-Light.ttf
+            LXGWBright-Light.woff2
+        css/                          # （预留）
+        images/                       # （预留）
+        data/                         # （预留）
+    .gitignore
+</code></pre>
+<hr />
+<h3>目录命名</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>命名规则</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>根级目录</td>
+<td>全小写，无分隔符</td>
+<td><code>pages/</code>, <code>content/</code>, <code>assets/</code>, <code>scripts/</code>, <code>template/</code>, <code>data/</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>页面文件</td>
+<td>全小写拉丁语</td>
+<td><code>commentarii.html</code>, <code>silvae.html</code></td>
+<td>后缀 <code>.html</code></td>
+</tr>
+<tr>
+<td>文章文件夹</td>
+<td>帕斯卡 + 连字符</td>
+<td><code>Cat-Record</code>, <code>Blog-Init</code>, <code>OA-Introduction-Translation</code>, <code>Article-Template</code></td>
+<td>每词首字母大写，单词间连字符</td>
+</tr>
+<tr>
+<td>文章内文件</td>
+<td>固定为 <code>index.html</code> + 资源文件原名</td>
+<td><code>index.html</code>, <code>Cat.jpg</code></td>
+<td>核心文件必须为 <code>index.html</code></td>
+</tr>
+<tr>
+<td>脚本文件</td>
+<td>全小写</td>
+<td><code>build.py</code>, <code>build.sh</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>静态资源</td>
+<td>描述性小写</td>
+<td><code>avatar.png</code>, <code>style.css</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>字体</td>
+<td>保留厂商原名</td>
+<td><code>LXGWBright-Light.woff2</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>模板占位符</td>
+<td><code>{{ double mustache }}</code></td>
+<td><code>{{ title }}</code>, <code>{{ content }}</code>, <code>{{ date }}</code>, <code>存档</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>条目模板占位符</td>
+<td><code>%%UPPER_PERCENT%%</code></td>
+<td><code>%%CATEGORY%%</code>, <code>%%TITLE%%</code>, <code>%%FOLDER%%</code>, <code>%%DATE%%</code></td>
+<td><code>build.py</code> 内部使用</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>代码命名</h3>
+<table>
+<thead>
+<tr>
+<th>层面</th>
+<th>规范</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML class</td>
+<td>kebab-case</td>
+<td><code>.header-bar</code>, <code>.post-date</code>, <code>.nav-toggle-btn</code>, <code>.nav-cn</code>, <code>.nav-la</code>, <code>.article-meta</code>, <code>.link-list</code>, <code>.about-text</code>, <code>.signature</code></td>
+</tr>
+<tr>
+<td>CSS 自定义属性</td>
+<td><code>--&lt;元素&gt;-&lt;修饰符&gt;</code></td>
+<td><code>--bg-primary</code>, <code>--bg-sidebar</code>, <code>--border-sidebar</code>, <code>--border-list</code>, <code>--text-primary</code>, <code>--text-nav</code>, <code>--text-body</code>, <code>--text-muted</code>, <code>--text-link</code>, <code>--text-sidebar-hover</code>, <code>--text-list-hover</code></td>
+</tr>
+<tr>
+<td>Python 常量</td>
+<td>UPPER_SNAKE_CASE</td>
+<td><code>SCRIPT_DIR</code>, <code>ROOT_DIR</code>, <code>TEMPLATE_PATH</code>, <code>CATEGORIES</code>, <code>SECTION_MAP</code>, <code>PAGE_MAP</code>, <code>ENTRY_TPL</code></td>
+</tr>
+<tr>
+<td>Python 变量/函数</td>
+<td>snake_case</td>
+<td><code>parse_front_matter()</code>, <code>render_markdown()</code>, <code>fill_template()</code>, <code>slugify()</code>, <code>add_entry_to_page()</code>, <code>main()</code></td>
+</tr>
+<tr>
+<td>Git 提交</td>
+<td>简短名词短语，首字母大写，无句号</td>
+<td><code>Blog Init</code>, <code>Dark Mode</code>, <code>Footer Design</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>HTML 结构</h3>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+        &lt;title&gt;&lt;页面名&gt; | Tritium79's Blog&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;&lt;相对 style.css 路径&gt;&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;div class=&quot;header-bar&quot;&gt;
+                &lt;a href=&quot;&lt;相对 index.html 路径&gt;&quot;&gt;&lt;img src=&quot;&lt;相对 avatar.png 路径&gt;&quot; alt=&quot;avatar&quot; /&gt;&lt;/a&gt;
+                &lt;a href=&quot;&lt;相对 index.html 路径&gt;&quot;&gt;&lt;h1&gt;Tritium79's Blog&lt;/h1&gt;&lt;/a&gt;
+                &lt;span class=&quot;current-section&quot;&gt;&lt;当前章节&gt;&lt;/span&gt;
+                &lt;label for=&quot;nav-toggle&quot; class=&quot;nav-toggle-btn&quot;&gt;≡&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;nav-toggle&quot; class=&quot;nav-toggle&quot; hidden /&gt;
+            &lt;nav&gt;
+                &lt;a href=&quot;index.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;首页&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Domus&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/silvae.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;随笔&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Silvae&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/commentarii.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;记录&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Commentarii&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/versiones.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;译文&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Versiones&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/archivum.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;存档&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Archivum&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/nexus.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;友链&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;Nexus&lt;/span&gt;&lt;/a&gt;
+                &lt;a href=&quot;pages/deme.html&quot;&gt;&lt;span class=&quot;nav-cn&quot;&gt;关于&lt;/span&gt;&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nav-la&quot;&gt;De Me&lt;/span&gt;&lt;/a&gt;
+            &lt;/nav&gt;
+        &lt;/header&gt;
+        &lt;main&gt;
+            &lt;!-- 页面特有内容 --&gt;
+        &lt;/main&gt;
+        &lt;footer&gt;
+            &lt;p&gt;© 2026 Tritium&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<hr />
+<h3>路径层级</h3>
+<table>
+<thead>
+<tr>
+<th>文件位置</th>
+<th>引用 <code>style.css</code></th>
+<th>引用 <code>index.html</code></th>
+<th>引用 <code>avatar.png</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>根目录 <code>index.html</code></td>
+<td><code>style.css</code></td>
+<td>—</td>
+<td><code>assets/icons/avatar.png</code></td>
+</tr>
+<tr>
+<td><code>pages/*.html</code></td>
+<td><code>../style.css</code></td>
+<td><code>../index.html</code></td>
+<td><code>../assets/icons/avatar.png</code></td>
+</tr>
+<tr>
+<td><code>content/*/*/index.html</code></td>
+<td><code>../../../style.css</code></td>
+<td><code>../../../index.html</code></td>
+<td><code>../../../assets/icons/avatar.png</code></td>
+</tr>
+</tbody>
+</table>
+        </main>
+        <footer>
+            <p>&copy; 2026 Tritium</p>
+        </footer>
+    </body>
+</html>

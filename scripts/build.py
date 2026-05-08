@@ -22,6 +22,13 @@ CATEGORIES = [
     ('archivum', '存档 / Archivum'),
 ]
 
+SECTION_MAP = {
+    'silvae': '随笔',
+    'commentarii': '记录',
+    'versiones': '译文',
+    'archivum': '存档',
+}
+
 PAGE_MAP = {
     'silvae': ROOT_DIR / 'pages' / 'silvae.html',
     'commentarii': ROOT_DIR / 'pages' / 'commentarii.html',
@@ -59,11 +66,12 @@ def render_markdown(text):
     return markdown.markdown(text, extensions=['extra'])
 
 
-def fill_template(template, title, date, content):
+def fill_template(template, title, date, content, section):
     html = template
     html = html.replace('{{ title }}', title)
     html = html.replace('{{ date }}', date)
     html = html.replace('{{ content }}', content)
+    html = html.replace('{{ section }}', section)
     return html
 
 
@@ -152,7 +160,8 @@ def main():
     template_str = TEMPLATE_PATH.read_text(encoding='utf-8')
     html_body = render_markdown(body)
     html_body = html_body.replace('<!--sep-->', '<br />')
-    result = fill_template(template_str, title, date, html_body)
+    section = SECTION_MAP.get(category, '')
+    result = fill_template(template_str, title, date, html_body, section)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(result, encoding='utf-8')
