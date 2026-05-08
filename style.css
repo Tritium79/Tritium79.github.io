@@ -1,10 +1,11 @@
 @font-face {
     font-family: "LXGW Bright";
-    src: url("/assets/fonts/LXGWBright-Light.woff2") format("woff2"),
-         url("/assets/fonts/LXGWBright-Light.ttf") format("truetype");
+    src:
+        url("/assets/fonts/LXGWBright-Light.woff2") format("woff2"),
+        url("/assets/fonts/LXGWBright-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 
 :root {
@@ -17,12 +18,12 @@
     --text-body: #444;
     --text-muted: #888;
     --text-link: #999;
-    --text-sidebar-hover: #4AA9C5;
-    --text-list-hover: #4AA9C5;
+    --text-sidebar-hover: #4aa9c5;
+    --text-list-hover: #4aa9c5;
 }
 
 @media (prefers-color-scheme: dark) {
-:root {
+    :root {
         --bg-primary: #000000;
         --bg-sidebar: #0f0f0f;
         --border-sidebar: #1f1f1f;
@@ -32,8 +33,8 @@
         --text-body: #bbb;
         --text-muted: #777;
         --text-link: #666;
-        --text-sidebar-hover: #B5563A;
-        --text-list-hover: #B5563A;
+        --text-sidebar-hover: #b5563a;
+        --text-list-hover: #b5563a;
     }
 }
 
@@ -51,7 +52,11 @@ html {
 body {
     min-height: 100vh;
     font-family:
-        "LXGW Bright", -apple-system, "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+        "LXGW Bright",
+        -apple-system,
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
         sans-serif;
     color: var(--text-primary);
     display: flex;
@@ -350,7 +355,8 @@ footer {
         padding-top: calc(32px + 3rem);
     }
 
-    main img, main video {
+    main img,
+    main video {
         display: block;
         margin: 1.5rem auto;
     }
