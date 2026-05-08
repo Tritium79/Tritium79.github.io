@@ -252,6 +252,15 @@ footer {
     width: calc(100% / 32 * 25);
 }
 
+footer a {
+    color: var(--text-link);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--text-body);
+}
+
 .header-bar {
     display: contents;
 }
