@@ -332,7 +332,7 @@ footer {
     main {
         margin-left: 0;
         width: 100%;
-        padding: 1rem;
-        padding-top: calc(32px + 1rem + 4px);
+        padding: 2rem 1.5rem;
+        padding-top: calc(32px + 3rem);
     }
 }
