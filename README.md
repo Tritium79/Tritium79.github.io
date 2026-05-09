@@ -16,8 +16,8 @@ Tritium79.github.io/
 ├── assets/                     # 静态资源
 │   ├── css/                    # 附加 CSS（预留，当前为空）
 │   ├── fonts/                  # 字体文件
-│   ├── icons/                  # 图标（如 avatar.png）
-│   └── images/                 # 图片资源（预留，当前为空）
+│   ├── icons/                  # 图标（预留，当前为空）
+│   └── images/                 # 图片资源（如 avatar.png）
 │
 ├── content/                    # 文章内容
 │   ├── archivum/               # 存档 / Archivum
@@ -43,9 +43,14 @@ Tritium79.github.io/
 │   └── versiones.html
 │
 ├── scripts/                    # 构建工具
-│   ├── build.py                # Markdown → HTML 发布脚本
-│   ├── build.sh                # Shell 封装
-│   ├── requirements.txt
+│   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
+│   ├── build.sh                # Shell 封装（激活 venv 后运行 build.py）
+│   ├── config.py               # 常量：路径、分类定义、模板
+│   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
+│   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
+│   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
+│   ├── requirements.txt        # Python 依赖
+│   ├── README.md               # 脚本文档
 │   └── venv/                   # Python 虚拟环境
 │
 ├── template/                   # 文章 HTML 模板

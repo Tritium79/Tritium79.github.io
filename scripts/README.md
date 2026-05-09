@@ -11,7 +11,6 @@ scripts/
 ├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
 ├── requirements.txt   # Python 依赖（markdown、Pygments）
 ├── build.sh           # Shell 启动脚本（激活 venv 后运行 build.py）
-├── Blog.command       # macOS 双击启动脚本（运行后暂停）
 ├── venv/              # Python 虚拟环境（gitignored）
 └── README.md          # 本文件
 ```
