@@ -6,7 +6,7 @@
   python build.py -f article.md -c silvae   # CLI 模式
   python build.py --list                    # 列出文章
   python build.py --delete                  # 删除文章
-  python build.py --rename                  # 重命名文件夹
+  python build.py --rename                  # 文件管理器（重命名/删除/移动）
   python build.py --retitle                 # 修改标题/日期
 """
 
@@ -17,7 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, CATEGORIES
-from management import list_articles, delete_article, rename_article, retitle_article
+from management import list_articles, delete_article, file_manager, retitle_article
 from content import publish_article
 
 
@@ -35,7 +35,7 @@ def parse_args():
 文章管理:
   python build.py --list                    # 列出所有文章
   python build.py --delete                  # 删除文章
-  python build.py --rename                  # 重命名文件夹
+  python build.py --rename                  # 文件管理器（重命名/删除/移动）
   python build.py --retitle                 # 修改标题/日期
         '''
     )
@@ -48,7 +48,7 @@ def parse_args():
     parser.add_argument('-y', '--yes', action='store_true', help='跳过确认步骤')
     parser.add_argument('--list', action='store_true', help='列出所有文章')
     parser.add_argument('--delete', action='store_true', help='删除文章')
-    parser.add_argument('--rename', action='store_true', help='重命名文件夹')
+    parser.add_argument('--rename', action='store_true', help='文件管理器（重命名/删除/移动）')
     parser.add_argument('--retitle', action='store_true', help='修改标题/日期')
 
     return parser.parse_args()
@@ -71,7 +71,7 @@ def main():
         return
 
     if args.rename:
-        rename_article()
+        file_manager()
         return
 
     if args.retitle:
@@ -91,7 +91,7 @@ def main():
         print('  1. 发布新文章')
         print('  2. 列出所有文章')
         print('  3. 删除文章')
-        print('  4. 重命名文件夹')
+        print('  4. 文件管理器（重命名/删除/移动）')
         print('  5. 修改标题/日期')
         print('  6. 退出\n')
 
@@ -111,7 +111,7 @@ def main():
             continue
 
         if choice == '4':
-            rename_article()
+            file_manager()
             input('\n按回车键继续...')
             continue
 

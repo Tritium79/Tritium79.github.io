@@ -185,89 +185,236 @@ def show_directory_tree():
     print()
 
 
-def rename_article():
-    show_directory_tree()
-    print('分类:')
-    for i, (key, name) in enumerate(CATEGORIES, 1):
-        print(f'  {i}. {name} ({key})')
+def _get_project_path(path):
+    return path.relative_to(ROOT_DIR).as_posix()
 
-    all_articles = list_articles()
-    if not all_articles:
-        print('没有可重命名的文章。')
-        return
 
-    while True:
-        idx = select_category_index()
-        cat_key = CATEGORIES[idx][0]
-        if cat_key in all_articles:
-            break
-        print('  该分类暂无文章，请重试')
+def _update_refs(old_path, new_path):
+    old_str = _get_project_path(old_path)
+    new_str = _get_project_path(new_path)
 
-    articles = all_articles[cat_key]['articles']
+    glob_patterns = [
+        (ROOT_DIR / 'pages', '*.html'),
+        (ROOT_DIR / 'content', '**/*.html'),
+        (ROOT_DIR / 'template', '*.html'),
+        (ROOT_DIR / 'assets', '**/*.html'),
+    ]
+    single_files = [
+        ROOT_DIR / 'index.html',
+        ROOT_DIR / 'style.css',
+        ROOT_DIR / 'README.md',
+        ROOT_DIR / 'AGENTS.md',
+    ]
 
-    while True:
+    search_files = []
+    for base, pattern in glob_patterns:
+        if base.exists():
+            search_files.extend(base.glob(pattern))
+    for f in single_files:
+        if f.exists():
+            search_files.append(f)
+
+    updated = []
+    for f in search_files:
         try:
-            idx = int(input(f'选择要重命名的文章编号 (1-{len(articles)}): ').strip()) - 1
-            if 0 <= idx < len(articles):
-                break
+            text = f.read_text(encoding='utf-8')
+        except Exception:
+            continue
+        if old_str in text:
+            new_text = text.replace(old_str, new_str)
+            f.write_text(new_text, encoding='utf-8')
+            updated.append(_get_project_path(f))
+
+    return updated
+
+
+def _remove_entry_from_page(cat_key, folder):
+    page_path = PAGE_MAP.get(cat_key)
+    if not page_path or not page_path.exists():
+        return
+    lines = page_path.read_text(encoding='utf-8').splitlines(keepends=True)
+    idx = None
+    for i, line in enumerate(lines):
+        if f'href="../content/{cat_key}/{folder}/index.html"' in line:
+            idx = i
+            break
+    if idx is None:
+        return
+    start = idx
+    while start >= 0 and '<li>' not in lines[start]:
+        start -= 1
+    end = idx
+    while end < len(lines) and '</li>' not in lines[end]:
+        end += 1
+    if end < len(lines):
+        end += 1
+    del lines[start:end]
+    new_content = ''.join(lines)
+    new_content = re.sub(r'\n\s*\n\s*<ul>', '\n<ul>', new_content)
+    page_path.write_text(new_content, encoding='utf-8')
+
+
+clipboard = {}
+
+
+def file_manager():
+    root = ROOT_DIR
+    current = ROOT_DIR
+
+    dirs_to_show = ['content', 'assets']
+
+    dir_mode = True
+    current_top_level = 0
+
+    while True:
+        entries = sorted(current.iterdir())
+        dirs = sorted([e for e in entries if e.is_dir() and e.name not in ['scripts', '.git']])
+        files = sorted([e for e in entries if e.is_file() and e.suffix in ['.html', '.css', '.md', '.otf', '.ttf', '.woff2', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico']])
+
+        items = dirs + files
+
+        print(f'\n> {_get_project_path(current) if current != root else "."}')
+        print('─' * 40)
+
+        if current != root:
+            print('  [0] .. (上级目录)')
+
+        for i, item in enumerate(items, 1):
+            if item.is_dir():
+                print(f'  [{i}] 📁 {item.name}/')
+            else:
+                size = item.stat().st_size
+                print(f'  [{i}] 📄 {item.name} ({size:,} B)')
+
+        print()
+
+        if clipboard.get('source'):
+            print(f'  [v] 粘贴到此处 ({_get_project_path(clipboard["source"])})\n')
+
+        raw = input('输入编号选择，q 退出: ').strip().lower()
+
+        if raw == 'q':
+            break
+
+        if raw == '0' and current != root:
+            current = current.parent
+            continue
+
+        if raw == 'v' and clipboard.get('source'):
+            src = clipboard['source']
+            if src.parent.resolve() == current.resolve():
+                print('  源与目标相同，已取消')
+                clipboard.clear()
+                continue
+            new_path = current / src.name
+            if new_path.exists():
+                print('  目标已存在，已取消')
+                clipboard.clear()
+                continue
+            src.rename(new_path)
+            updated = _update_refs(src, new_path)
+            print(f'  已移动到: {_get_project_path(new_path)}')
+            if updated:
+                for u in updated:
+                    print(f'    更新引用: {u}')
+            if src.parent.parent.name == 'content' and src.parent.name in [c[0] for c in CATEGORIES]:
+                _remove_entry_from_page(src.parent.name, src.name)
+            clipboard.clear()
+            continue
+
+        try:
+            idx = int(raw) - 1
+            if 0 <= idx < len(items):
+                selected = items[idx]
+                result = _file_ops(selected)
+                if result and selected.is_dir():
+                    current = result
+                continue
         except ValueError:
             pass
-        print('  无效编号，请重试')
 
-    article = articles[idx]
-    old_folder = article['folder']
-    old_title = article['title']
+        msg = f'  无效选择: {raw}'
+        print(msg)
 
-    print(f'\n当前文章:')
-    print(f'  标题: {old_title}')
-    print(f'  文件夹: content/{cat_key}/{old_folder}/')
 
-    new_folder = input('\n新文件夹名: ').strip()
-    if not new_folder:
-        print('  文件夹名不能为空，已取消')
-        return
-    if new_folder == old_folder:
-        print('  文件夹名相同，已取消')
-        return
+def _file_ops(path):
+    rel = _get_project_path(path)
+    is_dir = path.is_dir()
 
-    old_path = ROOT_DIR / 'content' / cat_key / old_folder
-    new_path = ROOT_DIR / 'content' / cat_key / new_folder
+    while True:
+        kind = '文件夹' if is_dir else '文件'
+        print(f'\n> {rel} ({kind})')
+        print('─' * 32)
+        if is_dir:
+            print('  [e] 进入')
+        print('  [r] 重命名')
+        print('  [d] 删除')
+        print('  [m] 标记/移动')
+        print('  [b] 返回')
+        print()
 
-    if new_path.exists():
-        print('  目标文件夹已存在，已取消')
-        return
+        op = input('选择操作: ').strip().lower()
 
-    old_href = f'../content/{cat_key}/{old_folder}/'
-    new_href = f'../content/{cat_key}/{new_folder}/'
+        if op == 'b':
+            break
 
-    print(f'\n将重命名:')
-    print(f'  content/{cat_key}/{old_folder}/ → content/{cat_key}/{new_folder}/')
-    confirm = input('确认重命名? [y/n]: ').strip().lower()
-    if confirm not in ['y', '']:
-        print('  已取消')
-        return
+        if op == 'e' and is_dir:
+            return path
 
-    old_path.rename(new_path)
-    print(f'  已重命名文件夹')
+        elif op == 'r':
+            default = path.name
+            new_name = input(f'新名称 [{default}]: ').strip() or default
+            if new_name == path.name:
+                print('  名称相同，已取消')
+                continue
 
-    updated_pages = []
-    all_html_files = list(ROOT_DIR.glob('pages/*.html'))
-    for cat in [c[0] for c in CATEGORIES]:
-        all_html_files.extend((ROOT_DIR / 'content' / cat).rglob('*.html'))
+            new_path = path.parent / new_name
+            if new_path.exists():
+                print('  目标已存在，已取消')
+                continue
 
-    for html_file in all_html_files:
-        content = html_file.read_text(encoding='utf-8')
-        if old_href in content:
-            new_content = content.replace(old_href, new_href)
-            html_file.write_text(new_content, encoding='utf-8')
-            updated_pages.append(html_file.relative_to(ROOT_DIR))
+            path.rename(new_path)
+            updated = _update_refs(path, new_path)
+            print(f'  已重命名为 {new_name}')
+            if updated:
+                for u in updated:
+                    print(f'    更新引用: {u}')
 
-    if updated_pages:
-        print(f'  已更新引用 ({len(updated_pages)} 个文件):')
-        for p in updated_pages:
-            print(f'    {p}')
+            if is_dir:
+                parent_cat = path.parent.name
+                parent_parent = path.parent.parent.name
+                if parent_parent == 'content' and parent_cat in [c[0] for c in CATEGORIES]:
+                    _remove_entry_from_page(parent_cat, path.name)
 
-    print('\n  重命名完成!')
+            break
+
+        elif op == 'd':
+            confirm = input(f'删除 {rel}? [y/n]: ').strip().lower()
+            if confirm not in ['y', '']:
+                continue
+
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+            print(f'  已删除: {rel}')
+
+            if is_dir:
+                parent_cat = path.parent.name
+                parent_parent = path.parent.parent.name
+                if parent_parent == 'content' and parent_cat in [c[0] for c in CATEGORIES]:
+                    _remove_entry_from_page(parent_cat, path.name)
+
+            break
+
+        elif op == 'm':
+            print(f'  已标记: {rel}')
+            print('  请导航到目标目录后输入 v 执行移动')
+            clipboard['source'] = path
+            break
+
+        else:
+            print('  无效操作')
 
 
 def retitle_article():
