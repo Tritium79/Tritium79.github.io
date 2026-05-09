@@ -53,6 +53,7 @@ Tritium79.github.io/
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
 │   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
 │   ├── templint.py             # 模板一致性检查：对比所有 HTML 与 base.html
+│   ├── git_ops.py              # Git 提交与推送
 │   ├── requirements.txt        # Python 依赖
 │   ├── README.md               # 脚本文档
 │   └── venv/                   # Python 虚拟环境
@@ -105,6 +106,7 @@ Tritium79.github.io/
 - `scripts/build.py` — 主构建脚本
 - 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html` → 更新汇总页
 - `python build.py --check-template` — 对照 `template/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
+- `python build.py --git` — Git 提交与推送（默认提交信息为当天日期 + "Update"）
 - 所有路径以项目根目录为基准
 
 ### assets
