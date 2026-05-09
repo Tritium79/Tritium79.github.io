@@ -6,11 +6,11 @@
 scripts/
 ├── build.py           # 入口：CLI 参数解析 + 交互菜单循环
 ├── config.py          # 常量：路径、分类定义、模板
-├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析
+├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析、干支日期转换
 ├── templint.py        # 模板一致性检查：对比所有 HTML 与 base.html
 ├── content.py         # 内容生成：Markdown 渲染、图片处理、文章发布
 ├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
-├── requirements.txt   # Python 依赖（markdown、Pygments）
+├── requirements.txt   # Python 依赖（markdown、Pygments、lunar_python）
 ├── build.sh           # Shell 启动脚本（激活 venv 后运行 build.py）
 ├── venv/              # Python 虚拟环境（gitignored）
 └── README.md          # 本文件
@@ -25,24 +25,26 @@ scripts/
 ```sh
 python build.py                           # 交互菜单
 python build.py -f article.md -c silvae   # CLI 模式
-python build.py --list                    # 列出文章
+python build.py --list                    # 文章列表
 python build.py --delete                  # 删除文章
 python build.py --rename                  # 管理目录
-python build.py --retitle                 # 修改标题/日期
-python build.py --check-template          # 模板检查
+python build.py --retitle                 # 修改标题
+python build.py --check-template          # 检查模板
 python build.py --git                     # Git 提交与推送
+python build.py --lunar-date              # 获取当前干支日期
 ```
 
 **交互菜单**：
 ```
-  0. 退出
-  1. 列出文章
+  0. 退出工具
+  1. 文章列表
   2. 发布文章
   3. 删除文章
-  4. 修改标题/日期
+  4. 修改标题
   5. 管理目录
-  6. 模板检查
-  7. Git
+  6. 检查模板
+  7. 获取日期
+  8. Git
 
 请选择功能 [0]:
 ```
@@ -91,6 +93,7 @@ python build.py --git                     # Git 提交与推送
 | `ask(prompt, default)` | 带默认值的输入提示 |
 | `confirm(prompt, default='y')` | 统一 `[y/n]` 确认提示，默认 y，y/Y/n/N 均识别 |
 | `parse_front_matter(text)` | 解析 Markdown front matter（`---` 分隔的 key:value），返回 `(meta_dict, body)` |
+| `get_lunar_date(target_date=None)` | 将日期转换为干支格式。留空返回当前日期；`target_date` 传入 `datetime` 对象可指定日期 |
 
 ---
 
@@ -105,7 +108,7 @@ Markdown → parse_front_matter → 交互选择分类/标题/文件夹 → rend
 | 函数 | 说明 |
 |------|------|
 | `process_obsidian_links(text)` | 将 Obsidian wiki 图片 `![[file.jpg]]` 转为标准 Markdown |
-| `render_markdown(text)` | MD → HTML，启用 `extra` 和 `codehilite` 扩展 |
+| `render_markdown(text)` | MD → HTML，启用 `extra`、`codehilite` 和 `nl2br` 扩展 |
 | `process_images(html, md_path, output_dir)` | 查找 `<img>` 中的本地图片路径，复制到输出文件夹，更新 `src` 为相对路径 |
 | `fill_template(template, title, date, content, section)` | 替换模板中的 `{{ title }}`、`{{ date }}`、`{{ content }}`、`{{ section }}` |
 | `select_category_interactive()` | 交互式选择分类编号 |
@@ -113,7 +116,7 @@ Markdown → parse_front_matter → 交互选择分类/标题/文件夹 → rend
 
 **交互发布流程**：
 1. 输入 Markdown 文件路径（支持 `q` 退出）
-2. 输入/确认日期（默认当天）
+2. 输入/确认日期（默认当前干支日期，如 `8 May. 2026 / 丙午年 癸巳月 壬午日`；留空即采用默认值）
 3. 选择分类
 4. 输入/确认标题（默认从文件名或 front matter）
 5. 输入/确认文件夹名（默认从标题 slugify）
@@ -122,7 +125,7 @@ Markdown → parse_front_matter → 交互选择分类/标题/文件夹 → rend
 **注意**：
 - 图片查找顺序：Markdown 文件同目录 → 项目根目录
 - 远程图片（http/https/data:）跳过处理
-- 模板中使用 `<!--sep-->` 标记手动换行位置（替换为 `<br />`）
+- Markdown 中单个换行符自动转为 `<br />`，双换行符转为段落分隔
 
 ---
 

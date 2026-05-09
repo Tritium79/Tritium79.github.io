@@ -105,23 +105,27 @@ Tritium79.github.io/
 
 - `scripts/build.py` — 主构建脚本
 - 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html` → 更新汇总页
-- 交互菜单：
+  - 交互菜单：
 
 ```
-  0. 退出
-  1. 列出文章
+  0. 退出工具
+  1. 文章列表
   2. 发布文章
   3. 删除文章
-  4. 修改标题/日期
+  4. 修改标题
   5. 管理目录
-  6. 模板检查
-  7. Git
+  6. 检查模板
+  7. 获取日期
+  8. Git
 ```
 
 - 所有功能支持 `q` 中途退出
 - `python build.py --check-template` — 对照 `template/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
 - `python build.py --git` — Git 提交与推送
+- `python build.py --lunar-date` — 获取当前干支日期
 - 所有路径以项目根目录为基准
+- Markdown 渲染启用 `nl2br` 扩展，单个换行符转换为 `<br />`
+- 发布文章时日期留空，默认使用当前干支日期（格式：`8 May. 2026 / 丙午年 癸巳月 壬午日`）
 
 ### assets
 

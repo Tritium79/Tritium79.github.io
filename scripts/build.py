@@ -12,6 +12,7 @@
 
 import argparse
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -21,6 +22,7 @@ from management import list_articles, delete_article, file_manager, retitle_arti
 from content import publish_article
 from templint import check_all
 from git_ops import git_commit_push
+from utils import get_lunar_date
 
 
 def parse_args():
@@ -41,6 +43,7 @@ def parse_args():
   python build.py --retitle                 # 修改标题/日期
   python build.py --check-template          # 模板检查
   python build.py --git                     # Git
+  python build.py --lunar-date              # 获取当前干支日期
         '''
     )
     parser.add_argument('-f', '--file', type=str, help='Markdown 文件路径')
@@ -56,6 +59,7 @@ def parse_args():
     parser.add_argument('--retitle', action='store_true', help='修改标题/日期')
     parser.add_argument('--check-template', action='store_true', help='模板检查')
     parser.add_argument('--git', action='store_true', help='Git')
+    parser.add_argument('--lunar-date', action='store_true', help='获取当前干支日期')
 
     return parser.parse_args()
 
@@ -92,6 +96,10 @@ def main():
         git_commit_push()
         return
 
+    if args.lunar_date:
+        print(get_lunar_date())
+        return
+
     if args.file:
         md_path = resolve_path(args.file)
         if not md_path.exists():
@@ -102,17 +110,18 @@ def main():
 
     while True:
         print('=== 博客管理工具 ===\n')
-        print('  0. 退出')
-        print('  1. 列出文章')
+        print('  0. 退出工具')
+        print('  1. 文章列表')
         print('  2. 发布文章')
         print('  3. 删除文章')
-        print('  4. 修改标题/日期')
+        print('  4. 修改标题')
         print('  5. 管理目录')
-        print('  6. 模板检查')
-        print('  7. Git\n')
-  
+        print('  6. 检查模板')
+        print('  7. 获取日期')
+        print('  8. Git\n')
+
         choice = input('请选择功能 [0]: ').strip().lower()
-        if choice not in ['', '0', '1', '2', '3', '4', '5', '6', '7', 'q']:
+        if choice not in ['', '0', '1', '2', '3', '4', '5', '6', '7', '8', 'q']:
             print('  无效选择，请重试\n')
             continue
 
@@ -162,6 +171,19 @@ def main():
             continue
 
         if choice == '7':
+            raw = input('输入日期 (20xx-xx-xx，留空为当前日期): ').strip()
+            if raw:
+                try:
+                    target = datetime.strptime(raw, '%Y-%m-%d')
+                    print(get_lunar_date(target))
+                except ValueError:
+                    print('  格式错误，请使用 20xx-xx-xx')
+            else:
+                print(get_lunar_date())
+            input('\n按回车键继续...')
+            continue
+
+        if choice == '8':
             git_commit_push()
             input('\n按回车键继续...')
             continue

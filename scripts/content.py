@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import markdown
 
 from config import ROOT_DIR, TEMPLATE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
-from utils import slugify, ask, confirm, parse_front_matter
+from utils import slugify, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
 
 
@@ -19,7 +19,7 @@ def process_obsidian_links(text):
 
 def render_markdown(text):
     text = process_obsidian_links(text)
-    return markdown.markdown(text, extensions=['extra', 'codehilite'])
+    return markdown.markdown(text, extensions=['extra', 'codehilite', 'nl2br'])
 
 
 def process_images(html, md_path, output_dir):
@@ -85,7 +85,7 @@ def publish_article(md_path, args, is_cli_mode):
     title = args.title if args.title else (meta.get('title') if meta else md_path.stem)
     date = args.date if args.date else (meta.get('date') if meta else None)
     if not date:
-        date = ask('日期', '')
+        date = ask('日期', get_lunar_date())
 
     if is_cli_mode and args.category:
         category = args.category
