@@ -27,14 +27,31 @@ python build.py                           # 交互菜单
 python build.py -f article.md -c silvae   # CLI 模式
 python build.py --list                    # 列出文章
 python build.py --delete                  # 删除文章
-python build.py --rename                  # 文件管理器
+python build.py --rename                  # 管理目录
 python build.py --retitle                 # 修改标题/日期
-python build.py --check-template          # 检查 HTML 模板一致性
+python build.py --check-template          # 模板检查
+python build.py --git                     # Git 提交与推送
 ```
+
+**交互菜单**：
+```
+  0. 退出
+  1. 列出文章
+  2. 发布文章
+  3. 删除文章
+  4. 修改标题/日期
+  5. 管理目录
+  6. 模板检查
+  7. Git
+
+请选择功能 [0]:
+```
+
+**所有交互功能支持 `q` 中途退出**
 
 **逻辑**：
 1. 解析 argparse 参数
-2. `--list` / `--delete` / `--rename` / `--retitle` → 直接调用 management.py 对应函数后返回
+2. `--list` / `--delete` / `--rename` / `--retitle` / `--git` → 直接调用对应函数后返回
 3. `-f` → CLI 发布模式，调用 `content.publish_article()` 后返回
 4. 无参数 → 交互菜单循环，用户选择功能后分发
 
@@ -82,7 +99,7 @@ python build.py --check-template          # 检查 HTML 模板一致性
 **发布流程**（`publish_article(md_path, args, is_cli_mode)`）：
 
 ```
-Markdown → parse_front_matter → render_markdown → process_images → fill_template → 写入
+Markdown → parse_front_matter → 交互选择分类/标题/文件夹 → render_markdown → process_images → fill_template → 写入
 ```
 
 | 函数 | 说明 |
@@ -93,6 +110,14 @@ Markdown → parse_front_matter → render_markdown → process_images → fill_
 | `fill_template(template, title, date, content, section)` | 替换模板中的 `{{ title }}`、`{{ date }}`、`{{ content }}`、`{{ section }}` |
 | `select_category_interactive()` | 交互式选择分类编号 |
 | `publish_article(...)` | 主发布流程（见上方），返回 `True`（成功）或 `False`（取消） |
+
+**交互发布流程**：
+1. 输入 Markdown 文件路径（支持 `q` 退出）
+2. 输入/确认日期（默认当天）
+3. 选择分类
+4. 输入/确认标题（默认从文件名或 front matter）
+5. 输入/确认文件夹名（默认从标题 slugify）
+6. 确认发布
 
 **注意**：
 - 图片查找顺序：Markdown 文件同目录 → 项目根目录
@@ -105,9 +130,9 @@ Markdown → parse_front_matter → render_markdown → process_images → fill_
 
 | 函数 | 说明 |
 |------|------|
-| `list_articles()` | 扫描 `content/` 下所有文章，打印分类、标题、文件夹名，返回 `{cat: {name, articles}}` |
-| `delete_article()` | 交互选择 → 确认 → 删除文件夹 + 从分类页移除条目 |
-| `retitle_article()` | 交互选择 → 修改标题/日期 → 更新文章 HTML + 分类页条目 |
+| `list_articles(show_all=True)` | 先选分类（可选 0 列出全部），再显示该分类下的文章。支持 `q` 退出。返回 `{cat: {name, articles}}` |
+| `delete_article()` | 先选分类 → 选文章 → 确认 → 删除文件夹 + 从分类页移除条目。支持 `q` 退出。 |
+| `retitle_article()` | 先选分类 → 选文章 → 修改标题/日期 → 更新文章 HTML + 分类页条目。支持 `q` 退出。 |
 | `file_manager()` | 文件浏览器：导航树 + 文件/目录操作 |
 | `_file_ops(path)` | 对选定文件/目录的操作菜单：e(进入目录)/r(重命名)/d(删除)/m(标记移动) |
 | `_update_refs(old_path, new_path)` | 全局搜索引用旧路径的文件并替换为新路径 |

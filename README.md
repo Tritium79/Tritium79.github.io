@@ -105,8 +105,22 @@ Tritium79.github.io/
 
 - `scripts/build.py` — 主构建脚本
 - 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html` → 更新汇总页
+- 交互菜单：
+
+```
+  0. 退出
+  1. 列出文章
+  2. 发布文章
+  3. 删除文章
+  4. 修改标题/日期
+  5. 管理目录
+  6. 模板检查
+  7. Git
+```
+
+- 所有功能支持 `q` 中途退出
 - `python build.py --check-template` — 对照 `template/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
-- `python build.py --git` — Git 提交与推送（默认提交信息为当天日期 + "Update"）
+- `python build.py --git` — Git 提交与推送
 - 所有路径以项目根目录为基准
 
 ### assets
