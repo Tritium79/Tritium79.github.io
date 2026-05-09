@@ -95,7 +95,10 @@ def publish_article(md_path, args, is_cli_mode):
     else:
         category = select_category_interactive()
 
-    default_folder = slugify((meta.get('title') if meta else md_path.stem))
+    if not is_cli_mode:
+        title = ask('标题', title)
+
+    default_folder = slugify(title)
     folder = args.folder if args.folder else default_folder
     if not is_cli_mode:
         folder = ask('文件夹命名', folder)

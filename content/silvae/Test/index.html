@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Test | Tritium79's Blog</title>
+        <link rel="stylesheet" href="../../../style.css" />
+    
+<link rel="stylesheet" href="../../../style.css" />
+    
+<link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
+                });
+            });
+        </script>
+
+        <style>
+        main .arithmatex {
+            overflow-x: auto;
+        }
+        .katex-display {
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-bar">
+                <a href="../../../index.html"
+                    ><img src="../../../assets/images/avatar.png" alt="avatar"
+                /></a>
+                <a href="../../../index.html"><h1>Tritium79's Blog</h1></a>
+                <span class="current-section">随笔</span>
+                <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+            <nav>
+                <a href="../../../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../../../pages/silvae.html"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Silvae</span></a>
+                <a href="../../../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../../../pages/versiones.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Versiones</span></a>
+                <a href="../../../pages/archivum.html"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Archivum</span></a>
+                <a href="../../../pages/nexus.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Nexus</span></a>
+                <a href="../../../pages/deme.html"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
+            </nav>
+        </header>
+        <main>
+            <h2>Test</h2>
+            <p class="post-date">20260509</p>
+
+            <p>这是您需要的Obsidian笔记内容，它同时包含了可渲染的代码块和LaTeX数学公式。</p>
+<pre class="codehilite"><code class="language-markdown">## 代码块与 LaTeX 示例
+
+### 1. Python 代码块
+```python
+# 计算斐波那契数列
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=' ')
+        a, b = b, a + b
+    print()
+
+fibonacci(10)
+</code></pre>
+
+<p>质能方程：$E = mc^2$</p>
+<p>欧拉恒等式：$e^{i\pi} + 1 = 0$</p>
+<p>$$
+\begin{aligned}
+\nabla \cdot \mathbf{E} &amp;= \frac{\rho}{\varepsilon_0} \
+\nabla \times \mathbf{E} &amp;= -\frac{\partial \mathbf{B}}{\partial t}
+\end{aligned}
+$$
+<img alt="mount-everest-6000x3375-11019.jpg" src="mount-everest-6000x3375-11019.jpg"></p>
+        </main>
+        <footer>
+            <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

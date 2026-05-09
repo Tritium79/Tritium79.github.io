@@ -6,7 +6,7 @@
   python build.py -f article.md -c silvae   # CLI 模式
   python build.py --list                    # 列出文章
   python build.py --delete                  # 删除文章
-  python build.py --rename                  # 文件管理器（重命名/删除/移动）
+  python build.py --rename                  # 管理目录
   python build.py --retitle                 # 修改标题/日期
 """
 
@@ -37,10 +37,10 @@ def parse_args():
 文章管理:
   python build.py --list                    # 列出所有文章
   python build.py --delete                  # 删除文章
-  python build.py --rename                  # 文件管理器（重命名/删除/移动）
+  python build.py --rename                  # 管理目录
   python build.py --retitle                 # 修改标题/日期
-  python build.py --check-template          # 检查 HTML 模板一致性
-  python build.py --git                     # Git 提交与推送
+  python build.py --check-template          # 模板检查
+  python build.py --git                     # Git
         '''
     )
     parser.add_argument('-f', '--file', type=str, help='Markdown 文件路径')
@@ -52,10 +52,10 @@ def parse_args():
     parser.add_argument('-y', '--yes', action='store_true', help='跳过确认步骤')
     parser.add_argument('--list', action='store_true', help='列出所有文章')
     parser.add_argument('--delete', action='store_true', help='删除文章')
-    parser.add_argument('--rename', action='store_true', help='文件管理器（重命名/删除/移动）')
+    parser.add_argument('--rename', action='store_true', help='管理目录')
     parser.add_argument('--retitle', action='store_true', help='修改标题/日期')
-    parser.add_argument('--check-template', action='store_true', help='检查 HTML 模板一致性')
-    parser.add_argument('--git', action='store_true', help='Git 提交与推送')
+    parser.add_argument('--check-template', action='store_true', help='模板检查')
+    parser.add_argument('--git', action='store_true', help='Git')
 
     return parser.parse_args()
 
@@ -105,10 +105,10 @@ def main():
         print('  1. 发布新文章')
         print('  2. 列出所有文章')
         print('  3. 删除文章')
-        print('  4. 文件管理器（重命名/删除/移动）')
+        print('  4. 管理目录')
         print('  5. 修改标题/日期')
-        print('  6. 检查模板一致性')
-        print('  7. Git 提交与推送')
+        print('  6. 模板检查')
+        print('  7. Git')
         print('  8. 退出\n')
  
         choice = input('请选择功能 [1]: ').strip()

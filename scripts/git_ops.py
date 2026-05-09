@@ -21,7 +21,7 @@ def _run(cmd):
 
 
 def git_commit_push():
-    print('=== Git 提交与推送 ===\n')
+    print('=== Git ===\n')
 
     status = subprocess.run(['git', 'status', '--porcelain'], capture_output=True, text=True, cwd=ROOT_DIR)
     if not status.stdout.strip():
