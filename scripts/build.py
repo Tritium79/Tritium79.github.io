@@ -102,22 +102,42 @@ def main():
 
     while True:
         print('=== 博客管理工具 ===\n')
-        print('  1. 发布新文章')
-        print('  2. 列出所有文章')
+        print('  0. 退出')
+        print('  1. 列出文章')
+        print('  2. 发布文章')
         print('  3. 删除文章')
-        print('  4. 管理目录')
-        print('  5. 修改标题/日期')
+        print('  4. 修改标题/日期')
+        print('  5. 管理目录')
         print('  6. 模板检查')
-        print('  7. Git')
-        print('  8. 退出\n')
- 
-        choice = input('请选择功能 [1]: ').strip()
-        if choice not in ['', '1', '2', '3', '4', '5', '6', '7', '8']:
+        print('  7. Git\n')
+  
+        choice = input('请选择功能 [0]: ').strip().lower()
+        if choice not in ['', '0', '1', '2', '3', '4', '5', '6', '7', 'q']:
             print('  无效选择，请重试\n')
             continue
 
-        if choice == '2':
+        if choice == 'q' or choice == '0' or choice == '':
+            print('已退出')
+            break
+
+        if choice == '1':
             list_articles()
+            input('\n按回车键继续...')
+            continue
+
+        if choice == '2':
+            print('=== Markdown 文章发布工具 ===\n')
+            while True:
+                raw = input('Markdown 文件路径 (q 退出): ').strip()
+                if raw.lower() == 'q':
+                    break
+                md_path = resolve_path(raw) if raw else None
+                if md_path and md_path.exists():
+                    break
+                print(f'  文件不存在: {raw if raw else "(空)"}')
+            if raw.lower() == 'q':
+                continue
+            publish_article(md_path, args, is_cli_mode=False)
             input('\n按回车键继续...')
             continue
 
@@ -127,12 +147,12 @@ def main():
             continue
 
         if choice == '4':
-            file_manager()
+            retitle_article()
             input('\n按回车键继续...')
             continue
 
         if choice == '5':
-            retitle_article()
+            file_manager()
             input('\n按回车键继续...')
             continue
 
@@ -145,24 +165,6 @@ def main():
             git_commit_push()
             input('\n按回车键继续...')
             continue
-
-        if choice == '8':
-            print('已退出')
-            return
-
-        while True:
-            print('=== Markdown 文章发布工具 ===\n')
-            while True:
-                raw = input('Markdown 文件路径: ').strip()
-                md_path = resolve_path(raw) if raw else None
-                if md_path and md_path.exists():
-                    break
-                print(f'  文件不存在: {raw if raw else "(空)"}')
-
-            publish_article(md_path, args, is_cli_mode=False)
-
-            if input('\n按回车继续发布，输入 q 返回菜单: ').strip().lower() == 'q':
-                break
 
 
 if __name__ == '__main__':

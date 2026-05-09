@@ -8,10 +8,38 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import ROOT_DIR, CATEGORIES, PAGE_MAP, ENTRY_TEMPLATE
 
 
-def list_articles():
-    print('=== 文章列表 ===\n')
-    all_articles = {}
+def list_articles(show_all=True):
+    print('分类:')
+    if show_all:
+        print('  0. 全部')
+    for i, (key, name) in enumerate(CATEGORIES, 1):
+        print(f'  {i}. {name} ({key})')
 
+    prompt = '选择分类编号 [0]: ' if show_all else '选择分类编号 [1]: '
+    default = '0' if show_all else '1'
+    
+    while True:
+        choice = input(prompt).strip().lower()
+        if choice == 'q':
+            print('  已取消')
+            return None
+        try:
+            cat_idx = int(choice or default) - 1 if choice != '0' else -1
+        except ValueError:
+            print('  无效选择，请重试')
+            continue
+        
+        if cat_idx == -1:
+            if not show_all:
+                print('  无效选择，请重试')
+                continue
+            break
+        if 0 <= cat_idx < len(CATEGORIES):
+            break
+        print('  无效选择，请重试')
+    
+    # 获取所有分类的文章
+    all_articles = {}
     for cat_key, cat_name in CATEGORIES:
         cat_dir = ROOT_DIR / 'content' / cat_key
         if not cat_dir.exists():
@@ -28,23 +56,38 @@ def list_articles():
         if articles:
             all_articles[cat_key] = {'name': cat_name, 'articles': articles}
 
-    for cat_key, data in all_articles.items():
-        print(f'【{data["name"]}】')
-        for i, art in enumerate(data['articles'], 1):
+    if cat_idx == -1:
+        # 列出全部文章
+        print()
+        for cat_key, data in all_articles.items():
+            print(f'【{data["name"]}】')
+            for i, art in enumerate(data['articles'], 1):
+                print(f'  {i}. {art["title"]}')
+                print(f'     文件夹: {art["folder"]}')
+            print()
+    else:
+        # 只列出选中的分类
+        cat_key = CATEGORIES[cat_idx][0]
+        if cat_key not in all_articles:
+            print('  该分类暂无文章')
+            return {}
+        articles = all_articles[cat_key]['articles']
+        print(f'\n【{CATEGORIES[cat_idx][1]}】')
+        for i, art in enumerate(articles, 1):
             print(f'  {i}. {art["title"]}')
             print(f'     文件夹: {art["folder"]}')
         print()
 
-    if not all_articles:
-        print('暂无文章\n')
-
-    return all_articles
+    return {cat_key: {'name': CATEGORIES[cat_idx][1], 'articles': articles}} if cat_idx >= 0 else all_articles
 
 
 def select_category_index(prompt='分类编号 [1]: '):
     while True:
+        choice = input(prompt).strip().lower()
+        if choice == 'q':
+            return None
         try:
-            idx = int(input(prompt).strip() or '1') - 1
+            idx = int(choice or '1') - 1
             if 0 <= idx < len(CATEGORIES):
                 return idx
         except ValueError:
@@ -53,35 +96,53 @@ def select_category_index(prompt='分类编号 [1]: '):
 
 
 def delete_article():
-    all_articles = list_articles()
-
-    if not all_articles:
-        print('没有可删除的文章。')
-        return
-
     print('分类:')
     for i, (key, name) in enumerate(CATEGORIES, 1):
         print(f'  {i}. {name} ({key})')
 
     while True:
-        idx = select_category_index()
-        cat_key = CATEGORIES[idx][0]
-        if cat_key in all_articles:
+        cat_idx = select_category_index()
+        if cat_idx is None:
+            print('  已取消')
+            return
+        cat_key = CATEGORIES[cat_idx][0]
+        cat_dir = ROOT_DIR / 'content' / cat_key
+        
+        # 扫描该分类下的文章
+        articles = []
+        if cat_dir.exists():
+            for folder in sorted(cat_dir.iterdir()):
+                if folder.is_dir() and (folder / 'index.html').exists():
+                    html = (folder / 'index.html').read_text(encoding='utf-8')
+                    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+                    title = title_match.group(1) if title_match else folder.name
+                    articles.append({'title': title, 'folder': folder.name})
+        
+        if articles:
             break
         print('  该分类暂无文章，请重试')
-
-    articles = all_articles[cat_key]['articles']
+    
+    # 显示该分类下的文章
+    print(f'\n【{CATEGORIES[cat_idx][1]}】')
+    for i, art in enumerate(articles, 1):
+        print(f'  {i}. {art["title"]}')
+        print(f'     文件夹: {art["folder"]}')
+    print()
 
     while True:
+        choice = input(f'选择要删除的文章编号 (1-{len(articles)})，q 退出: ').strip().lower()
+        if choice == 'q':
+            print('  已取消')
+            return
         try:
-            idx = int(input(f'选择要删除的文章编号 (1-{len(articles)}): ').strip()) - 1
-            if 0 <= idx < len(articles):
+            art_idx = int(choice) - 1
+            if 0 <= art_idx < len(articles):
                 break
         except ValueError:
             pass
         print('  无效编号，请重试')
 
-    article = articles[idx]
+    article = articles[art_idx]
     folder = article['folder']
     title = article['title']
 
@@ -418,27 +479,21 @@ def _file_ops(path):
 
 
 def retitle_article():
-    all_articles = list_articles()
+    all_articles = list_articles(show_all=False)
     if not all_articles:
         print('没有可修改的文章。')
         return
 
-    print('分类:')
-    for i, (key, name) in enumerate(CATEGORIES, 1):
-        print(f'  {i}. {name} ({key})')
-
-    while True:
-        idx = select_category_index()
-        cat_key = CATEGORIES[idx][0]
-        if cat_key in all_articles:
-            break
-        print('  该分类暂无文章，请重试')
-
+    cat_key = list(all_articles.keys())[0]
     articles = all_articles[cat_key]['articles']
 
     while True:
+        choice = input(f'选择文章编号 (1-{len(articles)})，q 退出: ').strip().lower()
+        if choice == 'q':
+            print('  已取消')
+            return
         try:
-            idx = int(input(f'选择文章编号 (1-{len(articles)}): ').strip()) - 1
+            idx = int(choice) - 1
             if 0 <= idx < len(articles):
                 break
         except ValueError:
