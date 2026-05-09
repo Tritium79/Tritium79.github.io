@@ -13,36 +13,39 @@ Tritium79.github.io/
 ├── index.html                  # 首页
 ├── style.css                   # 全局样式
 │
-├── assets/                     # 静态资源
-│   ├── css/                    # 附加 CSS（预留，当前为空）
+├── assets/                     # 全局静态资源
+│   ├── css/                    # 附加 CSS
 │   ├── fonts/                  # 字体文件
-│   ├── icons/                  # 图标（预留，当前为空）
-│   └── images/                 # 图片资源（如 avatar.png）
+│   ├── icons/                  # 图标
+│   └── images/                 # 图片资源
 │
-├── content/                    # 文章内容
+├── content/                    # 文章
 │   ├── archivum/               # 存档 / Archivum
-│   │   └── {article-slug}/
+│   │   └── {Article-Slug}/
 │   │       └── index.html
+│   │       └── (附属资源，如 图片)
 │   ├── commentarii/            # 记录 / Commentarii
-│   │   └── {article-slug}/
+│   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
 │   ├── silvae/                 # 随笔 / Silvae
-│   │   └── {article-slug}/
+│   │   └── {Article-Slug}/
 │   │       └── index.html
+│   │       └── (附属资源，如 图片)
 │   └── versiones/              # 译文 / Versiones
-│       └── {article-slug}/
+│       └── {Article-Slug}/
 │           └── index.html
+│   │       └── (附属资源，如 图片)
 │
-├── pages/                      # 分类汇总页
-│   ├── archivum.html
-│   ├── commentarii.html
+├── pages/                      # 章节
+│   ├── archivum.html           # 存档/Archivum
+│   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
 │   ├── nexus.html              # 友链 / Nexus
-│   ├── silvae.html
-│   └── versiones.html
+│   ├── silvae.html             # 随笔 / Silvae
+│   └── versiones.html          # 译文 / Versiones
 │
-├── scripts/                    # 构建工具
+├── scripts/                    # 构建脚本
 │   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
 │   ├── build.sh                # Shell 封装（激活 venv 后运行 build.py）
 │   ├── config.py               # 常量：路径、分类定义、模板
@@ -56,9 +59,9 @@ Tritium79.github.io/
 ├── template/                   # 文章 HTML 模板
 │   └── article.html
 │
-├── data/                       # 数据文件（预留，当前为空）
+├── data/                       # 数据
 │
-├── README.md                   # 本文件 — 目录结构与命名规范
+├── README.md                   # 目录结构与命名规范
 └── AGENTS.md                   # AI 辅助审查指令
 ```
 
@@ -66,16 +69,16 @@ Tritium79.github.io/
 
 ## 命名规则
 
-### 分类（category）
+### 章节（category）
 
-| 目录名       | 中文名 | 拉丁文名   |
+| 章节名       | 中文名 | 拉丁文名   |
 |-------------|--------|-----------|
 | `silvae`    | 随笔   | Silvae    |
 | `commentarii` | 记录 | Commentarii |
 | `versiones` | 译文   | Versiones |
 | `archivum`  | 存档   | Archivum |
 
-新增分类必须同时在 `scripts/build.py` 的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
+新增章节必须同时在 `scripts/` 下脚本的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
 
 ### 文章文件夹（slug）
 
@@ -103,10 +106,10 @@ Tritium79.github.io/
 
 ### assets
 
-- `fonts/` — 仅存放字体文件（`.ttf`、`.woff2` 等）
-- `icons/` — 仅存放图标文件（`avatar.png` 等）
-- `css/` — 附加样式表（当前为空）
-- `images/` — 通用图片资源（当前为空）
+- `fonts/` — 存放字体文件
+- `icons/` — 存放图标文件
+- `css/` — 附加样式表
+- `images/` — 通用图片资源
 
 ---
 
