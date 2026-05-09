@@ -145,11 +145,19 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
     main {
-        animation: fade-in 0.5s ease-out 0.04s both;
+        animation: fade-in 0.45s ease-out 0.04s both;
+    }
+
+    main h2, main h3 {
+        animation: fade-in 0.45s ease-out 0.08s both;
+    }
+
+    main p, main ul, main table, main ol, main pre, main blockquote {
+        animation: fade-in 0.45s ease-out 0.16s both;
     }
 
     footer {
-        animation: fade-in 0.5s ease-out 0.1s both;
+        animation: fade-in 0.45s ease-out 0.24s both;
     }
 }
 
