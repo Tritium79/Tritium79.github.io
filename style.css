@@ -36,6 +36,70 @@
         --text-sidebar-hover: #b5563a;
         --text-list-hover: #b5563a;
     }
+
+    pre[class*="language-"],
+    code[class*="language-"] {
+        color: #f8f8f2;
+        text-shadow: none;
+    }
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+        color: #7c7c7c;
+    }
+
+    .token.punctuation {
+        color: #f8f8f2;
+    }
+
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
+        color: #ff79c6;
+    }
+
+    .token.boolean,
+    .token.number {
+        color: #bd93f9;
+    }
+
+    .token.selector,
+    .token.attr-name,
+    .token.string,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
+        color: #f1fa8c;
+    }
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string,
+    .token.variable {
+        color: #f8f8f2;
+    }
+
+    .token.atrule,
+    .token.attr-value,
+    .token.function,
+    .token.class-name {
+        color: #50fa7b;
+    }
+
+    .token.keyword {
+        color: #ff79c6;
+    }
+
+    .token.regex,
+    .token.important {
+        color: #ffb86c;
+    }
 }
 
 * {
@@ -260,6 +324,42 @@ footer a:visited {
 
 footer a:hover {
     color: var(--text-body);
+}
+
+main pre {
+    background-color: #f8f4e5;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 4px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+    main pre {
+        background-color: #1e1e1e;
+    }
+}
+
+main code {
+    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-size: 0.9em;
+}
+
+main p code {
+    background-color: var(--bg-sidebar);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+}
+
+main .arithmatex {
+    overflow-x: auto;
+}
+
+.katex-display {
+    margin: 1rem 0;
+    overflow-x: auto;
 }
 
 .header-bar {
