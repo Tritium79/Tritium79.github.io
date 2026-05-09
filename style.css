@@ -8,6 +8,13 @@
     font-display: block;
 }
 
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("/assets/fonts/SourceCodePro-Light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+}
+
 :root {
     --bg-primary: #ffffff;
     --bg-sidebar: #f0f0f0;
@@ -20,6 +27,8 @@
     --text-link: #999;
     --text-sidebar-hover: #4aa9c5;
     --text-list-hover: #4aa9c5;
+    --bg-code: #f5f5f5;
+    --text-code: #1a1a1a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +44,8 @@
         --text-link: #666;
         --text-sidebar-hover: #b5563a;
         --text-list-hover: #b5563a;
+        --bg-code: #1a1a1a;
+        --text-code: #d4d4d4;
     }
 
     pre[class*="language-"],
@@ -327,7 +338,8 @@ footer a:hover {
 }
 
 main pre {
-    background-color: #f8f4e5;
+    background-color: var(--bg-code);
+    color: var(--text-code);
     padding: 1rem;
     overflow-x: auto;
     border-radius: 4px;
@@ -336,19 +348,15 @@ main pre {
     line-height: 1.5;
 }
 
-@media (prefers-color-scheme: dark) {
-    main pre {
-        background-color: #1e1e1e;
-    }
-}
-
 main code {
-    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-family: "Source Code Pro", "SF Mono", "Fira Code", "Consolas", monospace;
     font-size: 0.9em;
+    color: var(--text-code);
 }
 
 main p code {
     background-color: var(--bg-sidebar);
+    color: var(--text-code);
     padding: 0.15rem 0.4rem;
     border-radius: 3px;
 }

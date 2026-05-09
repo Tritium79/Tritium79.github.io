@@ -6,7 +6,6 @@
         <title>{{ title }} | Tritium79's Blog</title>
         <link rel="stylesheet" href="../../../style.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" />
 
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -15,30 +14,20 @@
                 renderMathInElement(document.body, {
                     delimiters: [
                         {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
                     ],
-                    throwOnError: false
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
                 });
             });
         </script>
 
         <style>
-        main pre {
-            padding: 1rem;
-            overflow-x: auto;
-            border-radius: 4px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        main code {
-            font-family: "SF Mono", "Fira Code", "Consolas", monospace;
-            font-size: 0.9em;
-        }
-        main p code {
-            padding: 0.15rem 0.4rem;
-            border-radius: 3px;
-        }
         main .arithmatex {
             overflow-x: auto;
         }
