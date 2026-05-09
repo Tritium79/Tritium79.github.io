@@ -7,6 +7,7 @@ scripts/
 ├── build.py           # 入口：CLI 参数解析 + 交互菜单循环
 ├── config.py          # 常量：路径、分类定义、模板
 ├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析
+├── templint.py        # 模板一致性检查：对比所有 HTML 与 base.html
 ├── content.py         # 内容生成：Markdown 渲染、图片处理、文章发布
 ├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
 ├── requirements.txt   # Python 依赖（markdown、Pygments）
@@ -28,6 +29,7 @@ python build.py --list                    # 列出文章
 python build.py --delete                  # 删除文章
 python build.py --rename                  # 文件管理器
 python build.py --retitle                 # 修改标题/日期
+python build.py --check-template          # 检查 HTML 模板一致性
 ```
 
 **逻辑**：
@@ -51,6 +53,16 @@ python build.py --retitle                 # 修改标题/日期
 | `ENTRY_TEMPLATE` | 汇总页 `<li>` 条目模板，含 `%%CATEGORY%%` 等占位符 |
 
 > 新增分类时需要在 `CATEGORIES`、`SECTION_MAP`、`PAGE_MAP` 三处注册。
+
+---
+
+### `templint.py` — 模板一致性检查
+
+| 函数 | 说明 |
+|------|------|
+| `check_all(interactive=True)` | 扫描所有 `.html` 文件，对照 `template/base.html` 检查结构是否一致；`interactive=True` 时逐个询问是否重建 |
+| `check_file(file_path, ...)` | 对单个文件检查 doctype、head 元数据、header/导航/页脚结构，返回问题列表 |
+| `rebuild_from_base(file_path)` | 以 `base.html` 为骨架重建文件，保留 `<main>` 内容和 KaTeX 等额外 head 元素，自动适配相对路径深度 |
 
 ---
 

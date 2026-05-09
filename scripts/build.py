@@ -19,6 +19,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import ROOT_DIR, CATEGORIES
 from management import list_articles, delete_article, file_manager, retitle_article
 from content import publish_article
+from templint import check_all
+from git_ops import git_commit_push
 
 
 def parse_args():
@@ -37,6 +39,8 @@ def parse_args():
   python build.py --delete                  # 删除文章
   python build.py --rename                  # 文件管理器（重命名/删除/移动）
   python build.py --retitle                 # 修改标题/日期
+  python build.py --check-template          # 检查 HTML 模板一致性
+  python build.py --git                     # Git 提交与推送
         '''
     )
     parser.add_argument('-f', '--file', type=str, help='Markdown 文件路径')
@@ -50,6 +54,8 @@ def parse_args():
     parser.add_argument('--delete', action='store_true', help='删除文章')
     parser.add_argument('--rename', action='store_true', help='文件管理器（重命名/删除/移动）')
     parser.add_argument('--retitle', action='store_true', help='修改标题/日期')
+    parser.add_argument('--check-template', action='store_true', help='检查 HTML 模板一致性')
+    parser.add_argument('--git', action='store_true', help='Git 提交与推送')
 
     return parser.parse_args()
 
@@ -78,6 +84,14 @@ def main():
         retitle_article()
         return
 
+    if args.check_template:
+        check_all(interactive=True, yes_to_all=args.yes)
+        return
+
+    if args.git:
+        git_commit_push()
+        return
+
     if args.file:
         md_path = resolve_path(args.file)
         if not md_path.exists():
@@ -93,10 +107,12 @@ def main():
         print('  3. 删除文章')
         print('  4. 文件管理器（重命名/删除/移动）')
         print('  5. 修改标题/日期')
-        print('  6. 退出\n')
-
+        print('  6. 检查模板一致性')
+        print('  7. Git 提交与推送')
+        print('  8. 退出\n')
+ 
         choice = input('请选择功能 [1]: ').strip()
-        if choice not in ['', '1', '2', '3', '4', '5', '6']:
+        if choice not in ['', '1', '2', '3', '4', '5', '6', '7', '8']:
             print('  无效选择，请重试\n')
             continue
 
@@ -121,6 +137,16 @@ def main():
             continue
 
         if choice == '6':
+            check_all(interactive=True)
+            input('\n按回车键继续...')
+            continue
+
+        if choice == '7':
+            git_commit_push()
+            input('\n按回车键继续...')
+            continue
+
+        if choice == '8':
             print('已退出')
             return
 

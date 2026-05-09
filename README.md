@@ -22,7 +22,7 @@ Tritium79.github.io/
 ├── content/                    # 文章
 │   ├── archivum/               # 存档 / Archivum
 │   │   └── {Article-Slug}/
-│   │       └── index.html
+│   │       ├── index.html
 │   │       └── (附属资源，如 图片)
 │   ├── commentarii/            # 记录 / Commentarii
 │   │   └── {Article-Slug}/
@@ -30,12 +30,12 @@ Tritium79.github.io/
 │   │       └── (附属资源，如 图片)
 │   ├── silvae/                 # 随笔 / Silvae
 │   │   └── {Article-Slug}/
-│   │       └── index.html
+│   │       ├── index.html
 │   │       └── (附属资源，如 图片)
 │   └── versiones/              # 译文 / Versiones
 │       └── {Article-Slug}/
-│           └── index.html
-│   │       └── (附属资源，如 图片)
+│           ├── index.html
+│           └── (附属资源，如 图片)
 │
 ├── pages/                      # 章节
 │   ├── archivum.html           # 存档/Archivum
@@ -52,12 +52,14 @@ Tritium79.github.io/
 │   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
 │   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
+│   ├── templint.py             # 模板一致性检查：对比所有 HTML 与 base.html
 │   ├── requirements.txt        # Python 依赖
 │   ├── README.md               # 脚本文档
 │   └── venv/                   # Python 虚拟环境
 │
-├── template/                   # 文章 HTML 模板
-│   └── article.html
+├── template/                   # HTML 模板
+│   ├── article.html            # 文章页模板（含 KaTeX，供 build.py 使用）
+│   └── base.html               # 通用页面模板（根相对路径，供手动页面使用）
 │
 ├── data/                       # 数据
 │
@@ -102,6 +104,7 @@ Tritium79.github.io/
 
 - `scripts/build.py` — 主构建脚本
 - 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html` → 更新汇总页
+- `python build.py --check-template` — 对照 `template/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
 - 所有路径以项目根目录为基准
 
 ### assets
