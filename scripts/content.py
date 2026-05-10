@@ -57,12 +57,38 @@ def process_images(html, md_path, output_dir):
     return html, copied_images
 
 
+NAV_ITEMS = [
+    ('index.html', '首页', 'Domus'),
+    ('pages/silvae.html', '随笔', 'Silvae'),
+    ('pages/commentarii.html', '记录', 'Commentarii'),
+    ('pages/versiones.html', '译文', 'Versiones'),
+    ('pages/archivum.html', '存档', 'Archivum'),
+    ('pages/nexus.html', '友链', 'Nexus'),
+    ('pages/deme.html', '关于', 'De Me'),
+]
+
+
+def generate_nav_links(current_section_cn, prefix=''):
+    links = []
+    for href, cn, la in NAV_ITEMS:
+        cls = 'nav-current' if cn == current_section_cn else ''
+        path = prefix + href
+        attrs = f' class="{cls}"' if cls else ''
+        links.append(
+            f'                <a href="{path}"{attrs}><span class="nav-cn">{cn}</span><span class="sep">/</span><span class="nav-la">{la}</span></a>'
+        )
+    return '\n'.join(links)
+
+
 def fill_template(template, title, date, content, section):
     html = template
     html = html.replace('{{ title }}', title)
     html = html.replace('{{ date }}', date)
     html = html.replace('{{ content }}', content)
     html = html.replace('{{ section }}', section)
+    # generate nav links with article's depth prefix (../../../)
+    nav_html = generate_nav_links(section, '../../../')
+    html = html.replace('{{ nav_links }}', nav_html)
     return html
 
 

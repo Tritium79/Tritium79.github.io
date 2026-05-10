@@ -130,6 +130,8 @@ def check_file(file_path, base_head, base_header_shell, base_footer_shell, base_
         nav_match = re.search(r'<nav>(.*?)</nav>', header_content, re.DOTALL)
         if not nav_match:
             issues.append('缺 <nav>')
+        elif '{{ nav_links }}' in nav_match.group(1):
+            pass  # dynamically generated nav, skip comparison
         else:
             def _nav_entries(html):
                 entries = []

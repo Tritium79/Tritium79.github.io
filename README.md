@@ -64,6 +64,7 @@ Tritium79.github.io/
 │
 ├── data/                       # 数据
 │
+├── .gitignore                  # Git 忽略规则
 ├── README.md                   # 目录结构与命名规范
 └── AGENTS.md                   # AI 辅助审查指令
 ```
@@ -87,8 +88,9 @@ Tritium79.github.io/
 
 - 每个文章一个独立文件夹，统一使用 `index.html` 作为入口文件
 - 文件夹名使用 slug 命名：单词首字母大写、其余字母小写、单词间以连字符 `-` 分隔
+- 允许全大写缩写（如 `OA`、`HDR`、`LaTeX` 等专有名词保留原写法）
 - 仅允许字母、数字、汉字、连字符
-- 示例：`OA-Introduction-Translation`、`Cat-Record`、`Blog-Init`
+- 示例：`OA-Introduction-Translation`、`Cat-Record`、`Blog-Init`、`Code-LaTeX-HDR-Test`
 
 ### 附属资源
 
