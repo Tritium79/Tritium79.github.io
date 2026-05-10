@@ -437,7 +437,7 @@ main .arithmatex {
     display: none;
 }
 
-@media (max-aspect-ratio: 1/1) {
+@media (max-aspect-ratio: 1.1/1) {
     @media (prefers-reduced-motion: no-preference) {
         body, header, main, footer {
             animation: none;
@@ -555,7 +555,7 @@ main .arithmatex {
     main {
         margin-left: 0;
         width: 100%;
-        padding: 2rem 2rem;
+        padding: 2rem 7.5%;
         padding-top: calc(32px + 3rem);
     }
 
@@ -568,8 +568,9 @@ main .arithmatex {
     main img {
         width: 100%;
         max-width: 100%;
-        max-height: 80vh;
+        max-height: none;
         height: auto;
+        margin: 1.5rem 0;
     }
 
     footer {

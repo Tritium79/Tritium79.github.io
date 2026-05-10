@@ -362,7 +362,7 @@ def hello():
 | `main` | 主内容区 | 桌面端 25/32 宽度，常规文档流样式 |
 | `footer` | 页脚 | 与 main 同宽对齐 |
 | `pre` / `code` / `.arithmatex` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
-| `@media (max-aspect-ratio: 1/1)` | 移动端响应式 | 以宽高比而非像素宽度作为断点 |
+| `@media (max-aspect-ratio: 1.1/1)` | 移动端响应式 | 以宽高比而非像素宽度作为断点 |
 
 ### 布局系统
 
@@ -415,7 +415,7 @@ def hello():
 
 ### 移动端特殊设计
 
-- **断点**：`max-aspect-ratio: 1/1`（宽高比小于 1:1 时触发），而非传统的 `max-width`。这意味着窄屏横置设备不会进入移动端布局。
+- **断点**：`max-aspect-ratio: 1.1/1`（宽高比小于 1.1:1 时触发），而非传统的 `max-width`。这意味着窄屏横置设备不会进入移动端布局。
 - **导航切换**：使用隐藏的 checkbox（`#nav-toggle`）+ `label` 实现纯 CSS 全屏菜单，无 JavaScript。
 - `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载头像、标题、菜单按钮的横向排列。
 
@@ -423,7 +423,7 @@ def hello():
 
 1. **变量优先**：新增颜色应先在 `:root` 中定义变量，再在暗色模式中覆盖，最后在选择器中使用。
 2. **布局联动**：修改侧边栏宽度时，必须同步修改 `main` 和 `footer` 的 `margin-left` 与 `width`。
-3. **移动端同步**：在 `max-aspect-ratio: 1/1` 媒体查询中，任何对桌面布局的结构性改动都需要检查移动端对应规则。
+3. **移动端同步**：在 `max-aspect-ratio: 1.1/1` 媒体查询中，任何对桌面布局的结构性改动都需要检查移动端对应规则。
 4. **动画尊重**：新增动画应包裹在 `@media (prefers-reduced-motion: no-preference)` 中，保证可访问性。
 5. **避免直接修改 `.token.*`**：代码高亮类名由 Prism.js 生成，暗色模式覆盖即可，无需新增选择器。
 
