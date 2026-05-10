@@ -3,7 +3,7 @@
 
 用法:
   python build.py                           # 交互菜单
-  python build.py -f article.md -c silvae   # CLI 模式
+  python build.py -f article.md -c sylvae   # CLI 模式
   python build.py --list                    # 列出文章
   python build.py --delete                  # 删除文章
   python build.py --rename                  # 管理目录
@@ -32,9 +32,9 @@ def parse_args():
         epilog='''
 示例:
   python build.py                           # 交互菜单
-  python build.py -f article.md -c silvae   # CLI 完整流程
-  python build.py -f article.md -c silvae -y# CLI 跳过确认
-  python build.py -f article.md -c silvae -t "标题" -d "2025-01-01"
+  python build.py -f article.md -c sylvae   # CLI 完整流程
+  python build.py -f article.md -c sylvae -y# CLI 跳过确认
+  python build.py -f article.md -c sylvae -t "标题" -d "2025-01-01"
 
 文章管理:
   python build.py --list                    # 列出所有文章
@@ -48,7 +48,7 @@ def parse_args():
     )
     parser.add_argument('-f', '--file', type=str, help='Markdown 文件路径')
     parser.add_argument('-c', '--category', type=str, choices=[c[0] for c in CATEGORIES],
-                        help='分类 (silvae/commentarii/versiones/archivum)')
+                        help='分类 (sylvae/commentarii/interpretationes/archivum)')
     parser.add_argument('-t', '--title', type=str, help='文章标题')
     parser.add_argument('-d', '--date', type=str, help='发布日期')
     parser.add_argument('--folder', type=str, help='文章文件夹名')

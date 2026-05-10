@@ -28,11 +28,11 @@ Tritium79.github.io/
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
-│   ├── silvae/                 # 随笔 / Silvae
+│   ├── sylvae/                 # 随笔 / Sylvae
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
-│   └── versiones/              # 译文 / Versiones
+│   └── interpretationes/              # 译文 / Interpretationes
 │       └── {Article-Slug}/
 │           ├── index.html
 │           └── (附属资源，如 图片)
@@ -41,9 +41,9 @@ Tritium79.github.io/
 │   ├── archivum.html           # 存档/Archivum
 │   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
-│   ├── nexus.html              # 友链 / Nexus
-│   ├── silvae.html             # 随笔 / Silvae
-│   └── versiones.html          # 译文 / Versiones
+│   ├── nexus.html              # 友链 / Amici
+│   ├── sylvae.html             # 随笔 / Sylvae
+│   └── interpretationes.html          # 译文 / Interpretationes
 │
 ├── scripts/                    # 构建脚本
 │   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
@@ -77,9 +77,9 @@ Tritium79.github.io/
 
 | 章节名       | 中文名 | 拉丁文名   |
 |-------------|--------|-----------|
-| `silvae`    | 随笔   | Silvae    |
+| `sylvae`    | 随笔   | Sylvae    |
 | `commentarii` | 记录 | Commentarii |
-| `versiones` | 译文   | Versiones |
+| `interpretationes` | 译文   | Interpretationes |
 | `archivum`  | 存档   | Archivum |
 
 新增章节必须同时在 `scripts/` 下脚本的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。

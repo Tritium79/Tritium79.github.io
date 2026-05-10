@@ -54,11 +54,11 @@ def _extract_base_shell():
 def _base_nav_links():
     return [
         ('首页', 'Domus'),
-        ('随笔', 'Silvae'),
+        ('随笔', 'Sylvae'),
         ('记录', 'Commentarii'),
-        ('译文', 'Versiones'),
+        ('译文', 'Interpretationes'),
         ('存档', 'Archivum'),
-        ('友链', 'Nexus'),
+        ('友链', 'Amici'),
         ('关于', 'De Me'),
     ]
 

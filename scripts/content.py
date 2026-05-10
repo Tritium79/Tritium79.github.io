@@ -59,11 +59,11 @@ def process_images(html, md_path, output_dir):
 
 NAV_ITEMS = [
     ('index.html', '首页', 'Domus'),
-    ('pages/silvae.html', '随笔', 'Silvae'),
+    ('pages/sylvae.html', '随笔', 'Sylvae'),
     ('pages/commentarii.html', '记录', 'Commentarii'),
-    ('pages/versiones.html', '译文', 'Versiones'),
+    ('pages/interpretationes.html', '译文', 'Interpretationes'),
     ('pages/archivum.html', '存档', 'Archivum'),
-    ('pages/nexus.html', '友链', 'Nexus'),
+    ('pages/nexus.html', '友链', 'Amici'),
     ('pages/deme.html', '关于', 'De Me'),
 ]
 

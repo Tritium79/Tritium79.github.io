@@ -24,7 +24,7 @@ scripts/
 
 ```sh
 python build.py                           # 交互菜单
-python build.py -f article.md -c silvae   # CLI 模式
+python build.py -f article.md -c sylvae   # CLI 模式
 python build.py --list                    # 文章列表
 python build.py --delete                  # 删除文章
 python build.py --rename                  # 管理目录

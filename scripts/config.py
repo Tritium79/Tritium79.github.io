@@ -5,23 +5,23 @@ ROOT_DIR = SCRIPT_DIR.parent
 TEMPLATE_PATH = ROOT_DIR / 'template' / 'article.html'
 
 CATEGORIES = [
-    ('silvae', '随笔 / Silvae'),
+    ('sylvae', '随笔 / Sylvae'),
     ('commentarii', '记录 / Commentarii'),
-    ('versiones', '译文 / Versiones'),
+    ('interpretationes', '译文 / Interpretationes'),
     ('archivum', '存档 / Archivum'),
 ]
 
 SECTION_MAP = {
-    'silvae': '随笔',
+    'sylvae': '随笔',
     'commentarii': '记录',
-    'versiones': '译文',
+    'interpretationes': '译文',
     'archivum': '存档',
 }
 
 PAGE_MAP = {
-    'silvae': ROOT_DIR / 'pages' / 'silvae.html',
+    'sylvae': ROOT_DIR / 'pages' / 'sylvae.html',
     'commentarii': ROOT_DIR / 'pages' / 'commentarii.html',
-    'versiones': ROOT_DIR / 'pages' / 'versiones.html',
+    'interpretationes': ROOT_DIR / 'pages' / 'interpretationes.html',
     'archivum': ROOT_DIR / 'pages' / 'archivum.html',
 }
 
