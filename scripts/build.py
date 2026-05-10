@@ -48,7 +48,7 @@ def parse_args():
     )
     parser.add_argument('-f', '--file', type=str, help='Markdown 文件路径')
     parser.add_argument('-c', '--category', type=str, choices=[c[0] for c in CATEGORIES],
-                        help='分类 (sylvae/commentarii/interpretationes/archivum)')
+                        help='分类 (sylvae/commentarii/interpretationes/tabularium)')
     parser.add_argument('-t', '--title', type=str, help='文章标题')
     parser.add_argument('-d', '--date', type=str, help='发布日期')
     parser.add_argument('--folder', type=str, help='文章文件夹名')

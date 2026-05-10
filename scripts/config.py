@@ -8,21 +8,21 @@ CATEGORIES = [
     ('sylvae', '随笔 / Sylvae'),
     ('commentarii', '记录 / Commentarii'),
     ('interpretationes', '译文 / Interpretationes'),
-    ('archivum', '存档 / Archivum'),
+    ('tabularium', '存档 / Tabularium'),
 ]
 
 SECTION_MAP = {
     'sylvae': '随笔',
     'commentarii': '记录',
     'interpretationes': '译文',
-    'archivum': '存档',
+    'tabularium': '存档',
 }
 
 PAGE_MAP = {
     'sylvae': ROOT_DIR / 'pages' / 'sylvae.html',
     'commentarii': ROOT_DIR / 'pages' / 'commentarii.html',
     'interpretationes': ROOT_DIR / 'pages' / 'interpretationes.html',
-    'archivum': ROOT_DIR / 'pages' / 'archivum.html',
+    'tabularium': ROOT_DIR / 'pages' / 'tabularium.html',
 }
 
 ENTRY_TEMPLATE = (

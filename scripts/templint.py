@@ -57,7 +57,7 @@ def _base_nav_links():
         ('随笔', 'Sylvae'),
         ('记录', 'Commentarii'),
         ('译文', 'Interpretationes'),
-        ('存档', 'Archivum'),
+        ('存档', 'Tabularium'),
         ('友链', 'Amici'),
         ('关于', 'De Me'),
     ]

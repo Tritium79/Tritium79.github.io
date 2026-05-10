@@ -20,7 +20,7 @@ Tritium79.github.io/
 │   └── images/                 # 图片资源
 │
 ├── content/                    # 文章
-│   ├── archivum/               # 存档 / Archivum
+│   ├── tabularium/               # 存档 / Tabularium
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
@@ -38,7 +38,7 @@ Tritium79.github.io/
 │           └── (附属资源，如 图片)
 │
 ├── pages/                      # 章节
-│   ├── archivum.html           # 存档/Archivum
+│   ├── tabularium.html           # 存档/Tabularium
 │   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
 │   ├── nexus.html              # 友链 / Amici
@@ -80,7 +80,7 @@ Tritium79.github.io/
 | `sylvae`    | 随笔   | Sylvae    |
 | `commentarii` | 记录 | Commentarii |
 | `interpretationes` | 译文   | Interpretationes |
-| `archivum`  | 存档   | Archivum |
+| `tabularium`  | 存档   | Tabularium |
 
 新增章节必须同时在 `scripts/` 下脚本的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
 
