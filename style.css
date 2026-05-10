@@ -173,7 +173,6 @@ header {
     justify-content: flex-start;
     align-items: center;
     padding: 6rem 2rem 2rem;
-    border-right: 1px solid var(--border-sidebar);
     background-color: var(--bg-sidebar);
 }
 
@@ -454,8 +453,6 @@ main .arithmatex {
         left: 0;
         flex-direction: column;
         padding: 0;
-        border-right: none;
-        border-bottom: 1px solid var(--border-sidebar);
         z-index: 100;
     }
 
