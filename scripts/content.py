@@ -17,6 +17,10 @@ def process_obsidian_links(text):
     return wiki_image_pattern.sub(r'![\1](\1)', text)
 
 
+def process_links(html):
+    return re.sub(r'<a\s+(?![^>]*target=)([^>]+?)>',
+                  r'<a \1 target="_blank">', html)
+
 def render_markdown(text):
     text = process_obsidian_links(text)
     return markdown.markdown(text, extensions=['extra', 'codehilite', 'nl2br'])
@@ -153,6 +157,7 @@ def publish_article(md_path, args, is_cli_mode):
     template_str = TEMPLATE_PATH.read_text(encoding='utf-8')
     html_body = render_markdown(body)
     html_body = html_body.replace('<!--sep-->', '<br />')
+    html_body = process_links(html_body)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     html_body, copied_images = process_images(html_body, md_path, output_path.parent)

@@ -65,7 +65,7 @@ python build.py --lunar-date              # 获取当前干支日期
 |------|------|
 | `SCRIPT_DIR` | `scripts/` 目录绝对路径 |
 | `ROOT_DIR` | 项目根目录 |
-| `TEMPLATE_PATH` | `template/article.html` |
+| `TEMPLATE_PATH` | `archetypes/article.html` |
 | `CATEGORIES` | 分类列表 `[(key, name), ...]`，决定新增/删除时的选项 |
 | `SECTION_MAP` | 分类 key → 中文名 |
 | `PAGE_MAP` | 分类 key → 对应汇总页路径 |
@@ -79,7 +79,7 @@ python build.py --lunar-date              # 获取当前干支日期
 
 | 函数 | 说明 |
 |------|------|
-| `check_all(interactive=True)` | 扫描所有 `.html` 文件，对照 `template/base.html` 检查结构是否一致；`interactive=True` 时逐个询问是否重建 |
+| `check_all(interactive=True)` | 扫描所有 `.html` 文件，对照 `archetypes/base.html` 检查结构是否一致；`interactive=True` 时逐个询问是否重建 |
 | `check_file(file_path, ...)` | 对单个文件检查 doctype、head 元数据、header/导航/页脚结构，返回问题列表 |
 | `rebuild_from_base(file_path)` | 以 `base.html` 为骨架重建文件，保留 `<main>` 内容和 KaTeX 等额外 head 元素，自动适配相对路径深度 |
 
@@ -146,7 +146,7 @@ Markdown → parse_front_matter → 交互选择分类/标题/文件夹 → rend
 **引用更新范围**（`_update_refs` 搜索的文件）：
 
 ```
-pages/*.html, content/**/*.html, template/*.html
+pages/*.html, content/**/*.html, archetypes/*.html
 assets/**/*.html, index.html, style.css, README.md, AGENTS.md
 ```
 

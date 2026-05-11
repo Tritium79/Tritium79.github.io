@@ -41,7 +41,7 @@ def parse_args():
   python build.py --delete                  # 删除文章
   python build.py --rename                  # 管理目录
   python build.py --retitle                 # 修改标题/日期
-  python build.py --check-template          # 模板检查
+  python build.py --check-archetypes          # 模板检查
   python build.py --git                     # Git
   python build.py --lunar-date              # 获取当前干支日期
         '''
@@ -57,7 +57,7 @@ def parse_args():
     parser.add_argument('--delete', action='store_true', help='删除文章')
     parser.add_argument('--rename', action='store_true', help='管理目录')
     parser.add_argument('--retitle', action='store_true', help='修改标题/日期')
-    parser.add_argument('--check-template', action='store_true', help='模板检查')
+    parser.add_argument('--check-archetypes', action='store_true', help='模板检查')
     parser.add_argument('--git', action='store_true', help='Git')
     parser.add_argument('--lunar-date', action='store_true', help='获取当前干支日期')
 
@@ -88,7 +88,7 @@ def main():
         retitle_article()
         return
 
-    if args.check_template:
+    if args.check_archetypes:
         check_all(interactive=True, yes_to_all=args.yes)
         return
 

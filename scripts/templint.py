@@ -38,7 +38,7 @@ def _parse_shell(file_path):
 
 
 def _extract_base_shell():
-    base_path = ROOT_DIR / 'template' / 'base.html'
+    base_path = ROOT_DIR / 'archetypes' / 'base.html'
     head, body, _ = _parse_shell(base_path)
     header_match = re.search(r'(.*?)<main>', body, re.DOTALL)
     footer_match = re.search(r'</main>(.*)', body, re.DOTALL)
@@ -79,8 +79,8 @@ def _find_html_files():
     if content_dir.exists():
         for f in content_dir.rglob('index.html'):
             files.append(f)
-    # template/article.html
-    article_tpl = ROOT_DIR / 'template' / 'article.html'
+    # archetypes/article.html
+    article_tpl = ROOT_DIR / 'archetypes' / 'article.html'
     if article_tpl.exists():
         files.append(article_tpl)
     return sorted(set(files))
@@ -200,7 +200,7 @@ def rebuild_from_base(file_path):
         extra_head = '\n' + remaining
 
     # rebuild shell from base.html with adjusted paths
-    base_path = ROOT_DIR / 'template' / 'base.html'
+    base_path = ROOT_DIR / 'archetypes' / 'base.html'
     base_text = base_path.read_text(encoding='utf-8')
 
     # convert root-relative paths to depth-appropriate relative paths
@@ -230,7 +230,7 @@ def check_all(interactive=True, yes_to_all=False):
     base_head, base_header_shell, base_footer_shell, base_footer_text, base_nav_html = _extract_base_shell()
     html_files = _find_html_files()
 
-    print(f'检查 {len(html_files)} 个 HTML 文件与 template/base.html 的结构一致性...\n')
+    print(f'检查 {len(html_files)} 个 HTML 文件与 archetypes/base.html 的结构一致性...\n')
 
     total_issues = 0
     fixable_files = []

@@ -58,7 +58,7 @@ Tritium79.github.io/
 │   ├── README.md               # 脚本文档
 │   └── venv/                   # Python 虚拟环境
 │
-├── template/                   # HTML 模板
+├── archetypes/                   # HTML 模板
 │   ├── article.html            # 文章页模板（含 KaTeX，供 build.py 使用）
 │   └── base.html               # 通用页面模板（根相对路径，供手动页面使用）
 │
@@ -122,7 +122,7 @@ Tritium79.github.io/
 ```
 
 - 所有功能支持 `q` 中途退出
-- `python build.py --check-template` — 对照 `template/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
+- `python build.py --check-archetypes` — 对照 `archetypes/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
 - 所有路径以项目根目录为基准
@@ -161,7 +161,7 @@ Tritium79.github.io/
 
 3. **创建内容目录**：`content/{key}/`（build.py 发布时会自动创建）
 
-4. **更新导航**：若 `--check-template` 无法自动处理，需手动更新 `template/base.html` 和 `template/article.html` 的 `<nav>` 部分
+4. **更新导航**：若 `--check-archetypes` 无法自动处理，需手动更新 `archetypes/base.html` 和 `archetypes/article.html` 的 `<nav>` 部分
 
 ---
 
@@ -171,8 +171,8 @@ Tritium79.github.io/
 
 | 模板 | 用途 | 路径类型 |
 |------|------|---------|
-| `template/base.html` | 手动维护的页面（`index.html`、`pages/*.html`） | 根相对路径 `/` |
-| `template/article.html` | build.py 生成的文章页 | 相对路径 `../../../` |
+| `archetypes/base.html` | 手动维护的页面（`index.html`、`pages/*.html`） | 根相对路径 `/` |
+| `archetypes/article.html` | build.py 生成的文章页 | 相对路径 `../../../` |
 
 ### 页面结构要求
 
@@ -224,7 +224,7 @@ Tritium79.github.io/
 | `{{ content }}` | Markdown 渲染后的 HTML | `<p>...</p>` |
 | `{{ section }}` | 所属分类中文名 | `随笔` |
 
-> 禁止直接修改 `template/article.html` 中的占位符（除非重构模板系统）。
+> 禁止直接修改 `archetypes/article.html` 中的占位符（除非重构模板系统）。
 
 ---
 
@@ -335,8 +335,8 @@ def hello():
 
 ### 导航链接更新
 
-- 新增/删除/重命名文章或分类后，运行 `python build.py --check-template`
-- 该命令会自动检查所有 HTML 文件的导航链接是否与 `template/base.html` 一致
+- 新增/删除/重命名文章或分类后，运行 `python build.py --check-archetypes`
+- 该命令会自动检查所有 HTML 文件的导航链接是否与 `archetypes/base.html` 一致
 
 ### CSS 路径规则
 
@@ -478,14 +478,14 @@ def hello():
 
 以下情况应运行模板一致性检查：
 
-- 修改 `template/base.html` 后
+- 修改 `archetypes/base.html` 后
 - 新增或删除分类导致导航结构变化后
 - 新建手动维护的 HTML 页面后
 - 发现页面布局或样式异常时
 
 命令：
 ```bash
-python build.py --check-template
+python build.py --check-archetypes
 ```
 
 ### 检查范围
@@ -495,11 +495,11 @@ python build.py --check-template
 - 根目录 `*.html`
 - `pages/*.html`
 - `content/**/*.html`
-- `template/article.html`
+- `archetypes/article.html`
 
 ### 检查内容
 
-对照 `template/base.html` 验证每个文件：
+对照 `archetypes/base.html` 验证每个文件：
 
 | 检查项 | 说明 |
 |--------|------|
@@ -518,7 +518,7 @@ python build.py --check-template
 检查发现问题时，可选择按 `base.html` 重建：
 
 1. **交互模式**（默认）：逐个询问是否重建每个问题文件
-2. **自动模式**：`python build.py --check-template -y` 自动重建所有问题文件
+2. **自动模式**：`python build.py --check-archetypes -y` 自动重建所有问题文件
 
 ### 重建保护机制
 
@@ -536,5 +536,5 @@ python build.py --check-template
 ## 禁止事项
 
 - 禁止在内容目录或 pages 目录外创建 `.html` 文件
-- 禁止直接修改 `template/article.html` 中的 `{{ 变量 }}` 占位符（除非重构模板系统）
+- 禁止直接修改 `archetypes/article.html` 中的 `{{ 变量 }}` 占位符（除非重构模板系统）
 - 禁止在静态资源目录中存放非资源类文件

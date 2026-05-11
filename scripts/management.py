@@ -257,7 +257,7 @@ def _update_refs(old_path, new_path):
     glob_patterns = [
         (ROOT_DIR / 'pages', '*.html'),
         (ROOT_DIR / 'content', '**/*.html'),
-        (ROOT_DIR / 'template', '*.html'),
+        (ROOT_DIR / 'archetypes', '*.html'),
         (ROOT_DIR / 'assets', '**/*.html'),
     ]
     single_files = [

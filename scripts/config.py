@@ -2,7 +2,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent
 ROOT_DIR = SCRIPT_DIR.parent
-TEMPLATE_PATH = ROOT_DIR / 'template' / 'article.html'
+TEMPLATE_PATH = ROOT_DIR / 'archetypes' / 'article.html'
 
 CATEGORIES = [
     ('sylvae', '随笔 / Sylvae'),
