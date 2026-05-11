@@ -20,7 +20,7 @@ Tritium79.github.io/
 │   └── images/                 # 图片资源
 │
 ├── content/                    # 文章
-│   ├── tabularium/               # 存档 / Tabularium
+│   ├── tabularium/             # 存档 / Tabularium
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
@@ -32,18 +32,18 @@ Tritium79.github.io/
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
 │   │       └── (附属资源，如 图片)
-│   └── interpretationes/              # 译文 / Interpretationes
+│   └── interpretationes/       # 译文 / Interpretationes
 │       └── {Article-Slug}/
 │           ├── index.html
 │           └── (附属资源，如 图片)
 │
 ├── pages/                      # 章节
-│   ├── tabularium.html           # 存档/Tabularium
+│   ├── tabularium.html         # 存档/Tabularium
 │   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
 │   ├── nexus.html              # 友链 / Amici
 │   ├── sylvae.html             # 随笔 / Sylvae
-│   └── interpretationes.html          # 译文 / Interpretationes
+│   └── interpretationes.html   # 译文 / Interpretationes
 │
 ├── scripts/                    # 构建脚本
 │   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
@@ -75,12 +75,12 @@ Tritium79.github.io/
 
 ### 章节（category）
 
-| 章节名       | 中文名 | 拉丁文名   |
-|-------------|--------|-----------|
-| `sylvae`    | 随笔   | Sylvae    |
-| `commentarii` | 记录 | Commentarii |
+| 章节名              | 中文名  | 拉丁文名   |
+|--------------------|-------|-----------|
+| `sylvae`           | 随笔   | Sylvae    |
+| `commentarii`      | 记录   | Commentarii |
 | `interpretationes` | 译文   | Interpretationes |
-| `tabularium`  | 存档   | Tabularium |
+| `tabularium`       | 存档   | Tabularium |
 
 新增章节必须同时在 `scripts/` 下脚本的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
 
@@ -415,7 +415,7 @@ def hello():
 
 ### 移动端特殊设计
 
-- **断点**：`max-aspect-ratio: 1.1/1`（宽高比小于 1.1:1 时触发），而非传统的 `max-width`。这意味着窄屏横置设备不会进入移动端布局。
+- **断点**：`max-aspect-ratio: 0.9/1`（宽高比小于 0.9:1 时触发），而非传统的 `max-width`。这意味着窄屏横置设备不会进入移动端布局。
 - **导航切换**：使用隐藏的 checkbox（`#nav-toggle`）+ `label` 实现纯 CSS 全屏菜单，无 JavaScript。
 - `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载头像、标题、菜单按钮的横向排列。
 

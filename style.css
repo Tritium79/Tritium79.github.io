@@ -222,6 +222,7 @@ header nav a {
     text-align: left;
     position: relative;
     align-self: flex-start;
+    white-space: nowrap;
     transition: color 0.15s ease;
 }
 
@@ -437,7 +438,87 @@ main .arithmatex {
     display: none;
 }
 
-@media (max-aspect-ratio: 1.1/1) {
+@media (min-aspect-ratio: 2.1/1) {
+    header {
+        width: 100%;
+        height: auto;
+        min-width: unset;
+        position: fixed;
+        top: 0;
+        left: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 2rem;
+        z-index: 100;
+    }
+
+    .header-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        width: auto;
+    }
+
+    header img {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 0;
+    }
+
+    header h1 {
+        font-size: 1rem;
+        margin-bottom: 0;
+        width: auto;
+    }
+
+    .current-section,
+    .nav-toggle-btn,
+    .nav-toggle {
+        display: none;
+    }
+
+    header nav {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+
+    header nav a {
+        align-self: auto;
+    }
+
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 5rem 12rem 3rem;
+        text-align: center;
+    }
+
+    main h2 {
+        text-align: center;
+    }
+
+    .post-date {
+        text-align: center;
+    }
+
+    main img {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        height: auto;
+        display: block;
+        margin: 1.5rem auto;
+    }
+
+    footer {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-aspect-ratio: 0.9/1) {
     @media (prefers-reduced-motion: no-preference) {
         body, header, main, footer {
             animation: none;
