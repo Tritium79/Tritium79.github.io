@@ -67,7 +67,7 @@ NAV_ITEMS = [
     ('pages/commentarii.html', '记录', 'Commentarii'),
     ('pages/interpretationes.html', '译文', 'Interpretationes'),
     ('pages/tabularium.html', '存档', 'Tabularium'),
-    ('pages/nexus.html', '友链', 'Amici'),
+    ('pages/amici.html', '友链', 'Amici'),
     ('pages/deme.html', '关于', 'De Me'),
 ]
 

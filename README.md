@@ -41,7 +41,7 @@ Tritium79.github.io/
 │   ├── tabularium.html         # 存档/Tabularium
 │   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
-│   ├── nexus.html              # 友链 / Amici
+│   ├── amici.html              # 友链 / Amici
 │   ├── sylvae.html             # 随笔 / Sylvae
 │   └── interpretationes.html   # 译文 / Interpretationes
 │
@@ -529,7 +529,7 @@ python build.py --check-archetypes
 - 页面标题（从 `<title>` 中提取替换 `{{ title }}`）
 - 自动根据文件深度调整相对路径（`/` → `../` 或 `../../../`）
 
-> 重建后建议检查手动页面（如 `deme.html`、`nexus.html`）的 `<main>` 内容是否完整。
+> 重建后建议检查手动页面（如 `deme.html`、`amici.html`）的 `<main>` 内容是否完整。
 
 ---
 
