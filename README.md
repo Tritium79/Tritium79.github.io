@@ -1,8 +1,10 @@
 # Tritium79's Blog
 
-静态个人博客，无框架，纯 HTML + CSS。使用 Python 脚本将 Markdown 发布为 HTML。
+静态个人博客，使用 HTML + CSS。使用自制Python脚本管理。
 
 > **注意：** 本 README.md 应随目录结构变化而更新，反映最新结构。它是一份可变参考文档，而非静态档案。
+>
+> **快速上手 → 见 [README_Simplified.md](README_Simplified.md)**
 
 ---
 
@@ -22,20 +24,24 @@ Tritium79.github.io/
 ├── content/                    # 文章
 │   ├── tabularium/             # 存档 / Tabularium
 │   │   └── {Article-Slug}/
-│   │       ├── index.html
-│   │       └── (附属资源，如 图片)
+│   │       ├── index.html      # 生成的页面
+│   │       ├── index.md        # 源 Markdown（图片路径已本地化）
+│   │       └── (附属资源，如图片)
 │   ├── commentarii/            # 记录 / Commentarii
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
-│   │       └── (附属资源，如 图片)
+│   │       ├── index.md
+│   │       └── (附属资源)
 │   ├── sylvae/                 # 随笔 / Sylvae
 │   │   └── {Article-Slug}/
 │   │       ├── index.html
-│   │       └── (附属资源，如 图片)
+│   │       ├── index.md
+│   │       └── (附属资源)
 │   └── interpretationes/       # 译文 / Interpretationes
 │       └── {Article-Slug}/
 │           ├── index.html
-│           └── (附属资源，如 图片)
+│           ├── index.md
+│           └── (附属资源)
 │
 ├── pages/                      # 章节
 │   ├── tabularium.html         # 存档/Tabularium
@@ -45,24 +51,27 @@ Tritium79.github.io/
 │   ├── sylvae.html             # 随笔 / Sylvae
 │   └── interpretationes.html   # 译文 / Interpretationes
 │
-├── scripts/                    # 构建脚本
+├── build/                    # 构建脚本
 │   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
 │   ├── build.sh                # Shell 封装（激活 venv 后运行 build.py）
-│   ├── config.py               # 常量：路径、分类定义、模板
+│   ├── config.py               # 常量：路径、分类定义（从 data/ 加载）
+│   ├── data_loader.py          # 数据加载：从 data/*.json 读取配置
 │   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
 │   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
-│   ├── templint.py             # 模板一致性检查：对比所有 HTML 与 base.html
+│   ├── templint.py             # 模板一致性检查 + 全站 Shell 同步引擎
 │   ├── git_ops.py              # Git 提交与推送
 │   ├── requirements.txt        # Python 依赖
 │   ├── README.md               # 脚本文档
 │   └── venv/                   # Python 虚拟环境
 │
 ├── archetypes/                   # HTML 模板
-│   ├── article.html            # 文章页模板（含 KaTeX，供 build.py 使用）
-│   └── base.html               # 通用页面模板（根相对路径，供手动页面使用）
+│   └── archetype.html           # 统一模板（{{ root_path }}/{{ nav_links }}/{{ footer_content }}，含 KaTeX）
 │
-├── data/                       # 数据
+├── data/                       # 全站数据配置（JSON）
+│   ├── config.json             # 站点身份：标题、语言、导航、页脚、头像、CSS
+│   ├── categories.json         # 章节定义：名称、路径、汇总页
+│   └── settings.json           # 构建设置：Markdown 扩展、日期格式、文件管理器等
 │
 ├── .gitignore                  # Git 忽略规则
 ├── README.md                   # 目录结构与命名规范
@@ -82,7 +91,7 @@ Tritium79.github.io/
 | `interpretationes` | 译文   | Interpretationes |
 | `tabularium`       | 存档   | Tabularium |
 
-新增章节必须同时在 `scripts/` 下脚本的 `CATEGORIES` 和 `SECTION_MAP` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
+新增章节需同时在 `data/categories.json` 和 `data/config.json` 的 `nav` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
 
 ### 文章文件夹（slug）
 
@@ -105,8 +114,8 @@ Tritium79.github.io/
 
 ### 构建脚本
 
-- `scripts/build.py` — 主构建脚本
-- 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html` → 更新汇总页
+- `build/build.py` — 主构建脚本
+- 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html`（同时复制源 `.md` 并本地化图片路径） → 更新汇总页
   - 交互菜单：
 
 ```
@@ -118,16 +127,22 @@ Tritium79.github.io/
   5. 管理目录
   6. 检查模板
   7. 获取日期
-  8. Git
+  8. 重建页面（根据模板重建，可选逐个/全部模式）
+  9. Git
 ```
 
 - 所有功能支持 `q` 中途退出
-- `python build.py --check-archetypes` — 对照 `archetypes/base.html` 检查所有 HTML 文件的结构一致性，可选自动修复
+- `python build.py --check-archetypes` — 对照 `data/config.json` 检查所有 HTML 文件的结构一致性（nav、footer 等），可选自动修复
+- `python build.py --rebuild` — 全站 Shell 同步：用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面
+- `python build.py --build-all` — 一键全量：rebuild → check-archetypes
+- `python build.py --list-cat sylvae` — 非交互式列出指定分类文章
+- `python build.py --delete-by sylvae Slug-Name -y` — 非交互式删除文章
+- `python build.py --retitle-by sylvae Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
 - 所有路径以项目根目录为基准
-- Markdown 渲染启用 `nl2br` 扩展，单个换行符转换为 `<br />`
-- 发布文章时日期留空，默认使用当前干支日期（格式：`8 May. 2026 / 丙午年 癸巳月 壬午日`）
+- Markdown 渲染扩展由 `data/settings.json` 的 `markdown_extensions` 定义
+- 发布文章时日期留空，默认使用当前干支日期（格式由 `data/settings.json` 的 `date_format` 定义）
 
 ### assets
 
@@ -138,16 +153,63 @@ Tritium79.github.io/
 
 ---
 
+## 全站数据驱动配置
+
+站点层面的配置（导航、页脚等）通过 `data/` 目录下的 JSON 文件统一管理。这是全站的单点真相（Single Source of Truth）。
+
+### data/config.json
+
+```json
+{
+    "site": {
+        "title": "Tritium79's Blog",
+        "url": "https://Tritium79.github.io"
+    },
+    "html_lang": "zh-CN",
+    "avatar": "avatar.png",
+    "css_file": "style.css",
+    "footer": "&copy; 2026 <a href=\"...\">Tritium79</a>. All rights reserved.",
+    "nav": [
+        {"href": "index.html", "cn": "首页", "la": "Domus"},
+        {"href": "pages/sylvae.html", "cn": "随笔", "la": "Sylvae"}
+    ]
+}
+```
+
+| 字段 | 用途 | 修改后 |
+|------|------|--------|
+| `site.title` | 全站标题，出现在 `<title>` 和 header | 运行 `--build-all` |
+| `site.url` | 站点 URL，用于 footer 链接 | 运行 `--build-all` |
+| `html_lang` | HTML 语言属性 (`lang`) | 运行 `--build-all` |
+| `avatar` | 头像文件名 | 运行 `--build-all` |
+| `css_file` | 样式表文件名 | 运行 `--build-all` |
+| `footer` | 页脚 HTML 内容 | 运行 `--build-all` |
+| `nav` | 导航链接数组，每项含 `href`/`cn`/`la` | 运行 `--build-all` |
+
+### data/settings.json
+
+构建过程设置（Markdown 渲染、日期格式、文件管理器等），详见 `build/README.md`。
+
+
+
+---
+
 ## 分类/章节扩展规范
 
 新增分类需完成以下步骤：
 
-1. **注册分类**：在 `scripts/config.py` 中三处注册：
-   - `CATEGORIES` — 添加 `(key, '中文 / Latin')` 元组
-   - `SECTION_MAP` — 添加 `key: '中文名'` 映射
-   - `PAGE_MAP` — 添加 `key: ROOT_DIR / 'pages' / 'key.html'` 映射
+1. **注册分类**：在 `data/categories.json` 中添加一条：
+   ```json
+   "your-key": {
+       "name": "中文 / Latin",
+       "section_cn": "中文",
+       "page": "pages/your-key.html"
+   }
+   ```
 
-2. **创建汇总页**：在 `pages/` 下创建 `{key}.html`，结构如下：
+2. **更新导航**：在 `data/config.json` 的 `nav` 数组中添加对应条目
+
+3. **创建汇总页**：在 `pages/` 下创建 `{key}.html`，结构如下：
    ```html
    <main>
        <h2>中文名</h2>
@@ -159,9 +221,9 @@ Tritium79.github.io/
    </main>
    ```
 
-3. **创建内容目录**：`content/{key}/`（build.py 发布时会自动创建）
+4. **创建内容目录**：`content/{key}/`（build.py 发布时会自动创建）
 
-4. **更新导航**：若 `--check-archetypes` 无法自动处理，需手动更新 `archetypes/base.html` 和 `archetypes/article.html` 的 `<nav>` 部分
+5. **运行** `python build.py --build-all` 同步全站
 
 ---
 
@@ -169,10 +231,9 @@ Tritium79.github.io/
 
 ### 模板分工
 
-| 模板 | 用途 | 路径类型 |
+| 模板 | 用途 | 路径变量 |
 |------|------|---------|
-| `archetypes/base.html` | 手动维护的页面（`index.html`、`pages/*.html`） | 根相对路径 `/` |
-| `archetypes/article.html` | build.py 生成的文章页 | 相对路径 `../../../` |
+| `archetypes/archetype.html` | 全站统一模板（手动页面 + 文章页） | `{{ root_path }}`（由构建脚本自动替换为 `/`、`../` 或 `../../../`） |
 
 ### 页面结构要求
 
@@ -215,16 +276,21 @@ Tritium79.github.io/
 </a>
 ```
 
-### 模板变量系统（`article.html`）
+### 模板变量系统
 
-| 变量 | 含义 | 示例值 |
-|------|------|--------|
-| `{{ title }}` | 文章标题 | `序` |
-| `{{ date }}` | 发布日期 | `8 May. 2026 / 丙午年 癸巳月 壬午日` |
-| `{{ content }}` | Markdown 渲染后的 HTML | `<p>...</p>` |
-| `{{ section }}` | 所属分类中文名 | `随笔` |
+`archetypes/archetype.html` 使用以下模板变量：
 
-> 禁止直接修改 `archetypes/article.html` 中的占位符（除非重构模板系统）。
+| 变量 | 用途 | 适用范围 | 示例值 |
+|------|------|---------|--------|
+| `{{ title }}` | 页面标题 `<title>` | base + article | `序` |
+| `{{ section }}` | 当前章节名（nav-current / current-section） | base + article | `随笔` |
+| `{{ content }}` | `<main>` 内的 HTML 内容（含 h2 标题和日期） | archetype | `<p>...</p>` |
+| `{{ root_path }}` | 相对路径前缀（`/`、`../`、`../../../`） | archetype | `/` |
+| `{{ nav_links }}` | 从 `data/config.json` 生成的导航链接 HTML | archetype | `<a href="...">...</a>` |
+| `{{ footer_content }}` | 从 `data/config.json` 读取的页脚内容 | archetype | `&copy; 2026 ...` |
+
+
+> 禁止直接修改模板中的 `{{ 变量 }}` 占位符（除非重构模板系统）。
 
 ---
 
@@ -335,8 +401,9 @@ def hello():
 
 ### 导航链接更新
 
-- 新增/删除/重命名文章或分类后，运行 `python build.py --check-archetypes`
-- 该命令会自动检查所有 HTML 文件的导航链接是否与 `archetypes/base.html` 一致
+- 修改导航结构请编辑 `data/config.json` 的 `nav` 数组，然后运行 `python build.py --build-all`
+- `--build-all` 会自动同步所有页面的导航链接和页脚内容
+- 快速验证：`python build.py --check-archetypes`
 
 ### CSS 路径规则
 
@@ -478,15 +545,17 @@ def hello():
 
 以下情况应运行模板一致性检查：
 
-- 修改 `archetypes/base.html` 后
-- 新增或删除分类导致导航结构变化后
-- 新建手动维护的 HTML 页面后
+- 修改 `data/config.json`（nav、footer）后
+- 修改 `archetypes/archetype.html` 后
+- 新增或删除分类后
 - 发现页面布局或样式异常时
 
-命令：
+**推荐使用一键全量构建覆盖所有检查：**
 ```bash
-python build.py --check-archetypes
+python build.py --build-all
 ```
+
+该命令依次执行：全站模板同步 → 模板一致性检查。
 
 ### 检查范围
 
@@ -495,46 +564,51 @@ python build.py --check-archetypes
 - 根目录 `*.html`
 - `pages/*.html`
 - `content/**/*.html`
-- `archetypes/article.html`
+- `archetypes/archetype.html`
 
 ### 检查内容
 
-对照 `archetypes/base.html` 验证每个文件：
+对照 `data/config.json` 验证每个文件：
 
 | 检查项 | 说明 |
 |--------|------|
 | doctype | 必须为 `<!doctype html>` |
-| 语言属性 | `<html lang="zh-CN">` |
+| 语言属性 | 与 `data/config.json` 的 `html_lang` 一致 |
 | charset | `<meta charset="UTF-8" />` |
 | viewport | `<meta name="viewport" ...>` |
-| CSS 链接 | 包含 `style.css` |
-| title 格式 | 必须含 `| Tritium79's Blog` |
+| CSS 链接 | 包含 `data/config.json` 中 `css_file` 定义的文件 |
+| title 格式 | 必须含 `| {site.title}`（从 `data/config.json` 读取） |
 | header 结构 | 包含头像、博客标题、导航切换按钮 |
-| nav 链接 | 链接目标与文字必须与 `base.html` 完全一致 |
-| footer 内容 | 必须与 `base.html` 一致 |
+| nav 链接 | 链接目标与文字必须与 `data/config.json` 中 `nav` 定义一致 |
+| footer 内容 | 必须与 `data/config.json` 中 `footer` 字段一致 |
 
-### 自动重建
+### 自动重建（Shell 同步）
 
-检查发现问题时，可选择按 `base.html` 重建：
+检查发现问题时，可用当前模板 + 当前数据重建文件：
 
 1. **交互模式**（默认）：逐个询问是否重建每个问题文件
-2. **自动模式**：`python build.py --check-archetypes -y` 自动重建所有问题文件
+2. **自动模式**：`python build.py --check-archetypes -y`
+
+**全站强制同步**（跳过问题诊断，直接全部重建）：
+```bash
+python build.py --rebuild -y
+```
 
 ### 重建保护机制
 
-重建时会保留以下内容：
+`rebuild_from_base()` 重建时会保留以下内容：
 
-- `<main>` 标签内的所有内容（文章正文）
-- `<head>` 中超出 `base.html` 标准的元素（如 KaTeX 的 CSS/JS）
-- 页面标题（从 `<title>` 中提取替换 `{{ title }}`）
-- 自动根据文件深度调整相对路径（`/` → `../` 或 `../../../`）
+- `<main>` 标签内的所有内容（文章正文 + h2 标题 + 日期）
+- 页面标题（从 `<title>` 中提取后填入 `{{ title }}`）
+- 使用 `{{ root_path }}` 变量自动根据文件深度设置相对路径前缀
+- `archetypes/` 下的模板文件始终跳过，不会被写入覆盖
 
-> 重建后建议检查手动页面（如 `deme.html`、`amici.html`）的 `<main>` 内容是否完整。
+> 重建后建议运行 `python build.py --check-archetypes` 验证一致性。
 
 ---
 
 ## 禁止事项
 
 - 禁止在内容目录或 pages 目录外创建 `.html` 文件
-- 禁止直接修改 `archetypes/article.html` 中的 `{{ 变量 }}` 占位符（除非重构模板系统）
+- 禁止直接修改模板中的 `{{ 变量 }}` 占位符（除非重构模板系统）
 - 禁止在静态资源目录中存放非资源类文件

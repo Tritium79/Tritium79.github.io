@@ -1,5 +1,5 @@
 .DS_Store
-scripts/venv/
+build/venv/
 __pycache__/
 *.pyc
 

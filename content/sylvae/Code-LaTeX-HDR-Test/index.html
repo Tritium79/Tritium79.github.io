@@ -5,51 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>代码、LaTeX、HDR图片测试 | Tritium79's Blog</title>
         <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 
-        <link rel="stylesheet" href="../../../style.css" />
-
-        <link rel="stylesheet" href="../../../style.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-        />
-
-        <script
-            defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-        ></script>
-        <script
-            defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-        ></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 renderMathInElement(document.body, {
                     delimiters: [
-                        { left: "$$", right: "$$", display: true },
-                        { left: "$", right: "$", display: false },
-                        { left: "\\(", right: "\\)", display: false },
-                        { left: "\\[", right: "\\]", display: true },
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
                     ],
                     throwOnError: false,
                     trust: true,
                     macros: {
-                        "\\f": "#1f(#2)",
-                    },
+                        "\\f": "#1f(#2)"
+                    }
                 });
             });
         </script>
 
         <style>
-            .katex-display {
-                overflow: visible !important;
-            }
-            .katex-display > .katex {
-                overflow: visible !important;
-            }
-            .katex {
-                overflow: visible !important;
-            }
+        .katex-display { overflow: visible !important; }
+        .katex-display > .katex { overflow: visible !important; }
+        .katex { overflow: visible !important; }
         </style>
     </head>
     <body>
@@ -65,34 +46,13 @@
             <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
 
             <nav>
-                <a href="../../../index.html"
-                    ><span class="nav-cn">首页</span><span class="sep">/</span
-                    ><span class="nav-la">Domus</span></a
-                >
-                <a href="../../../pages/sylvae.html" class="nav-current"
-                    ><span class="nav-cn">随笔</span><span class="sep">/</span
-                    ><span class="nav-la">Sylvae</span></a
-                >
-                <a href="../../../pages/commentarii.html"
-                    ><span class="nav-cn">记录</span><span class="sep">/</span
-                    ><span class="nav-la">Commentarii</span></a
-                >
-                <a href="../../../pages/interpretationes.html"
-                    ><span class="nav-cn">译文</span><span class="sep">/</span
-                    ><span class="nav-la">Interpretationes</span></a
-                >
-                <a href="../../../pages/tabularium.html"
-                    ><span class="nav-cn">存档</span><span class="sep">/</span
-                    ><span class="nav-la">Tabularium</span></a
-                >
-                <a href="../../../pages/amici.html"
-                    ><span class="nav-cn">友链</span><span class="sep">/</span
-                    ><span class="nav-la">Amici</span></a
-                >
-                <a href="../../../pages/deme.html"
-                    ><span class="nav-cn">关于</span><span class="sep">/</span
-                    ><span class="nav-la">De Me</span></a
-                >
+                <a href="../../../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../../../pages/sylvae.html" class="nav-current"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Sylvae</span></a>
+                <a href="../../../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../../../pages/interpretationes.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Interpretationes</span></a>
+                <a href="../../../pages/tabularium.html"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Tabularium</span></a>
+                <a href="../../../pages/amici.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Amici</span></a>
+                <a href="../../../pages/deme.html"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
             </nav>
         </header>
         <main>
@@ -130,10 +90,7 @@ print(fibonacci(10))
             </p>
         </main>
         <footer>
-            <p>
-                &copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>.
-                All rights reserved.
-            </p>
+            <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
         </footer>
     </body>
 </html>

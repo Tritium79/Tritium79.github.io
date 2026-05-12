@@ -1,3 +1,5 @@
+"""Git 提交与推送的交互式封装。"""
+
 import subprocess
 import sys
 from datetime import date
@@ -6,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR
+from data_loader import get_settings
 
 
 def _run(cmd):
@@ -42,7 +45,8 @@ def git_commit_push():
     if not _run(['git', 'add', '.']):
         return
 
-    default_msg = f'{date.today().isoformat()} Update'
+    fmt = get_settings('commit_message_format', '{date} Update')
+    default_msg = fmt.format(date=date.today().isoformat())
     raw = input(f'提交信息 [{default_msg}]: ').strip()
     msg = raw if raw else default_msg
 

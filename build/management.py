@@ -1,3 +1,8 @@
+"""文章管理模块：列表、删除、改名、重命名。
+
+提供交互式（菜单选择）和非交互式（CLI 参数直传）两套接口。
+"""
+
 import re
 import shutil
 import sys
@@ -6,7 +11,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, CATEGORIES, PAGE_MAP, ENTRY_TEMPLATE
+from data_loader import get_settings
 
+
+# ── 列表 ───────────────────────────────────────────────
 
 def list_articles(show_all=True):
     print('分类:')
@@ -17,7 +25,7 @@ def list_articles(show_all=True):
 
     prompt = '选择分类编号 [0]: ' if show_all else '选择分类编号 [1]: '
     default = '0' if show_all else '1'
-    
+
     while True:
         choice = input(prompt).strip().lower()
         if choice == 'q':
@@ -28,7 +36,7 @@ def list_articles(show_all=True):
         except ValueError:
             print('  无效选择，请重试')
             continue
-        
+
         if cat_idx == -1:
             if not show_all:
                 print('  无效选择，请重试')
@@ -37,8 +45,7 @@ def list_articles(show_all=True):
         if 0 <= cat_idx < len(CATEGORIES):
             break
         print('  无效选择，请重试')
-    
-    # 获取所有分类的文章
+
     all_articles = {}
     for cat_key, cat_name in CATEGORIES:
         cat_dir = ROOT_DIR / 'content' / cat_key
@@ -57,7 +64,6 @@ def list_articles(show_all=True):
             all_articles[cat_key] = {'name': cat_name, 'articles': articles}
 
     if cat_idx == -1:
-        # 列出全部文章
         print()
         for cat_key, data in all_articles.items():
             print(f'【{data["name"]}】')
@@ -66,7 +72,6 @@ def list_articles(show_all=True):
                 print(f'     文件夹: {art["folder"]}')
             print()
     else:
-        # 只列出选中的分类
         cat_key = CATEGORIES[cat_idx][0]
         if cat_key not in all_articles:
             print('  该分类暂无文章')
@@ -107,8 +112,7 @@ def delete_article():
             return
         cat_key = CATEGORIES[cat_idx][0]
         cat_dir = ROOT_DIR / 'content' / cat_key
-        
-        # 扫描该分类下的文章
+
         articles = []
         if cat_dir.exists():
             for folder in sorted(cat_dir.iterdir()):
@@ -117,12 +121,11 @@ def delete_article():
                     title_match = re.search(r'<h2>([^<]+)</h2>', html)
                     title = title_match.group(1) if title_match else folder.name
                     articles.append({'title': title, 'folder': folder.name})
-        
+
         if articles:
             break
         print('  该分类暂无文章，请重试')
-    
-    # 显示该分类下的文章
+
     print(f'\n【{CATEGORIES[cat_idx][1]}】')
     for i, art in enumerate(articles, 1):
         print(f'  {i}. {art["title"]}')
@@ -187,6 +190,8 @@ def delete_article():
 
     print('\n  删除完成!')
 
+
+# ── 汇总页条目管理 ────────────────────────────────────
 
 def add_entry_to_page(page_path, title, date, category, folder):
     if not page_path.exists():
@@ -254,26 +259,20 @@ def _update_refs(old_path, new_path):
     old_str = _get_project_path(old_path)
     new_str = _get_project_path(new_path)
 
-    glob_patterns = [
-        (ROOT_DIR / 'pages', '*.html'),
-        (ROOT_DIR / 'content', '**/*.html'),
-        (ROOT_DIR / 'archetypes', '*.html'),
-        (ROOT_DIR / 'assets', '**/*.html'),
-    ]
-    single_files = [
-        ROOT_DIR / 'index.html',
-        ROOT_DIR / 'style.css',
-        ROOT_DIR / 'README.md',
-        ROOT_DIR / 'AGENTS.md',
-    ]
+    scope = get_settings('ref_update_scope',
+        {'glob_dirs': ['pages', 'content', 'archetypes', 'assets'],
+         'glob_pattern': '**/*.html',
+         'single_files': ['index.html', 'style.css', 'README.md', 'AGENTS.md']})
 
     search_files = []
-    for base, pattern in glob_patterns:
+    for d in scope.get('glob_dirs', []):
+        base = ROOT_DIR / d
         if base.exists():
-            search_files.extend(base.glob(pattern))
-    for f in single_files:
-        if f.exists():
-            search_files.append(f)
+            search_files.extend(base.glob(scope.get('glob_pattern', '**/*.html')))
+    for f in scope.get('single_files', []):
+        fp = ROOT_DIR / f
+        if fp.exists():
+            search_files.append(fp)
 
     updated = []
     for f in search_files:
@@ -315,6 +314,8 @@ def _remove_entry_from_page(cat_key, folder):
     page_path.write_text(new_content, encoding='utf-8')
 
 
+# ── 文件管理器 ────────────────────────────────────────
+
 clipboard = {}
 
 
@@ -322,15 +323,19 @@ def file_manager():
     root = ROOT_DIR
     current = ROOT_DIR
 
-    dirs_to_show = ['content', 'assets']
-
-    dir_mode = True
-    current_top_level = 0
+    fm = get_settings('file_manager',
+        {'hidden_dirs': ['build', '.git'],
+         'allowed_extensions': ['.html', '.css', '.md', '.otf', '.ttf', '.woff2',
+                                '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico']})
+    hidden_dirs = fm.get('hidden_dirs', ['build', '.git'])
+    allowed_ext = fm.get('allowed_extensions',
+        ['.html', '.css', '.md', '.otf', '.ttf', '.woff2',
+         '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico'])
 
     while True:
         entries = sorted(current.iterdir())
-        dirs = sorted([e for e in entries if e.is_dir() and e.name not in ['scripts', '.git']])
-        files = sorted([e for e in entries if e.is_file() and e.suffix in ['.html', '.css', '.md', '.otf', '.ttf', '.woff2', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico']])
+        dirs = sorted([e for e in entries if e.is_dir() and e.name not in hidden_dirs])
+        files = sorted([e for e in entries if e.is_file() and e.suffix in allowed_ext])
 
         items = dirs + files
 
@@ -387,7 +392,7 @@ def file_manager():
             idx = int(raw) - 1
             if 0 <= idx < len(items):
                 selected = items[idx]
-                result = _file_ops(selected)
+                result = _file_ops(selected, hidden_dirs, allowed_ext)
                 if result and selected.is_dir():
                     current = result
                 continue
@@ -398,7 +403,7 @@ def file_manager():
         print(msg)
 
 
-def _file_ops(path):
+def _file_ops(path, hidden_dirs=None, allowed_ext=None):
     rel = _get_project_path(path)
     is_dir = path.is_dir()
 
@@ -478,14 +483,190 @@ def _file_ops(path):
             print('  无效操作')
 
 
-def retitle_article():
-    all_articles = list_articles(show_all=False)
-    if not all_articles:
-        print('没有可修改的文章。')
-        return
+def list_articles_direct(category_key):
+    cat_keys = [c[0] for c in CATEGORIES]
+    if category_key not in cat_keys:
+        print(f'错误: 无效分类 "{category_key}"，可选: {", ".join(cat_keys)}')
+        return None
 
-    cat_key = list(all_articles.keys())[0]
-    articles = all_articles[cat_key]['articles']
+    cat_dir = ROOT_DIR / 'content' / category_key
+    if not cat_dir.exists():
+        print(f'  分类 "{category_key}" 暂无文章')
+        return {}
+
+    cat_name = dict(CATEGORIES).get(category_key, category_key)
+    articles = []
+    for folder in sorted(cat_dir.iterdir()):
+        if folder.is_dir() and (folder / 'index.html').exists():
+            html = (folder / 'index.html').read_text(encoding='utf-8')
+            title_match = re.search(r'<h2>([^<]+)</h2>', html)
+            title = title_match.group(1) if title_match else folder.name
+            articles.append({'title': title, 'folder': folder.name})
+
+    if not articles:
+        print(f'  分类 "{category_key}" 暂无文章')
+        return {}
+
+    print(f'\n【{cat_name}】')
+    for i, art in enumerate(articles, 1):
+        print(f'  {i}. {art["title"]}')
+        print(f'     文件夹: {art["folder"]}')
+    print()
+
+    return {category_key: {'name': cat_name, 'articles': articles}}
+
+
+# ── 删除 ───────────────────────────────────────────────
+
+def delete_article_direct(category, folder, yes=False):
+    cat_keys = [c[0] for c in CATEGORIES]
+    if category not in cat_keys:
+        print(f'错误: 无效分类 "{category}"，可选: {", ".join(cat_keys)}')
+        return False
+
+    article_dir = ROOT_DIR / 'content' / category / folder
+    if not article_dir.exists() or not (article_dir / 'index.html').exists():
+        print(f'错误: 文章不存在: content/{category}/{folder}/')
+        return False
+
+    html = (article_dir / 'index.html').read_text(encoding='utf-8')
+    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+    title = title_match.group(1) if title_match else folder
+
+    print(f'删除: {title}')
+    print(f'  位置: content/{category}/{folder}/')
+
+    if not yes:
+        ans = input('确认删除? [y/N]: ').strip().lower()
+        if ans not in ('y', ''):
+            print('  已取消')
+            return False
+
+    shutil.rmtree(article_dir)
+    print(f'  已删除文件夹: content/{category}/{folder}/')
+
+    page_path = PAGE_MAP.get(category)
+    if page_path and page_path.exists():
+        lines = page_path.read_text(encoding='utf-8').splitlines(keepends=True)
+        idx = None
+        for i, line in enumerate(lines):
+            if f'href="../content/{category}/{folder}/index.html"' in line:
+                idx = i
+                break
+        if idx is not None:
+            start = idx
+            while start >= 0 and '<li>' not in lines[start]:
+                start -= 1
+            end = idx
+            while end < len(lines) and '</li>' not in lines[end]:
+                end += 1
+            if end < len(lines):
+                end += 1
+            del lines[start:end]
+            new_content = ''.join(lines)
+            new_content = re.sub(r'\n\s*\n\s*<ul>', '\n<ul>', new_content)
+            page_path.write_text(new_content, encoding='utf-8')
+            print(f'  已从页面移除: pages/{category}.html')
+
+    print('  删除完成!')
+    return True
+
+
+# ── 修改标题/日期 ─────────────────────────────────────
+
+def retitle_article_direct(category, folder, new_title=None, new_date=None):
+    cat_keys = [c[0] for c in CATEGORIES]
+    if category not in cat_keys:
+        print(f'错误: 无效分类 "{category}"，可选: {", ".join(cat_keys)}')
+        return False
+
+    html_path = ROOT_DIR / 'content' / category / folder / 'index.html'
+    if not html_path.exists():
+        print(f'错误: 文章不存在: content/{category}/{folder}/')
+        return False
+
+    html = html_path.read_text(encoding='utf-8')
+
+    old_title = re.search(r'<h2>([^<]+)</h2>', html).group(1)
+    old_date_match = re.search(r'<p class="post-date">(.*?)</p>', html)
+    old_date = old_date_match.group(1).strip() if old_date_match else ''
+
+    if not new_title and not new_date:
+        print(f'  当前: {old_title} | {old_date}')
+        print('  未指定新标题或日期，跳过')
+        return False
+
+    new_title = new_title or old_title
+    new_date = new_date or old_date
+
+    if new_title == old_title and new_date == old_date:
+        print('  无变化，已取消')
+        return False
+
+    print(f'  标题: {old_title} → {new_title}')
+    print(f'  日期: {old_date} → {new_date}')
+
+    html = html.replace(f'<title>{old_title}', f'<title>{new_title}', 1)
+    html = html.replace(f'<h2>{old_title}</h2>', f'<h2>{new_title}</h2>', 1)
+    html = html.replace(f'<p class="post-date">{old_date}</p>', f'<p class="post-date">{new_date}</p>', 1)
+    html_path.write_text(html, encoding='utf-8')
+    print(f'  - 已更新: content/{category}/{folder}/index.html')
+
+    page_path = PAGE_MAP.get(category)
+    if page_path and page_path.exists():
+        new_entry = (ENTRY_TEMPLATE
+                     .replace('%%CATEGORY%%', category)
+                     .replace('%%FOLDER%%', folder)
+                     .replace('%%TITLE%%', new_title)
+                     .replace('%%DATE%%', new_date))
+
+        content = page_path.read_text(encoding='utf-8')
+        pattern = re.compile(
+            r'<li>\s*<a\s+href="../content/' + re.escape(category) + r'/' + re.escape(folder) + r'/index.html"[^>]*>.*?</li>',
+            re.DOTALL
+        )
+        match = pattern.search(content)
+        if match:
+            content = content[:match.start()] + new_entry.strip() + content[match.end():]
+            page_path.write_text(content, encoding='utf-8')
+            print(f'  - 已更新: pages/{category}.html')
+        else:
+            print(f'  - 未找到条目: pages/{category}.html')
+
+    print('  修改完成!')
+
+
+def retitle_article():
+    print('分类:')
+    for i, (key, name) in enumerate(CATEGORIES, 1):
+        print(f'  {i}. {name} ({key})')
+
+    while True:
+        cat_idx = select_category_index()
+        if cat_idx is None:
+            print('  已取消')
+            return
+        cat_key = CATEGORIES[cat_idx][0]
+        cat_dir = ROOT_DIR / 'content' / cat_key
+
+        articles = []
+        if cat_dir.exists():
+            for folder in sorted(cat_dir.iterdir()):
+                if folder.is_dir() and (folder / 'index.html').exists():
+                    html = (folder / 'index.html').read_text(encoding='utf-8')
+                    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+                    title = title_match.group(1) if title_match else folder.name
+                    articles.append({'title': title, 'folder': folder.name})
+
+        if articles:
+            break
+        print('  该分类暂无文章，请重试')
+
+    print(f'\n【{CATEGORIES[cat_idx][1]}】')
+    for i, art in enumerate(articles, 1):
+        print(f'  {i}. {art["title"]}')
+        print(f'     文件夹: {art["folder"]}')
+    print()
 
     while True:
         choice = input(f'选择文章编号 (1-{len(articles)})，q 退出: ').strip().lower()

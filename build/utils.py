@@ -1,5 +1,13 @@
+"""工具函数：干支日期、slug 化、用户交互、front matter 解析。"""
+
 import re
 from datetime import datetime
+from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+
+from data_loader import get_settings
 
 try:
     from lunar_python import Solar
@@ -8,17 +16,10 @@ except ImportError:
 
 
 def get_lunar_date(target_date=None):
-    """获取指定日期或当前日期的干支格式。
-
-    Args:
-        target_date: datetime 对象，若为 None 则使用当前时间
-
-    格式: [日，数字] [月，缩写]. [年，数字] / [干支]年 [干支]月 [干支]日
-    例: 8 May. 2026 / 丙午年 癸巳月 壬午日
-    """
     now = target_date if target_date else datetime.now()
-    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    months = get_settings('month_abbreviations',
+        ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
     month_abbr = months[now.month - 1]
 
     if Solar is None:
@@ -31,7 +32,10 @@ def get_lunar_date(target_date=None):
     month_gz = lunar.getMonthInGanZhi()
     day_gz = lunar.getDayInGanZhi()
 
-    return f'{now.day} {month_abbr}. {now.year} / {year_gz}年 {month_gz}月 {day_gz}日'
+    fmt = get_settings('date_format',
+        '{day} {month_abbr}. {year} / {year_gz}年 {month_gz}月 {day_gz}日')
+    return fmt.format(day=now.day, month_abbr=month_abbr, year=now.year,
+                      year_gz=year_gz, month_gz=month_gz, day_gz=day_gz)
 
 
 def slugify(text):

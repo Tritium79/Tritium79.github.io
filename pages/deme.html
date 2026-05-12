@@ -5,10 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>关于 | Tritium79's Blog</title>
         <link rel="stylesheet" href="../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 
-        <link rel="stylesheet" href="../style.css" />
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
+                });
+            });
+        </script>
 
-        <link rel="stylesheet" href="../style.css" />
+        <style>
+        .katex-display { overflow: visible !important; }
+        .katex-display > .katex { overflow: visible !important; }
+        .katex { overflow: visible !important; }
+        </style>
     </head>
     <body>
         <header>
@@ -23,97 +46,35 @@
             <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
 
             <nav>
-                <a href="../index.html"
-                    ><span class="nav-cn">首页</span><span class="sep">/</span
-                    ><span class="nav-la">Domus</span></a
-                >
-                <a href="../pages/sylvae.html"
-                    ><span class="nav-cn">随笔</span><span class="sep">/</span
-                    ><span class="nav-la">Sylvae</span></a
-                >
-                <a href="../pages/commentarii.html"
-                    ><span class="nav-cn">记录</span><span class="sep">/</span
-                    ><span class="nav-la">Commentarii</span></a
-                >
-                <a href="../pages/interpretationes.html"
-                    ><span class="nav-cn">译文</span><span class="sep">/</span
-                    ><span class="nav-la">Interpretationes</span></a
-                >
-                <a href="../pages/tabularium.html"
-                    ><span class="nav-cn">存档</span><span class="sep">/</span
-                    ><span class="nav-la">Tabularium</span></a
-                >
-                <a href="../pages/amici.html"
-                    ><span class="nav-cn">友链</span><span class="sep">/</span
-                    ><span class="nav-la">Amici</span></a
-                >
-                <a href="../pages/deme.html" class="nav-current"
-                    ><span class="nav-cn">关于</span><span class="sep">/</span
-                    ><span class="nav-la">De Me</span></a
-                >
+                <a href="../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../pages/sylvae.html"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Sylvae</span></a>
+                <a href="../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../pages/interpretationes.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Interpretationes</span></a>
+                <a href="../pages/tabularium.html"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Tabularium</span></a>
+                <a href="../pages/amici.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Amici</span></a>
+                <a href="../pages/deme.html" class="nav-current"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
             </nav>
         </header>
         <main>
             <h2>关于</h2>
             <p>博客与我。</p>
             <hr /><br/>
-            <!-- 个人简介 -->
             <div class="about-text">
-                <p>
-                    头像：<a
-                        href="https://x.com/hinako_zooya/status/1575770927832473601"
-                        target="_blank"
-                        >芙兰（フラン，転生したら剣でした）</a
-                    >
-                </p>
+                <p>头像：<a href="https://x.com/hinako_zooya/status/1575770927832473601" target="_blank">芙兰（フラン，転生したら剣でした）</a></p>
                 <p>构建：静态HTML+CSS，Python+Shell管理，未使用JavaScript及框架</p>
-                <p>
-                    托管：<a
-                        href="https://github.com/Tritium79/Tritium79.github.io"
-                        target="_blank"
-                        >GitHub Pages</a
-                    >
-                </p>
-                <p>
-                    字体：<a
-                        href="https://github.com/lxgw/LxgwBright"
-                        target="_blank"
-                        >LXGW Bright Light</a
-                    >&nbsp;<a
-                        href="https://github.com/adobe-fonts/source-code-pro"
-                        target="_blank"
-                        >Source Code Pro Light</a
-                    >
-                </p>
-
+                <p>托管：<a href="https://github.com/Tritium79/Tritium79.github.io" target="_blank">GitHub Pages</a></p>
+                <p>字体：<a href="https://github.com/lxgw/LxgwBright" target="_blank">LXGW Bright Light</a> <a href="https://github.com/adobe-fonts/source-code-pro" target="_blank">Source Code Pro Light</a></p>
                 <p>起始：8 May. 2026 / 丙午年 癸巳月 壬午日</p>
             </div>
-
             <hr />
-
             <ul class="link-list">
-                <li>
-                    <a href="https://github.com/Tritium79" target="_blank"
-                        >GitHub</a
-                    >
-                </li>
-                <li>
-                    <a
-                        href="https://space.bilibili.com/441614000"
-                        target="_blank"
-                        >Bilibili</a
-                    >
-                </li>
-                <li>
-                    <a href="mailto:Tritium79@icloud.com">Email</a>
-                </li>
+                <li><a href="https://github.com/Tritium79" target="_blank">GitHub</a></li>
+                <li><a href="https://space.bilibili.com/441614000" target="_blank">Bilibili</a></li>
+                <li><a href="mailto:Tritium79@icloud.com" target="_blank">Email</a></li>
             </ul>
         </main>
         <footer>
-            <p>
-                &copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>.
-                All rights reserved.
-            </p>
+            <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
         </footer>
     </body>
 </html>

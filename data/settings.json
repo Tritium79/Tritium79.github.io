@@ -1,0 +1,19 @@
+{
+    "markdown_extensions": ["extra", "codehilite", "nl2br"],
+    "date_format": "{day} {month_abbr}. {year} / {year_gz}\u5e74 {month_gz}\u6708 {day_gz}\u65e5",
+    "month_abbreviations": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "separator_marker": "<!--sep-->",
+    "separator_replacement": "<br />",
+    "open_links_in_new_tab": true,
+    "commit_message_format": "{date} Update",
+    "entry_template": "<li>\n                    <a\n                        href=\"../content/%%CATEGORY%%/%%FOLDER%%/index.html\"\n                        >%%TITLE%%</a\n                    >\n                    <p class=\"article-date\">\n                        %%DATE%%\n                    </p>\n                </li>",
+    "file_manager": {
+        "hidden_dirs": ["build", ".git"],
+        "allowed_extensions": [".html", ".css", ".md", ".otf", ".ttf", ".woff2", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico"]
+    },
+    "ref_update_scope": {
+        "glob_dirs": ["pages", "content", "archetypes", "assets"],
+        "glob_pattern": "**/*.html",
+        "single_files": ["index.html", "style.css", "README.md", "AGENTS.md"]
+    }
+}

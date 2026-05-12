@@ -1,0 +1,19 @@
+{
+    "site": {
+        "title": "Tritium79's Blog",
+        "url": "https://Tritium79.github.io"
+    },
+    "html_lang": "zh-CN",
+    "avatar": "avatar.png",
+    "css_file": "style.css",
+    "footer": "&copy; 2026 <a href=\"https://Tritium79.github.io\">Tritium79</a>. All rights reserved.",
+    "nav": [
+        {"href": "index.html", "cn": "\u9996\u9875", "la": "Domus"},
+        {"href": "pages/sylvae.html", "cn": "\u968f\u7b14", "la": "Sylvae"},
+        {"href": "pages/commentarii.html", "cn": "\u8bb0\u5f55", "la": "Commentarii"},
+        {"href": "pages/interpretationes.html", "cn": "\u8bd1\u6587", "la": "Interpretationes"},
+        {"href": "pages/tabularium.html", "cn": "\u5b58\u6863", "la": "Tabularium"},
+        {"href": "pages/amici.html", "cn": "\u53cb\u94fe", "la": "Amici"},
+        {"href": "pages/deme.html", "cn": "\u5173\u4e8e", "la": "De Me"}
+    ]
+}

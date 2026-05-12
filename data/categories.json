@@ -1,0 +1,22 @@
+{
+    "sylvae": {
+        "name": "随笔 / Sylvae",
+        "section_cn": "随笔",
+        "page": "pages/sylvae.html"
+    },
+    "commentarii": {
+        "name": "记录 / Commentarii",
+        "section_cn": "记录",
+        "page": "pages/commentarii.html"
+    },
+    "interpretationes": {
+        "name": "译文 / Interpretationes",
+        "section_cn": "译文",
+        "page": "pages/interpretationes.html"
+    },
+    "tabularium": {
+        "name": "存档 / Tabularium",
+        "section_cn": "存档",
+        "page": "pages/tabularium.html"
+    }
+}
