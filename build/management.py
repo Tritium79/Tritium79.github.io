@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, CATEGORIES, PAGE_MAP, ENTRY_TEMPLATE
 from data_loader import get_settings
+from utils import parse_date_to_ymd
 
 
 # ── 列表 ───────────────────────────────────────────────
@@ -634,6 +635,64 @@ def retitle_article_direct(category, folder, new_title=None, new_date=None):
             print(f'  - 未找到条目: pages/{category}.html')
 
     print('  修改完成!')
+
+
+# ── 文件夹名迁移 ────────────────────────────────────────
+
+def migrate_article_folder_names():
+    """将现有文章文件夹从 {Slug} 重命名为 {YYYYMMDD}_{Slug}。"""
+    content_dir = ROOT_DIR / 'content'
+    if not content_dir.exists():
+        print('  content/ 目录不存在')
+        return
+
+    renamed = []
+    for cat_key, cat_name in CATEGORIES:
+        cat_dir = content_dir / cat_key
+        if not cat_dir.exists():
+            continue
+        for folder in sorted(cat_dir.iterdir()):
+            if not folder.is_dir() or not (folder / 'index.html').exists():
+                continue
+            old_name = folder.name
+            if re.match(r'^\d{8}_', old_name):
+                print(f'  跳过(已迁移): {cat_key}/{old_name}')
+                continue
+
+            html = (folder / 'index.html').read_text(encoding='utf-8')
+            date_match = re.search(r'<p class="post-date">(.*?)</p>', html)
+            if not date_match:
+                print(f'  跳过(无日期): {cat_key}/{old_name}')
+                continue
+
+            ymd = parse_date_to_ymd(date_match.group(1))
+            if not ymd:
+                print(f'  跳过(日期解析失败): {cat_key}/{old_name}')
+                continue
+
+            new_name = f'{ymd}_{old_name}'
+            new_path = folder.parent / new_name
+            if new_path.exists():
+                print(f'  跳过(目标已存在): {cat_key}/{new_name}')
+                continue
+
+            folder.rename(new_path)
+            _update_refs(folder, new_path)
+
+            _remove_entry_from_page(cat_key, old_name)
+            title_match = re.search(r'<h2>([^<]+)</h2>', html)
+            title = title_match.group(1) if title_match else old_name
+            date_display = date_match.group(1).strip()
+            add_entry_to_page(PAGE_MAP[cat_key], title, date_display, cat_key, new_name)
+
+            renamed.append(f'{cat_key}/{old_name} → {new_name}')
+
+    if renamed:
+        print(f'\n已迁移 {len(renamed)} 个文章文件夹:')
+        for r in renamed:
+            print(f'  {r}')
+    else:
+        print('  没有需要迁移的文件夹')
 
 
 def retitle_article():

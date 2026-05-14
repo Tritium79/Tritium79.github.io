@@ -49,6 +49,24 @@ def slugify(text):
     return '-'.join(capitalize_word(word) for word in words if word)
 
 
+def make_folder_name(title, date_obj=None):
+    slug = slugify(title)
+    date_str = date_obj.strftime('%Y%m%d') if date_obj else datetime.now().strftime('%Y%m%d')
+    return f'{date_str}_{slug}'
+
+
+def parse_date_to_ymd(date_str):
+    months = {
+        'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+        'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
+    }
+    m = re.search(r'(\d{1,2})\s+(\w{3})\.\s+(\d{4})', date_str)
+    if m:
+        day, mon, year = int(m.group(1)), months.get(m.group(2), 1), int(m.group(3))
+        return f'{year:04d}{mon:02d}{day:02d}'
+    return None
+
+
 def ask(prompt, default=None):
     if default is not None:
         raw = input(f'{prompt} [{default}]: ').strip()

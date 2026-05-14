@@ -23,22 +23,22 @@ Tritium79.github.io/
 │
 ├── content/                    # 文章
 │   ├── tabularium/             # 存档 / Tabularium
-│   │   └── {Article-Slug}/
+│   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html      # 生成的页面
 │   │       ├── index.md        # 源 Markdown（图片路径已本地化）
 │   │       └── (附属资源，如图片)
 │   ├── commentarii/            # 记录 / Commentarii
-│   │   └── {Article-Slug}/
+│   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
 │   │       └── (附属资源)
 │   ├── sylvae/                 # 随笔 / Sylvae
-│   │   └── {Article-Slug}/
+│   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
 │   │       └── (附属资源)
 │   └── interpretationes/       # 译文 / Interpretationes
-│       └── {Article-Slug}/
+│       └── {YYYYMMDD}_{Article-Slug}/
 │           ├── index.html
 │           ├── index.md
 │           └── (附属资源)
@@ -96,10 +96,10 @@ Tritium79.github.io/
 ### 文章文件夹（slug）
 
 - 每个文章一个独立文件夹，统一使用 `index.html` 作为入口文件
-- 文件夹名使用 slug 命名：单词首字母大写、其余字母小写、单词间以连字符 `-` 分隔
+- 文件夹名使用 `{YYYYMMDD}_{Slug}` 格式，`YYYYMMDD` 为文章发布日期（自动生成），`Slug` 部分使用 slug 命名：单词首字母大写、其余字母小写、单词间以连字符 `-` 分隔
 - 允许全大写缩写（如 `OA`、`HDR`、`LaTeX` 等专有名词保留原写法）
 - 仅允许字母、数字、汉字、连字符
-- 示例：`OA-Introduction-Translation`、`Cat-Record`、`Blog-Init`、`Code-LaTeX-HDR-Test`
+- 示例：`20260509_Blog-Init`、`20260508_Cat-Record`、`20260509_Code-LaTeX-HDR-Test`
 
 ### 附属资源
 
@@ -136,8 +136,8 @@ Tritium79.github.io/
 - `python build.py --rebuild` — 全站 Shell 同步：用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面
 - `python build.py --build-all` — 一键全量：rebuild → check-archetypes
 - `python build.py --list-cat sylvae` — 非交互式列出指定分类文章
-- `python build.py --delete-by sylvae Slug-Name -y` — 非交互式删除文章
-- `python build.py --retitle-by sylvae Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
+- `python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y` — 非交互式删除文章
+- `python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
 - 所有路径以项目根目录为基准

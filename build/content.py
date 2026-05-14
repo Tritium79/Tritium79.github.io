@@ -7,6 +7,7 @@
 import re
 import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -14,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import markdown
 
 from config import ROOT_DIR, ARCHETYPE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
-from utils import slugify, ask, confirm, parse_front_matter, get_lunar_date
+from utils import slugify, make_folder_name, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
 from data_loader import get_nav as get_nav_data, get_footer as get_footer_data, get_settings
 
@@ -167,7 +168,7 @@ def publish_article(md_path, args, is_cli_mode):
 
     if not is_cli_mode:
         title = ask('标题', title)
-    folder = args.folder or slugify(title)
+    folder = args.folder or make_folder_name(title, datetime.now())
     if not is_cli_mode:
         folder = ask('文件夹命名', folder)
 

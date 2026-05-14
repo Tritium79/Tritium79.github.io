@@ -56,9 +56,9 @@ def parse_args():
   python build.py --retitle                 # 修改标题/日期
 
 文章管理（非交互式 CLI）:
-  python build.py --list-cat sylvae         # 直接列出指定分类文章
-  python build.py --delete-by sylvae Slug-Name -y  # 直接删除
-  python build.py --retitle-by sylvae Slug-Name -t "New Title" -d "Date"  # 直接修改
+  python build.py --list-cat sylvae               # 直接列出指定分类文章
+  python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y  # 直接删除
+  python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "New Title" -d "Date"  # 直接修改
 
 模板与全站:
   python build.py --check-archetypes        # 检查模板一致性
