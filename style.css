@@ -21,8 +21,8 @@
     --border-sidebar: #e0e0e0;
     --border-list: #ddd;
     --text-primary: #000;
-    --text-nav: #333;
-    --text-body: #444;
+    --text-nav: #000;
+    --text-body: #000;
     --text-muted: #888;
     --text-link: #999;
     --text-sidebar-hover: #4aa9c5;
@@ -38,8 +38,8 @@
         --border-sidebar: #1f1f1f;
         --border-list: #222;
         --text-primary: #fff;
-        --text-nav: #ccc;
-        --text-body: #bbb;
+        --text-nav: #fff;
+        --text-body: #fff;
         --text-muted: #777;
         --text-link: #666;
         --text-sidebar-hover: #b5563a;
@@ -307,22 +307,50 @@ main .article-meta p {
 
 main ul {
     list-style: none;
-    margin-top: 0.25rem;
+    margin: 1rem 0 1rem 0.5rem;
+    padding-left: 1rem;
 }
 
-main ul li {
+main ul ul {
+    margin: 0;
+}
+
+main ul:not(.link-list) li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 0.5rem;
+}
+
+main ul:not(.link-list) > li::before {
+    content: "⬡";
+    margin-right: 0.5rem;
+}
+
+main ul:not(.link-list) ul > li::before {
+    content: "⬦";
+    margin-right: 0.5rem;
+}
+
+.link-list {
+    list-style: none;
+    margin: 0.25rem 0 0 0;
+    padding-left: 0;
+}
+
+.link-list li {
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--border-list);
 }
 
-main ul li a {
+.link-list li a {
     color: var(--text-primary);
     text-decoration: none;
     font-weight: bold;
     transition: color 0.15s ease;
 }
 
-main ul li a:hover {
+.link-list li a:hover {
     color: var(--text-list-hover);
 }
 
@@ -358,7 +386,7 @@ main table tr:nth-child(even) {
     background-color: var(--bg-sidebar);
 }
 
-main ul li .article-date {
+.link-list li .article-date {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 0.25rem;

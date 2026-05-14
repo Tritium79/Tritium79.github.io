@@ -13,11 +13,45 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 import markdown
+from markdown.treeprocessors import Treeprocessor
+from markdown.extensions import Extension
 
 from config import ROOT_DIR, ARCHETYPE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
 from utils import slugify, make_folder_name, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
 from data_loader import get_nav as get_nav_data, get_footer as get_footer_data, get_settings
+
+
+# ── 自定义 Markdown 扩展：保留行首缩进 ───────────────────
+
+_BLOCK_TAGS = frozenset({'p', 'li', 'blockquote', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'td', 'th'})
+_SKIP_TAGS = frozenset({'pre', 'code', 'kbd', 'samp'})
+
+
+class _PreserveIndentTreeprocessor(Treeprocessor):
+    def run(self, root):
+        self._walk(root)
+
+    def _walk(self, elem):
+        if elem.tag in _SKIP_TAGS:
+            return
+        if elem.tag in _BLOCK_TAGS and elem.text:
+            elem.text = self._nbsp_leading(elem.text)
+        for child in elem:
+            if child.tag not in _SKIP_TAGS and child.tail:
+                child.tail = self._nbsp_leading(child.tail)
+            self._walk(child)
+
+    @staticmethod
+    def _nbsp_leading(text):
+        text = re.sub(r'(?<=\n) +', lambda m: '\u00A0' * len(m.group()), text)
+        text = re.sub(r'^ +', lambda m: '\u00A0' * len(m.group()), text)
+        return text
+
+
+class _PreserveIndentExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(_PreserveIndentTreeprocessor(md), 'preserve_indent', 15)
 
 
 # ── 文本转换 ─────────────────────────────────────────────
@@ -36,7 +70,7 @@ def process_links(html):
 def render_markdown(text):
     text = process_obsidian_links(text)
     extensions = get_settings('markdown_extensions', ['extra', 'codehilite', 'nl2br'])
-    return markdown.markdown(text, extensions=extensions)
+    return markdown.markdown(text, extensions=extensions + [_PreserveIndentExtension()])
 
 
 # ── 图片处理 ─────────────────────────────────────────────

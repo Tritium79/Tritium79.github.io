@@ -73,6 +73,7 @@ Tritium79.github.io/
 │   ├── categories.json         # 章节定义：名称、路径、汇总页
 │   └── settings.json           # 构建设置：Markdown 扩展、日期格式、文件管理器等
 │
+├── README_Simplified.md        # 快速上手指南
 ├── .gitignore                  # Git 忽略规则
 ├── README.md                   # 目录结构与命名规范
 └── AGENTS.md                   # AI 辅助审查指令
@@ -171,7 +172,12 @@ Tritium79.github.io/
     "footer": "&copy; 2026 <a href=\"...\">Tritium79</a>. All rights reserved.",
     "nav": [
         {"href": "index.html", "cn": "首页", "la": "Domus"},
-        {"href": "pages/sylvae.html", "cn": "随笔", "la": "Sylvae"}
+        {"href": "pages/sylvae.html", "cn": "随笔", "la": "Sylvae"},
+        {"href": "pages/commentarii.html", "cn": "记录", "la": "Commentarii"},
+        {"href": "pages/interpretationes.html", "cn": "译文", "la": "Interpretationes"},
+        {"href": "pages/tabularium.html", "cn": "存档", "la": "Tabularium"},
+        {"href": "pages/amici.html", "cn": "友链", "la": "Amici"},
+        {"href": "pages/deme.html", "cn": "关于", "la": "De Me"}
     ]
 }
 ```
@@ -215,9 +221,9 @@ Tritium79.github.io/
        <h2>中文名</h2>
        <p>描述...</p>
        <hr />
-       <ul class="link-list">
-           <!-- build.py 会自动在此处追加文章条目 -->
-       </ul>
+        <ol class="link-list">
+            <!-- build.py 会自动在此处追加文章条目 -->
+        </ol>
    </main>
    ```
 

@@ -183,7 +183,7 @@ def delete_article():
                 end += 1
             del lines[start:end]
             new_content = ''.join(lines)
-            new_content = re.sub(r'\n\s*\n\s*<ul>', '\n<ul>', new_content)
+            new_content = re.sub(r'\n\s*\n\s*<[uo]l[^>]*>', '\n<ol class="link-list">', new_content)
             page_path.write_text(new_content, encoding='utf-8')
             print(f'  已从页面移除: pages/{cat_key}.html')
         else:
@@ -222,12 +222,14 @@ def add_entry_to_page(page_path, title, date, category, folder):
             page_path.write_text(content, encoding='utf-8')
             return True
 
-    if '<ul>' in content:
+    if '<ol class="link-list">' in content:
+        content = content.replace('<ol class="link-list">\n', '<ol class="link-list">\n' + entry + '\n', 1)
+    elif '<ul>' in content:
         content = content.replace('<ul>\n', '<ul>\n' + entry + '\n', 1)
     else:
         content = content.replace(
             '\n        </main>',
-            '\n            <hr />\n            <ul>\n' + entry + '\n            </ul>\n        </main>',
+            '\n            <hr />\n            <ol class="link-list">\n' + entry + '\n            </ol>\n        </main>',
         )
 
     page_path.write_text(content, encoding='utf-8')
@@ -311,7 +313,7 @@ def _remove_entry_from_page(cat_key, folder):
         end += 1
     del lines[start:end]
     new_content = ''.join(lines)
-    new_content = re.sub(r'\n\s*\n\s*<ul>', '\n<ul>', new_content)
+    new_content = re.sub(r'\n\s*\n\s*<[uo]l[^>]*>', '\n<ol class="link-list">', new_content)
     page_path.write_text(new_content, encoding='utf-8')
 
 
@@ -565,7 +567,7 @@ def delete_article_direct(category, folder, yes=False):
                 end += 1
             del lines[start:end]
             new_content = ''.join(lines)
-            new_content = re.sub(r'\n\s*\n\s*<ul>', '\n<ul>', new_content)
+            new_content = re.sub(r'\n\s*\n\s*<[uo]l[^>]*>', '\n<ol class="link-list">', new_content)
             page_path.write_text(new_content, encoding='utf-8')
             print(f'  已从页面移除: pages/{category}.html')
 

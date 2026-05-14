@@ -1,13 +1,13 @@
 日常摄影，随手所得，时间地点不一。
 
-![GreenLeaves-HDR.png](GreenLeaves-HDR.png)
+![GreenLeaves-RAW.png](GreenLeaves-RAW.png)
 
-![PinkFlowers-HDR.png](PinkFlowers-HDR.png)
+![PinkFlowers-RAW.png](PinkFlowers-RAW.png)
 
-![RedFlowers-HDR.png](RedFlowers-HDR.png)
+![RedFlowers-RAW.png](RedFlowers-RAW.png)
 
-![Rice-HDR.png](Rice-HDR.png)
+![Rice-RAW.png](Rice-RAW.png)
 
-![Mushrooms-HDR.png](Mushrooms-HDR.png)
+![Mushrooms-RAW.png](Mushrooms-RAW.png)
 
-![OrangeCat-HDR.png](OrangeCat-HDR.png)
+![OrangeCat-RAW.png](OrangeCat-RAW.png)

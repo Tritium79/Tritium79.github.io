@@ -1,0 +1,51 @@
+系统环境：macOS Tahoe 26.4
+
+- 记录
+	- Apple备忘录
+	- Obsidian & Obsidian Web Clipper
+	- GoodLinks
+- 阅读
+	- MarginNote 4
+	- Reeden
+	- NetNewsWire
+- 编辑器
+	- Visual Studio Code
+	- CotEditor
+	- Zed
+	- CodeEdit
+	- MarkEdit
+	- 妙言
+	- Helix
+	- AstroNvim
+- 日程/打卡
+	- Apple提醒事项
+- 浏览器
+	- Safari
+	- Chrome
+	- Edge
+	- Waterfox
+- 音乐
+	- Apple Music
+	- Bandcamp
+	- SoundCloud
+	- 网易云音乐
+- 项目
+	- DaVinci Resolve
+	- Logic Pro
+	- Archetype Misha Mansoor X
+	- Guitar Pro 8
+- 图片
+	- Pixelmator Pro
+	- Photomator
+	- Pixcall
+- 动漫
+	- Kazumi
+	- Mangayomi
+- Unix
+	- WezTerm
+	- OrbStack
+- AI
+	- kelivo
+	- OpenCode
+	- DeepSeek
+	- Gemini
