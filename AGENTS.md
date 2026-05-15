@@ -71,10 +71,7 @@
 
 | 操作 | 命令 |
 |------|------|
-| 改导航/页脚 | 编辑 `data/config.json` → `python build.py --build-all` |
-| 改首页签名 | 编辑 `data/index.json` → `python build.py --build-all` |
-| 改关于页内容 | 编辑 `data/deme.json` → `python build.py --build-all` |
-| 改友链 | 编辑 `data/amici.json` → `python build.py --build-all` |
+| 改导航/页脚/站点标题 | 编辑 `data/config.json` → `python build.py --build-all` |
 | 发布文章 | `python build.py -f article.md -c sylvae -y` |
 | 列出文章 | `python build.py --list-cat sylvae` |
 | 删除文章 | `python build.py --delete-by sylvae Slug-Name -y` |
@@ -85,7 +82,7 @@
 
 ### 执行策略
 
-1. **遇到全站修改需求**（改 footer、nav、站点标题等）：编辑 `data/` 下对应 JSON 文件，调用 `python build.py --build-all`
+1. **遇到全站修改需求**（改 footer、nav、站点标题等）：编辑 `data/config.json`，调用 `python build.py --build-all`
 2. **遇到文章管理需求**（发/删/改文章）：直接调用 `python build.py` 的 CLI 命令
 3. **只有构建脚本不支持的场景**（如修改 CSS 样式、修改模板结构、新增分类等），才考虑直接编辑 HTML/Python 文件
 4. 所有 `build.py` 命令必须通过 `bash build/build.sh` 或 `python build.py` 在项目根目录执行

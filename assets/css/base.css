@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    background-color: var(--bg-primary);
+}
+
+body {
+    min-height: 100vh;
+    font-family:
+        "LXGW Bright",
+        -apple-system,
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
+        sans-serif;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    main {
+        animation: fade-in 0.45s ease-out 0.04s both;
+    }
+
+    main h2, main h3, main h4, main h5, main h6 {
+        animation: fade-in 0.45s ease-out 0.08s both;
+    }
+
+    main p, main ul, main table, main ol, main pre, main blockquote {
+        animation: fade-in 0.45s ease-out 0.16s both;
+    }
+
+    footer {
+        animation: fade-in 0.45s ease-out 0.24s both;
+    }
+}

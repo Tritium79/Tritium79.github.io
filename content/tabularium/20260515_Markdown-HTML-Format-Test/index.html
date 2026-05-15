@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Markdown & HTML格式测试 | Tritium79's Blog</title>
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
+                });
+            });
+        </script>
+
+        <style>
+        .katex-display { overflow: visible !important; }
+        .katex-display > .katex { overflow: visible !important; }
+        .katex { overflow: visible !important; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-bar">
+                <a href="../../../pages/deme.html"
+                    ><img src="../../../assets/images/avatar.png" alt="avatar"
+                /></a>
+                <a href="../../../index.html"><h1>Tritium79's Blog</h1></a>
+                <span class="current-section">存档</span>
+                <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+            <nav>
+                <a href="../../../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../../../pages/sylvae.html"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Sylvae</span></a>
+                <a href="../../../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../../../pages/interpretationes.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Interpretationes</span></a>
+                <a href="../../../pages/tabularium.html" class="nav-current"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Tabularium</span></a>
+                <a href="../../../pages/amici.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Amici</span></a>
+                <a href="../../../pages/deme.html"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
+            </nav>
+        </header>
+        <main>
+                        <h2 class="article-title">Markdown & HTML格式测试</h2>
+            <p class="post-date">15 May. 2026 / 丙午年 癸巳月 己丑日</p>
+<h3>标题层级测试</h3>
+<h1>一级标题</h1>
+<h2>二级标题</h2>
+<h3>三级标题</h3>
+<h4>四级标题</h4>
+<h5>五级标题</h5>
+<h6>六级标题</h6>
+<hr />
+<h3>文字样式测试</h3>
+<p>这是普通的文字，接下来是各种样式：</p>
+<p><em>这是斜体文字</em> 和 <em>这也是斜体文字</em></p>
+<p><strong>这是粗体文字</strong> 和 <strong>这也是粗体文字</strong></p>
+<p><strong><em>这是粗体加斜体文字</em></strong></p>
+<p><del>这是被删除的文字</del></p>
+<p><mark>这是高亮显示的文字</mark></p>
+<hr />
+<h3>列表测试</h3>
+<h4>无序列表</h4>
+<p>星号*</p>
+<ul>
+<li>前端技术<ul>
+<li><abbr title="超文本标记语言">HTML</abbr></li>
+<li><abbr title="层叠样式表">CSS</abbr></li>
+<li>JavaScript</li>
+</ul>
+</li>
+<li>后端技术<ul>
+<li>Python</li>
+<li>Node.js</li>
+</ul>
+</li>
+</ul>
+<p>短横线-</p>
+<ul>
+<li>水果<ul>
+<li>苹果</li>
+<li>香蕉</li>
+</ul>
+</li>
+<li>蔬菜<ul>
+<li>白菜</li>
+<li>萝卜</li>
+</ul>
+</li>
+</ul>
+<h4>有序列表</h4>
+<ol>
+<li>第一步：打开编辑器</li>
+<li>第二步：编写代码</li>
+<li>第三步：保存文件<ol start="4">
+<li>选择保存位置</li>
+<li>输入文件名</li>
+<li>点击保存按钮</li>
+</ol>
+</li>
+</ol>
+<hr />
+<h3>链接测试</h3>
+<p>直接显示链接：https://www.example.com</p>
+<p><a href="https://github.com" target="_blank">带标题的链接 - 点击访问 GitHub</a></p>
+<h4>引用式链接</h4>
+<p><a href="https://developer.mozilla.org/zh-CN/" target="_blank">点击这里查看参考文档</a></p>
+<p><a href="https://www.example.com" target="_blank">更多信息请访问官网</a></p>
+<hr />
+<h3>图片测试</h3>
+<p><img alt="示例图片 - HDR" src="HDR-Test.png" /><br />
+<img alt="示例图片 - SDR" src="SDR-Test.png" /></p>
+<hr />
+<h3>代码测试</h3>
+<h4>行内代码</h4>
+<p>在文本中插入 <code>行内代码</code> 的示例，例如使用 <code>console.log()</code> 输出内容。</p>
+<h4>无语法高亮的代码块</h4>
+<div class="codehilite"><pre><span></span><code>这是一段普通的代码块。
+没有语法高亮。
+</code></pre></div>
+
+<h4>带语法高亮的代码块</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;问候函数&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;你好，</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">！&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># 调用函数</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;世界&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// JavaScript 示例</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">5</span><span class="p">];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">doubled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">numbers</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doubled</span><span class="p">);</span><span class="w"> </span><span class="c1">// [2, 4, 6, 8, 10]</span>
+</code></pre></div>
+
+<hr />
+<h3>表格测试</h3>
+<h4>基本表格</h4>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>年龄</th>
+<th>职业</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张三</td>
+<td>28</td>
+<td>工程师</td>
+</tr>
+<tr>
+<td>李四</td>
+<td>32</td>
+<td>设计师</td>
+</tr>
+<tr>
+<td>王五</td>
+<td>25</td>
+<td>产品经理</td>
+</tr>
+</tbody>
+</table>
+<h4>对齐表格</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">左对齐</th>
+<th style="text-align: center;">居中对齐</th>
+<th style="text-align: right;">右对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">姓名</td>
+<td style="text-align: center;">状态</td>
+<td style="text-align: right;">分数</td>
+</tr>
+<tr>
+<td style="text-align: left;">小明</td>
+<td style="text-align: center;">通过</td>
+<td style="text-align: right;">95</td>
+</tr>
+<tr>
+<td style="text-align: left;">小红</td>
+<td style="text-align: center;">通过</td>
+<td style="text-align: right;">88</td>
+</tr>
+<tr>
+<td style="text-align: left;">小刚</td>
+<td style="text-align: center;">未通过</td>
+<td style="text-align: right;">45</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>水平分割线</h3>
+<p>使用短横线：</p>
+<hr />
+<p>使用星号：</p>
+<hr />
+<p>使用下划线：</p>
+<hr />
+<hr />
+<h3>引用块测试</h3>
+<blockquote>
+<p>这是一段引用文字。</p>
+<p>引用可以包含多行内容。</p>
+<blockquote>
+<p>这是嵌套引用块，用于引用中的引用。</p>
+<blockquote>
+<p>这是三级嵌套引用，层级更深。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr />
+<h3>内联 <abbr title="超文本标记语言">HTML</abbr> 测试</h3>
+<p><span style="color:red">这段文字显示为红色。</span></p>
+<div align="center">这段文字居中显示。</div>
+
+<h4>折叠内容</h4>
+<details>
+<summary>点击展开查看详情</summary>
+
+这里是被折叠的详细内容：
+
+- 包含列表项
+- **加粗文字**
+- *斜体文字*
+- 等等...
+
+</details>
+
+<h4>键盘按键</h4>
+<p><kbd>Ctrl</kbd> + <kbd>C</kbd> 复制内容</p>
+<p><kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴内容</p>
+<p><kbd>Ctrl</kbd> + <kbd>Z</kbd> 撤销操作</p>
+<p><kbd>Alt</kbd> + <kbd>Tab</kbd> 切换窗口</p>
+<h4>水平布局（Flexbox）</h4>
+<div style="display: flex; gap: 10px;">
+<div style="flex: 1; padding: 10px; background: #f0f0f0;">
+
+**左列内容**
+
+- 项目 A
+- 项目 B
+- 项目 C
+
+</div>
+<div style="flex: 1; padding: 10px; background: #e0e0e0;">
+
+**右列内容**
+
+1. 步骤一
+2. 步骤二
+3. 步骤三
+
+</div>
+</div>
+
+<hr />
+<h3>转义字符测试</h3>
+<p>*这段文字不是斜体*</p>
+<p># 这不是标题</p>
+<p>\<sub>\</sub>这不是删除线\<sub>\</sub></p>
+<hr />
+<h3>任务列表测试</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox" />完成项目需求分析</li>
+<li><input checked="" disabled="" type="checkbox" />编写代码实现</li>
+<li><input disabled="" type="checkbox" />进行单元测试</li>
+<li><input disabled="" type="checkbox" />部署到生产环境</li>
+<li><input disabled="" type="checkbox" />编写使用文档</li>
+</ul>
+<hr />
+<h3>脚注测试</h3>
+<p>这里有一个需要注释的句子。<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>这是另一个需要详细说明的地方。<sup id="fnref:note"><a class="footnote-ref" href="#fn:note">2</a></sup></p>
+<hr />
+<h3>定义列表测试</h3>
+<dl>
+<dt><abbr title="超文本标记语言">HTML</abbr></dt>
+<dd>超文本标记语言，用于构建网页结构。</dd>
+<dt><abbr title="层叠样式表">CSS</abbr></dt>
+<dd>层叠样式表，用于控制网页的样式和布局。</dd>
+<dt>JavaScript</dt>
+<dd>一种脚本语言，用于实现网页的交互功能。</dd>
+</dl>
+<hr />
+<h3>自动 URL 链接测试</h3>
+<p>直接输入网址即可自动识别：</p>
+<p>https://www.google.com</p>
+<p>https://www.wikipedia.org</p>
+<hr />
+<h3>表情符号测试</h3>
+<p>使用代码方式：:smile: :+1: :rocket: :book:</p>
+<p>使用 Unicode 方式：😊 ❤️ 👍 🚀 📚 ⭐ 🌟 🎉 ✅ ❌</p>
+<hr />
+<h3>数学公式测试</h3>
+<h4>行内公式</h4>
+<p>爱因斯坦的质能方程：$E = mc^2$</p>
+<p>勾股定理：$a^2 + b^2 = c^2$</p>
+<h4>块级公式</h4>
+<p>$$
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+$$</p>
+<p>$$
+\int_{a}^{b} f(x) \, dx = F(b) - F(a)
+$$</p>
+<p>$$
+\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$</p>
+<hr />
+<h3>缩写测试</h3>
+<p>本文档介绍了 <abbr title="超文本标记语言">HTML</abbr>、<abbr title="层叠样式表">CSS</abbr> 和 <abbr title="JavaScript">JS</abbr> 的基本概念，以及如何使用 <abbr title="应用程序编程接口">API</abbr> 进行开发。</p>
+<hr />
+<h3>警告与标注框测试</h3>
+<div class="callout callout-note"><div class="callout-content">
+请注意：本文档仅供学习和测试使用。
+</div></div>
+<div class="callout callout-tip"><div class="callout-content">
+小贴士：多动手实践可以更快掌握 Markdown 语法。
+</div></div>
+<div class="callout callout-important"><div class="callout-content">
+重要提示：请确保在安全的环境中测试代码。
+</div></div>
+<div class="callout callout-warning"><div class="callout-content">
+警告：请勿在生产环境中直接使用测试代码。
+</div></div>
+<div class="callout callout-caution"><div class="callout-content">
+谨慎：某些语法可能不被所有编辑器支持。
+</div></div>
+<h4>标注框</h4>
+<div class="callout callout-abstract"><div class="callout-title">摘要</div><div class="callout-content">
+本文档涵盖了 Markdown 的绝大部分语法特性，包括基础语法和高级扩展功能。
+</div></div>
+<div class="callout callout-info"><div class="callout-title">信息</div><div class="callout-content">
+Markdown 是一种轻量级标记语言，由 John Gruber 于 2004 年创建。
+</div></div>
+<div class="callout callout-success"><div class="callout-title">完成</div><div class="callout-content">
+恭喜！你已经完成了所有语法测试。
+</div></div>
+<div class="callout callout-question"><div class="callout-title">疑问</div><div class="callout-content">
+某些高级语法需要特定编辑器或渲染器支持。
+</div></div>
+<div class="callout callout-failure"><div class="callout-title">失败</div><div class="callout-content">
+如果某些语法未正常显示，可能是编辑器不支持。
+</div></div>
+<div class="callout callout-danger"><div class="callout-title">危险</div><div class="callout-content">
+请勿在未备份的情况下修改重要文档。
+</div></div>
+<div class="callout callout-bug"><div class="callout-title">Bug</div><div class="callout-content">
+部分渲染器可能对嵌套语法支持不完善。
+</div></div>
+<div class="callout callout-example"><div class="callout-title">示例</div><div class="callout-content">
+这是一个示例标注框，用于展示代码或案例。
+</div></div>
+<div class="callout callout-quote"><div class="callout-title">引用</div><div class="callout-content">
+"Markdown 让写作更专注于内容本身。"
+</div></div>
+<hr />
+<h3>标签测试</h3>
+<h1>Markdown #语法测试 #文档编写 #前端开发 #技术写作</h1>
+<hr />
+<h3><abbr title="超文本标记语言">HTML</abbr> 支持测试</h3>
+<p>大多数 Markdown 编辑器支持内联 <abbr title="超文本标记语言">HTML</abbr>，允许嵌入更复杂的元素。</p>
+<h4>自定义样式段落</h4>
+<p style="font-size: 18px; color: #2c3e50; border-left: 4px solid #3498db; padding-left: 12px;">
+这段文字使用了内联样式，字体更大，带有蓝色左边框。
+</p>
+
+<h4>嵌入媒体</h4>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+
+<hr />
+<h3>上标与下标测试</h3>
+<p>这是上标示例：X<sup>2</sup> + Y<sup>2</sup> = Z<sup>2</sup></p>
+<p>这是下标示例：H<sub>2</sub>O（水）和 CO<sub>2</sub>（二氧化碳）</p>
+<p>化学方程式：C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub> → 6CO<sub>2</sub> + 6H<sub>2</sub>O</p>
+<hr />
+<h3>注释测试</h3>
+<!-- 这是一条 HTML 注释，在渲染后的文档中不会显示 -->
+
+<!-- 
+多行注释：
+可以在这里添加备注信息，
+或者临时禁用某些内容。
+-->
+
+<hr />
+<h3>综合测试区域</h3>
+<h4>混合嵌套示例</h4>
+<blockquote>
+<p><strong>任务清单</strong> - 项目进度</p>
+<ul>
+<li><strong>阶段一</strong>：需求分析 <em>（已完成）</em><input checked="" disabled="" type="checkbox" /></li>
+<li><strong>阶段二</strong>：原型设计 <mark>（已评审通过）</mark><input checked="" disabled="" type="checkbox" /></li>
+<li><strong>阶段三</strong>：<mark>开发实现</mark><ul>
+<li><input checked="" disabled="" type="checkbox" />前端页面开发</li>
+<li><input disabled="" type="checkbox" />后端接口开发</li>
+<li><input disabled="" type="checkbox" />数据库设计</li>
+</ul>
+<input disabled="" type="checkbox" /></li>
+</ul>
+<blockquote>
+</blockquote>
+<div class="callout callout-tip"><div class="callout-content">
+建议使用 <code>git</code> 进行版本控制，方便团队协作。
+</div></div>
+</blockquote>
+<h4>复杂表格示例</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">功能模块</th>
+<th style="text-align: center;">负责人</th>
+<th style="text-align: center;">进度</th>
+<th style="text-align: center;">优先级</th>
+<th style="text-align: center;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">用户登录</td>
+<td style="text-align: center;">张三</td>
+<td style="text-align: center;">100%</td>
+<td style="text-align: center;">🔴 高</td>
+<td style="text-align: center;">已完成</td>
+</tr>
+<tr>
+<td style="text-align: left;">数据展示</td>
+<td style="text-align: center;">李四</td>
+<td style="text-align: center;">75%</td>
+<td style="text-align: center;">🟡 中</td>
+<td style="text-align: center;">进行中</td>
+</tr>
+<tr>
+<td style="text-align: left;">报表导出</td>
+<td style="text-align: center;">王五</td>
+<td style="text-align: center;">30%</td>
+<td style="text-align: center;">🟢 低</td>
+<td style="text-align: center;">开发中</td>
+</tr>
+<tr>
+<td style="text-align: left;">消息通知</td>
+<td style="text-align: center;">赵六</td>
+<td style="text-align: center;">0%</td>
+<td style="text-align: center;">🟢 低</td>
+<td style="text-align: center;">未开始</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>本文档由 Markdown 编写，用于测试各种语法格式的显示效果。</em> 😊</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>这是脚注的具体内容，用于补充说明。&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:note">
+<p>这是命名脚注的内容，可以包含<strong>格式化</strong>文本，比如加粗或<em>斜体</em>。&#160;<a class="footnote-backref" href="#fnref:note" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+        </main>
+        <footer>
+            <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

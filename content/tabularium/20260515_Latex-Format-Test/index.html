@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LaTex格式测试 | Tritium79's Blog</title>
+        <link rel="stylesheet" href="../../../style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
+                });
+            });
+        </script>
+
+        <style>
+        .katex-display { overflow: visible !important; }
+        .katex-display > .katex { overflow: visible !important; }
+        .katex { overflow: visible !important; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-bar">
+                <a href="../../../pages/deme.html"
+                    ><img src="../../../assets/images/avatar.png" alt="avatar"
+                /></a>
+                <a href="../../../index.html"><h1>Tritium79's Blog</h1></a>
+                <span class="current-section">存档</span>
+                <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+            <nav>
+                <a href="../../../index.html"><span class="nav-cn">首页</span><span class="sep">/</span><span class="nav-la">Domus</span></a>
+                <a href="../../../pages/sylvae.html"><span class="nav-cn">随笔</span><span class="sep">/</span><span class="nav-la">Sylvae</span></a>
+                <a href="../../../pages/commentarii.html"><span class="nav-cn">记录</span><span class="sep">/</span><span class="nav-la">Commentarii</span></a>
+                <a href="../../../pages/interpretationes.html"><span class="nav-cn">译文</span><span class="sep">/</span><span class="nav-la">Interpretationes</span></a>
+                <a href="../../../pages/tabularium.html" class="nav-current"><span class="nav-cn">存档</span><span class="sep">/</span><span class="nav-la">Tabularium</span></a>
+                <a href="../../../pages/amici.html"><span class="nav-cn">友链</span><span class="sep">/</span><span class="nav-la">Amici</span></a>
+                <a href="../../../pages/deme.html"><span class="nav-cn">关于</span><span class="sep">/</span><span class="nav-la">De Me</span></a>
+            </nav>
+        </header>
+        <main>
+            <h2 class="article-title">LaTex格式测试</h2>
+            <p class="post-date">15 May. 2026 / 丙午年 癸巳月 己丑日</p>
+<h2>1. 字体样式</h2>
+<p>$$
+\mathbf{粗体数学} \quad \mathit{斜体数学} \quad \mathrm{罗马体} \quad \mathsf{无衬线体} \quad \mathtt{打字机体}
+$$</p>
+<p>$$
+\mathcal{CALLIGRAPHIC} \quad \mathbb{BLACKBOARD} \quad \mathfrak{Fraktur}
+$$</p>
+<p>$$
+\text{普通文本} \quad \textbf{粗体文本} \quad \textit{斜体文本} \quad \underline{下划线} \quad \overline{上划线}
+$$</p>
+<hr />
+<h2>2. 字号大小</h2>
+<p>$$
+{\tiny tiny} \;
+{\scriptsize scriptsize} \;
+{\footnotesize footnotesize} \;
+{\small small} \;
+{\normalsize normalsize} \;
+{\large large} \;
+{\Large Large} \;
+{\LARGE LARGE} \;
+{\huge huge} \;
+{\Huge Huge}
+$$</p>
+<hr />
+<h2>3. 颜色（需 \color 命令）</h2>
+<p>$$
+\color{red}{红色} \;
+\color{blue}{蓝色} \;
+\color{green}{绿色} \;
+\color{orange}{橙色} \;
+\color{purple}{紫色} \;
+\color{gray}{灰色}
+$$</p>
+<p>$$
+\colorbox{yellow}{黄色背景} \quad
+\colorbox{cyan}{青色背景} \quad
+\colorbox{magenta}{品红背景}
+$$</p>
+<hr />
+<h2>4. 空格与间距</h2>
+<p>$$
+a \quad b \qquad c \;
+d \: e \, f \! g \hspace{1cm} h
+$$</p>
+<hr />
+<h2>5. 上下标与堆叠</h2>
+<p>$$
+x^{2} \quad x^{abc} \quad x_{1} \quad x_{ij}^{kl}
+$$</p>
+<p>$$
+\overset{上方}{=} \quad \underset{下方}{=} \quad \overset{上方}{\underset{下方}{=}}
+$$</p>
+<p>$$
+\stackrel{\text{def}}{=} \quad \xrightarrow{\text{映射}} \quad \xleftarrow{\text{反向}}
+$$</p>
+<hr />
+<h2>6. 分式与根式</h2>
+<p>$$
+\frac{a}{b} \quad \frac{1}{1+\frac{1}{x}} \quad \tfrac{小分数}{小分母}
+$$</p>
+<p>$$
+\sqrt{x} \quad \sqrt[3]{x} \quad \sqrt{\frac{a}{b}} \quad \sqrt[4]{\frac{x}{y}}
+$$</p>
+<hr />
+<h2>7. 括号与定界符</h2>
+<p>$$
+( \quad ) \quad [ \quad ] \quad \{ \quad \} \quad \langle \quad \rangle \quad \lceil \quad \rceil \quad \lfloor \quad \rfloor
+$$</p>
+<p>$$
+\left( \frac{a}{b} \right) \quad
+\left[ \frac{a}{b} \right] \quad
+\left\{ \frac{a}{b} \right\} \quad
+\left\langle \frac{a}{b} \right\rangle
+$$</p>
+<p>$$
+\left. \frac{df}{dx} \right|_{x=0} \quad
+\underbrace{a + b + c}_{\text{下方注释}} \quad
+\overbrace{a + b + c}^{\text{上方注释}}
+$$</p>
+<hr />
+<h2>8. 希腊字母</h2>
+<p>$$
+\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \vartheta \iota \kappa \lambda \mu \nu \xi o \pi \varpi \rho \varrho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega
+$$</p>
+<p>$$
+\Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega
+$$</p>
+<hr />
+<h2>9. 常用符号</h2>
+<p>$$
+\pm \quad \mp \quad \times \quad \div \quad \cdot \quad \circ \quad \bullet \quad \ast \quad \star
+$$</p>
+<p>$$
+\leq \quad \geq \quad \neq \quad \approx \quad \equiv \quad \sim \quad \simeq \quad \propto \quad \ll \quad \gg
+$$</p>
+<p>$$
+\subset \quad \supset \quad \subseteq \quad \supseteq \quad \in \quad \notin \quad \ni \quad \emptyset \quad \varnothing
+$$</p>
+<p>$$
+\forall \quad \exists \quad \nexists \quad \neg \quad \land \quad \lor \quad \implies \quad \iff \quad \top \quad \bot
+$$</p>
+<p>$$
+\infty \quad \partial \quad \nabla \quad \Delta \quad \hbar \quad \ell \quad \wp \quad \Re \quad \Im \quad \aleph
+$$</p>
+<hr />
+<h2>10. 箭头</h2>
+<p>$$
+\leftarrow \quad \rightarrow \quad \leftrightarrow \quad \longleftarrow \quad \longrightarrow \quad \longleftrightarrow
+$$</p>
+<p>$$
+\Leftarrow \quad \Rightarrow \quad \Leftrightarrow \quad \Longleftarrow \quad \Longrightarrow \quad \Longleftrightarrow
+$$</p>
+<p>$$
+\uparrow \quad \downarrow \quad \updownarrow \quad \Uparrow \quad \Downarrow \quad \Updownarrow
+$$</p>
+<p>$$
+\nearrow \quad \searrow \quad \swarrow \quad \nwarrow \quad \mapsto \quad \longmapsto \quad \rightleftharpoons
+$$</p>
+<hr />
+<h2>11. 大型运算符</h2>
+<p>$$
+\sum_{i=1}^{n} i^2 \qquad \prod_{k=1}^{n} k \qquad \coprod_{i \in I} X_i
+$$</p>
+<p>$$
+\int_{a}^{b} f(x) \, dx \qquad \iint_D f(x,y) \, dx\,dy \qquad \iiint_V f(x,y,z) \, dx\,dy\,dz
+$$</p>
+<p>$$
+\oint_C \vec{F} \cdot d\vec{r} \qquad \bigcap_{i=1}^{n} A_i \qquad \bigcup_{i=1}^{n} A_i \qquad \bigvee \bigwedge
+$$</p>
+<hr />
+<h2>12. 矩阵与行列式</h2>
+<p>$$
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{pmatrix}
+$$</p>
+<p>$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+\quad
+\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix}
+\quad
+\begin{Vmatrix}
+a & b \\
+c & d
+\end{Vmatrix}
+$$</p>
+<p>$$
+\begin{Bmatrix}
+x \\ y
+\end{Bmatrix}
+\quad
+\begin{smallmatrix}
+a & b \\
+c & d
+\end{smallmatrix}
+$$</p>
+<hr />
+<h2>13. 多行公式对齐</h2>
+<p>$$
+\begin{aligned}
+f(x) &= (a + b)^2 \\
+     &= a^2 + 2ab + b^2
+\end{aligned}
+$$</p>
+<p>$$
+\begin{cases}
+x + y = 5 \\
+2x - 3y = -4
+\end{cases}
+$$</p>
+<p>$$
+\begin{array}{c|c}
+\text{列1} & \text{列2} \\
+\hline
+a & b \\
+c & d
+\end{array}
+$$</p>
+<hr />
+<h2>14. 特殊装饰</h2>
+<p>$$
+\hat{a} \quad \widehat{abc} \quad \bar{x} \quad \overline{xyz} \quad \vec{v} \quad \overrightarrow{AB} \quad \overleftarrow{BA}
+$$</p>
+<p>$$
+\dot{x} \quad \ddot{x} \quad \dddot{x} \quad \tilde{x} \quad \widetilde{xyz}
+$$</p>
+<p>$$
+\acute{a} \quad \grave{a} \quad \breve{a} \quad \check{a} \quad \mathring{a}
+$$</p>
+<hr />
+<h2>15. 框与注释</h2>
+<p>$$
+\boxed{E = mc^2} \quad \fbox{文本} \quad \xcancel{删除} \quad \cancel{取消}
+$$</p>
+<p>$$
+\underbrace{a + b + c}_{\text{和}} \qquad \overbrace{a \cdot b \cdot c}^{\text{积}}
+$$</p>
+<hr />
+<h2>16. 定理类环境（用 amsthm 模拟）</h2>
+<p>$$
+\textbf{定理 1.} \quad \text{设 } a, b \in \mathbb{R}, \text{ 则 } (a+b)^2 = a^2 + 2ab + b^2.
+$$</p>
+<p>$$
+\textit{证明：} \quad \text{展开即可得证。} \quad \blacksquare
+$$</p>
+<hr />
+<h2>17. 化学式（用 mhchem 模拟）</h2>
+<p>$$
+\ce{H2O} \quad \ce{CO2} \quad \ce{^{235}_{92}U} \quad \ce{CH3COOH}
+$$</p>
+<p>$$
+\ce{A ->[催化剂] B} \quad \ce{A <=> B} \quad \ce{A + B -> C}
+$$</p>
+<hr />
+<h2>18. 综合复杂示例</h2>
+<p>$$
+\boxed{
+\begin{aligned}
+\mathcal{F}(\xi) &= \int_{-\infty}^{\infty} f(x) \, e^{-2\pi i x \xi} \, dx \\
+\widehat{f}(\omega) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(t) \, e^{-i\omega t} \, dt
+\end{aligned}
+}
+$$</p>
+<p>$$
+\begin{vmatrix}
+\color{red}{\lambda - a_{11}} & -a_{12} & \cdots & -a_{1n} \\
+-a_{21} & \color{blue}{\lambda - a_{22}} & \cdots & -a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+-a_{n1} & -a_{n2} & \cdots & \color{green}{\lambda - a_{nn}}
+\end{vmatrix}
+= 0
+$$</p>
+        </main>
+        <footer>
+            <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

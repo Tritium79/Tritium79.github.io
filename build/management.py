@@ -57,7 +57,7 @@ def list_articles(show_all=True):
         for folder in sorted(cat_dir.iterdir()):
             if folder.is_dir() and (folder / 'index.html').exists():
                 html = (folder / 'index.html').read_text(encoding='utf-8')
-                title_match = re.search(r'<h2>([^<]+)</h2>', html)
+                title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
                 title = title_match.group(1) if title_match else folder.name
                 articles.append({'title': title, 'folder': folder.name})
 
@@ -119,7 +119,7 @@ def delete_article():
             for folder in sorted(cat_dir.iterdir()):
                 if folder.is_dir() and (folder / 'index.html').exists():
                     html = (folder / 'index.html').read_text(encoding='utf-8')
-                    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+                    title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
                     title = title_match.group(1) if title_match else folder.name
                     articles.append({'title': title, 'folder': folder.name})
 
@@ -502,7 +502,7 @@ def list_articles_direct(category_key):
     for folder in sorted(cat_dir.iterdir()):
         if folder.is_dir() and (folder / 'index.html').exists():
             html = (folder / 'index.html').read_text(encoding='utf-8')
-            title_match = re.search(r'<h2>([^<]+)</h2>', html)
+            title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
             title = title_match.group(1) if title_match else folder.name
             articles.append({'title': title, 'folder': folder.name})
 
@@ -533,7 +533,7 @@ def delete_article_direct(category, folder, yes=False):
         return False
 
     html = (article_dir / 'index.html').read_text(encoding='utf-8')
-    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+    title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
     title = title_match.group(1) if title_match else folder
 
     print(f'删除: {title}')
@@ -590,7 +590,7 @@ def retitle_article_direct(category, folder, new_title=None, new_date=None):
 
     html = html_path.read_text(encoding='utf-8')
 
-    old_title = re.search(r'<h2>([^<]+)</h2>', html).group(1)
+    old_title = re.search(r'<h2[^>]*>([^<]+)</h2>', html).group(1)
     old_date_match = re.search(r'<p class="post-date">(.*?)</p>', html)
     old_date = old_date_match.group(1).strip() if old_date_match else ''
 
@@ -610,7 +610,7 @@ def retitle_article_direct(category, folder, new_title=None, new_date=None):
     print(f'  日期: {old_date} → {new_date}')
 
     html = html.replace(f'<title>{old_title}', f'<title>{new_title}', 1)
-    html = html.replace(f'<h2>{old_title}</h2>', f'<h2>{new_title}</h2>', 1)
+    html = re.sub(rf'<h2[^>]*>{re.escape(old_title)}</h2>', f'<h2 class="article-title">{new_title}</h2>', html, 1)
     html = html.replace(f'<p class="post-date">{old_date}</p>', f'<p class="post-date">{new_date}</p>', 1)
     html_path.write_text(html, encoding='utf-8')
     print(f'  - 已更新: content/{category}/{folder}/index.html')
@@ -682,7 +682,7 @@ def migrate_article_folder_names():
             _update_refs(folder, new_path)
 
             _remove_entry_from_page(cat_key, old_name)
-            title_match = re.search(r'<h2>([^<]+)</h2>', html)
+            title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
             title = title_match.group(1) if title_match else old_name
             date_display = date_match.group(1).strip()
             add_entry_to_page(PAGE_MAP[cat_key], title, date_display, cat_key, new_name)
@@ -715,7 +715,7 @@ def retitle_article():
             for folder in sorted(cat_dir.iterdir()):
                 if folder.is_dir() and (folder / 'index.html').exists():
                     html = (folder / 'index.html').read_text(encoding='utf-8')
-                    title_match = re.search(r'<h2>([^<]+)</h2>', html)
+                    title_match = re.search(r'<h2[^>]*>([^<]+)</h2>', html)
                     title = title_match.group(1) if title_match else folder.name
                     articles.append({'title': title, 'folder': folder.name})
 
@@ -748,7 +748,7 @@ def retitle_article():
     html_path = ROOT_DIR / 'content' / cat_key / folder / 'index.html'
     html = html_path.read_text(encoding='utf-8')
 
-    old_title = re.search(r'<h2>([^<]+)</h2>', html).group(1)
+    old_title = re.search(r'<h2[^>]*>([^<]+)</h2>', html).group(1)
     old_date_match = re.search(r'<p class="post-date">(.*?)</p>', html)
     old_date = old_date_match.group(1).strip() if old_date_match else ''
 
@@ -773,7 +773,7 @@ def retitle_article():
         return
 
     html = html.replace(f'<title>{old_title}', f'<title>{new_title}', 1)
-    html = html.replace(f'<h2>{old_title}</h2>', f'<h2>{new_title}</h2>', 1)
+    html = re.sub(rf'<h2[^>]*>{re.escape(old_title)}</h2>', f'<h2 class="article-title">{new_title}</h2>', html, 1)
     html = html.replace(f'<p class="post-date">{old_date}</p>', f'<p class="post-date">{new_date}</p>', 1)
     html_path.write_text(html, encoding='utf-8')
     print(f'  - 已更新: content/{cat_key}/{folder}/index.html')

@@ -1,0 +1,141 @@
+@media (max-width: 1004px) and (min-height: 680px) {
+    @media (prefers-reduced-motion: no-preference) {
+        body, header, main, footer {
+            animation: none;
+        }
+    }
+
+    header {
+        width: 100%;
+        height: auto;
+        min-width: unset;
+        position: fixed;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        padding: 0;
+        z-index: 100;
+    }
+
+    .header-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+        background-color: var(--bg-primary);
+        position: relative;
+        z-index: 101;
+    }
+
+    .header-bar > a {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-bar > a:hover {
+        color: var(--text-sidebar-hover);
+    }
+
+    header img {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 0;
+    }
+
+    header h1 {
+        font-size: 0.95rem;
+        margin-bottom: 0;
+        margin-left: 0.3rem;
+        width: auto;
+    }
+
+    .current-section {
+        display: inline;
+        margin-left: auto;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .nav-toggle-btn {
+        display: inline;
+        font-size: 1.4rem;
+        cursor: pointer;
+        user-select: none;
+        padding: 0.1rem 0.3rem;
+        color: var(--text-nav);
+    }
+
+    .nav-toggle:checked ~ nav,
+    .nav-toggle:not(:checked) ~ nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        background-color: var(--bg-primary);
+        z-index: 99;
+        margin: 0;
+        padding: 5rem 2rem;
+        border: none;
+        transition: all 0.35s ease;
+    }
+
+    .nav-toggle:checked ~ nav {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-toggle:not(:checked) ~ nav {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    header nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.15rem;
+        font-size: 1rem;
+        padding: 0;
+        text-align: center;
+        align-self: auto;
+    }
+
+    header nav a .sep {
+        display: none;
+    }
+
+    main {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem 7.5%;
+        padding-top: calc(32px + 3rem);
+    }
+
+    main img,
+    main video {
+        display: block;
+        margin: 1.5rem auto;
+    }
+
+    main img {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        height: auto;
+        margin: 1.5rem 0;
+    }
+
+    footer {
+        margin-left: 0;
+        width: 100%;
+    }
+}

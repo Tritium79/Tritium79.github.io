@@ -12,6 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+import xml.etree.ElementTree as etree
 import markdown
 from markdown.treeprocessors import Treeprocessor
 from markdown.extensions import Extension
@@ -20,6 +21,30 @@ from config import ROOT_DIR, ARCHETYPE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
 from utils import slugify, make_folder_name, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
 from data_loader import get_nav as get_nav_data, get_footer as get_footer_data, get_settings
+
+
+# ── 自定义 Markdown 扩展：任务列表 ───────────────────────
+
+_TASK_RE = re.compile(r'^\s*\[( |x|X)\]\s+')
+
+
+class _TasklistTreeprocessor(Treeprocessor):
+    def run(self, root):
+        for li in root.iter('li'):
+            if li.text and _TASK_RE.match(li.text):
+                m = _TASK_RE.match(li.text)
+                checked = m.group(1) in ('x', 'X')
+                cb = etree.SubElement(li, 'input',
+                                      {'type': 'checkbox', 'disabled': ''})
+                if checked:
+                    cb.set('checked', '')
+                cb.tail = li.text[m.end():]
+                li.text = ''
+
+
+class _TasklistExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(_TasklistTreeprocessor(md), 'tasklist', 10)
 
 
 # ── 自定义 Markdown 扩展：保留行首缩进 ───────────────────
@@ -54,6 +79,75 @@ class _PreserveIndentExtension(Extension):
         md.treeprocessors.register(_PreserveIndentTreeprocessor(md), 'preserve_indent', 15)
 
 
+# ── 自定义 Markdown 扩展：嵌套有序列表 start 属性 ────────
+
+class _NestedOListTreeprocessor(Treeprocessor):
+    def run(self, root):
+        self._walk(root, None, 0)
+
+    def _walk(self, elem, parent_ol, parent_li_idx):
+        if elem.tag == 'ol':
+            parent_start = int(elem.get('start', 1))
+            li_idx = 0
+            for child in list(elem):
+                if child.tag == 'li':
+                    li_idx += 1
+                    self._walk(child, elem, li_idx)
+                else:
+                    self._walk(child, None, 0)
+        elif elem.tag == 'li':
+            for child in list(elem):
+                if child.tag == 'ol' and parent_ol is not None:
+                    ps = int(parent_ol.get('start', 1))
+                    child.set('start', str(ps + parent_li_idx))
+                self._walk(child, parent_ol, parent_li_idx)
+        else:
+            for child in list(elem):
+                self._walk(child, parent_ol, parent_li_idx)
+
+
+class _NestedOListExtension(Extension):
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(_NestedOListTreeprocessor(md), 'nested_olist', 20)
+
+
+# ── 文本预处理：删除线、高亮、上标、下标 ─────────────────
+
+_STRIKE_RE = re.compile(r'~~(.+?)~~')
+_HIGHLIGHT_RE = re.compile(r'==(.+?)==')
+_SUP_RE = re.compile(r'\^(.+?)\^')
+_SUB_RE = re.compile(r'(?<!\~)~(?!~)(.+?)(?<!\~)~(?!~)')
+
+
+def ensure_blank_line_before_lists(text):
+    lines = text.split('\n')
+    result = []
+    in_code = False
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith('```'):
+            in_code = not in_code
+        if i > 0 and not in_code and stripped:
+            prev = lines[i - 1].strip()
+            is_list = bool(re.match(r'^[ \t]*[-*+]\s', line)) or bool(re.match(r'^[ \t]*\d+[.)]\s', line))
+            if prev and is_list:
+                prev_is_list = bool(re.match(r'^[ \t]*[-*+]\s', lines[i - 1])) or bool(
+                    re.match(r'^[ \t]*\d+[.)]\s', lines[i - 1])
+                )
+                if not prev_is_list:
+                    result.append('')
+        result.append(line)
+    return '\n'.join(result)
+
+
+def preprocess_inline(text):
+    text = _STRIKE_RE.sub(r'<del>\1</del>', text)
+    text = _HIGHLIGHT_RE.sub(r'<mark>\1</mark>', text)
+    text = _SUP_RE.sub(r'<sup>\1</sup>', text)
+    text = _SUB_RE.sub(r'<sub>\1</sub>', text)
+    return text
+
+
 # ── 文本转换 ─────────────────────────────────────────────
 
 def process_obsidian_links(text):
@@ -64,13 +158,39 @@ def process_links(html):
     enabled = get_settings('open_links_in_new_tab', True)
     if not enabled:
         return html
-    return re.sub(r'<a\s+(?![^>]*target=)([^>]+?)>', r'<a \1 target="_blank">', html)
+    return re.sub(r'<a\s+(?![^>]*target=)(?![^>]*class="footnote-(?:ref|backref)")([^>]+?)>', r'<a \1 target="_blank">', html)
+
+
+def _protect_math(text):
+    placeholders = {}
+
+    def _save(m):
+        key = f'\x00MATH_{len(placeholders)}\x00'
+        placeholders[key] = m.group(0)
+        return key
+
+    text = re.sub(r'\$\$(.*?)\$\$', _save, text, flags=re.DOTALL)
+    text = re.sub(r'(?<!\$)\$(?!\$)(.+?)(?<!\$)\$(?!\$)', _save, text)
+    text = re.sub(r'\\\[(.*?)\\\]', _save, text, flags=re.DOTALL)
+    text = re.sub(r'\\\((.*?)\\\)', _save, text, flags=re.DOTALL)
+
+    return text, placeholders
 
 
 def render_markdown(text):
     text = process_obsidian_links(text)
+    text, math_blocks = _protect_math(text)
+    text = preprocess_inline(text)
+    text = ensure_blank_line_before_lists(text)
     extensions = get_settings('markdown_extensions', ['extra', 'codehilite', 'nl2br'])
-    return markdown.markdown(text, extensions=extensions + [_PreserveIndentExtension()])
+    md = markdown.Markdown(
+        extensions=extensions + [_PreserveIndentExtension(), _TasklistExtension(), _NestedOListExtension()],
+        tab_length=2
+    )
+    html = md.convert(text)
+    for key, val in math_blocks.items():
+        html = html.replace(key, val)
+    return html
 
 
 # ── 图片处理 ─────────────────────────────────────────────
@@ -135,6 +255,110 @@ def localize_md_images(text, md_path, output_dir):
     return text
 
 
+# ── KaTeX 条件引入 ────────────────────────────────────────
+
+KATEX_HTML = r'''<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    trust: true,
+                    macros: {
+                        "\\f": "#1f(#2)"
+                    }
+                });
+            });
+        </script>
+
+        <style>
+        .katex-display { overflow: visible !important; }
+        .katex-display > .katex { overflow: visible !important; }
+        .katex { overflow: visible !important; }
+        </style>'''
+
+
+# ── Obsidian Callout 处理 ──────────────────────────────────
+
+def _callout_div(type_, title, content):
+    title_html = f'<div class="callout-title">{title}</div>' if title else ''
+    return (
+        f'<div class="callout callout-{type_}">'
+        f'{title_html}'
+        f'<div class="callout-content">\n{content}\n</div></div>'
+    )
+
+
+def _parse_callout_p(p_html):
+    """Parse a <p>[!type] title<br />body</p> segment into (type, title, body) or None."""
+    m = re.match(r'<p>\[!(\w+)\]\s*(.*)', p_html, re.DOTALL)
+    if not m:
+        return None
+    type_ = m.group(1).lower()
+    rest = m.group(2).strip()
+    # Remove closing </p> if present
+    if rest.endswith('</p>'):
+        rest = rest[:-4].rstrip()
+    parts = re.split(r'<br\s*/?>\s*\n?', rest, maxsplit=1)
+    title = parts[0].strip()
+    body = parts[1].strip() if len(parts) > 1 else ''
+    return (type_, title, body)
+
+
+def process_callouts(html):
+    result = []
+    pos = 0
+    while pos < len(html):
+        bq_start = html.find('<blockquote>', pos)
+        if bq_start == -1:
+            result.append(html[pos:])
+            break
+        result.append(html[pos:bq_start])
+        bq_end = html.find('</blockquote>', bq_start)
+        if bq_end == -1:
+            result.append(html[bq_start:])
+            break
+
+        inner = html[bq_start + len('<blockquote>'):bq_end]
+
+        if '[!' not in inner:
+            result.append(html[bq_start:bq_end + len('</blockquote>')])
+            pos = bq_end + len('</blockquote>')
+            continue
+
+        # Split inner at <p>[!type] boundaries (keep delimiter in segment)
+        segments = re.split(r'(?=<p>\[!\w+\])', inner)
+        processed = []
+        for seg in segments:
+            seg = seg.strip()
+            if not seg:
+                continue
+            callout = _parse_callout_p(seg)
+            if callout:
+                processed.append(_callout_div(*callout))
+            else:
+                processed.append(f'<blockquote>\n{seg}\n</blockquote>')
+
+        result.append('\n'.join(processed))
+        pos = bq_end + len('</blockquote>')
+
+    return ''.join(result)
+
+
+def has_latex(html):
+    """Check if HTML body contains LaTeX math delimiters ($$, \\[, \\()."""
+    return '$$' in html or '\\[' in html or '\\(' in html
+
+
 # ── 模板渲染 ─────────────────────────────────────────────
 
 def generate_nav_links(current_section_cn, prefix=''):
@@ -155,9 +379,11 @@ def generate_nav_links(current_section_cn, prefix=''):
 
 
 def fill_template(template, title, date, content, section):
-    full_content = f'            <h2>{title}</h2>\n'
+    full_content = f'            <h2 class="article-title">{title}</h2>\n'
     full_content += f'            <p class="post-date">{date}</p>\n'
     full_content += content
+
+    katex_html = KATEX_HTML if has_latex(content) else ''
 
     html = template
     html = html.replace('{{ title }}', title)
@@ -166,6 +392,7 @@ def fill_template(template, title, date, content, section):
     html = html.replace('{{ nav_links }}', generate_nav_links(section, '../../../'))
     html = html.replace('{{ footer_content }}', get_footer_data())
     html = html.replace('{{ root_path }}', '../../../')
+    html = html.replace('{{ katex }}', katex_html)
     return html
 
 
@@ -230,6 +457,8 @@ def publish_article(md_path, args, is_cli_mode):
     sep_marker = get_settings('separator_marker', '<!--sep-->')
     sep_replacement = get_settings('separator_replacement', '<br />')
     html_body = html_body.replace(sep_marker, sep_replacement)
+
+    html_body = process_callouts(html_body)
 
     html_body = process_links(html_body)
 

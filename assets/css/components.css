@@ -1,0 +1,140 @@
+.link-list {
+    list-style: none;
+    margin: 0.25rem 0 0 0;
+    padding-left: 0;
+}
+
+.link-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-list);
+}
+
+.link-list li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.15s ease;
+}
+
+.link-list li a:hover {
+    color: var(--text-list-hover);
+}
+
+.link-list li .article-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.article-title {
+    font-size: 1.8rem;
+    margin: 0rem 0 1.5rem;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    margin: 0rem 0 1.5rem;
+}
+
+.post-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    font-weight: normal;
+}
+
+.callout {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 4px solid;
+    border-radius: 4px;
+    background-color: var(--callout-bg);
+}
+
+.callout-title {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+.callout-content > p {
+    margin-bottom: 0.4rem;
+}
+
+.callout-content > p:last-child {
+    margin-bottom: 0;
+}
+
+.callout-abstract {
+    border-left-color: var(--callout-abstract);
+}
+.callout-abstract .callout-title {
+    color: var(--callout-abstract);
+}
+
+.callout-note {
+    border-left-color: var(--callout-note);
+}
+.callout-note .callout-title {
+    color: var(--callout-note);
+}
+
+.callout-warning {
+    border-left-color: var(--callout-warning);
+}
+.callout-warning .callout-title {
+    color: var(--callout-warning);
+}
+
+.callout-tip {
+    border-left-color: var(--callout-tip);
+}
+.callout-tip .callout-title {
+    color: var(--callout-tip);
+}
+
+.callout-info {
+    border-left-color: var(--callout-info);
+}
+.callout-info .callout-title {
+    color: var(--callout-info);
+}
+
+.callout-todo {
+    border-left-color: var(--callout-todo);
+}
+.callout-todo .callout-title {
+    color: var(--callout-todo);
+}
+
+.callout-success {
+    border-left-color: var(--callout-success);
+}
+.callout-success .callout-title {
+    color: var(--callout-success);
+}
+
+.callout-fail {
+    border-left-color: var(--callout-fail);
+}
+.callout-fail .callout-title {
+    color: var(--callout-fail);
+}
+
+.callout-question {
+    border-left-color: var(--callout-question);
+}
+.callout-question .callout-title {
+    color: var(--callout-question);
+}
+
+.signature {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 3rem;
+    line-height: 2;
+}

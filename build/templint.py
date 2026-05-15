@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, SECTION_MAP
-from content import generate_nav_links
+from content import generate_nav_links, KATEX_HTML, has_latex
 from data_loader import (
     get_nav as get_nav_data,
     get_footer as get_footer_data,
@@ -201,6 +201,15 @@ def rebuild_from_base(file_path):
     head, _, main = _parse_head_body_main(file_path)
     title = _get_title_from_head(head)
 
+    # Ensure article pages use the dedicated title class
+    if 'content/' in _rel_path(file_path):
+        first_h2 = re.search(r'<h2[^>]*>', main)
+        if first_h2 and 'article-title' not in first_h2.group():
+            main = re.sub(r'<h2>', '<h2 class="article-title">', main, 1)
+
+    # Inject KaTeX if the main content contains LaTeX delimiters
+    katex_html = KATEX_HTML if has_latex(main) else ''
+
     template = (ROOT_DIR / 'archetypes' / 'archetype.html').read_text(encoding='utf-8')
 
     out = template
@@ -210,6 +219,7 @@ def rebuild_from_base(file_path):
     out = out.replace('{{ nav_links }}', generate_nav_links(section, pref))
     out = out.replace('{{ footer_content }}', get_footer_data())
     out = out.replace('{{ root_path }}', pref)
+    out = out.replace('{{ katex }}', katex_html)
 
     return out
 
