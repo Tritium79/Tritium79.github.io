@@ -40,7 +40,7 @@
 	- Pixcall
 - 动漫
 	- Kazumi
-	- Mangayomi
+	- Venera
 - Unix
 	- WezTerm
 	- OrbStack
