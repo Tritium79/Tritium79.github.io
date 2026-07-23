@@ -1,0 +1,158 @@
+main {
+    flex: 1;
+    margin-left: calc(100% / 32 * 7);
+    width: calc(100% / 32 * 25);
+    padding: 3rem 4rem;
+    background-color: var(--bg-primary);
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6 {
+    margin: 1.5em 0 0.75em;
+}
+
+main hr {
+    border: none;
+    border-top: 1px solid var(--text-muted);
+    margin: 0.25rem 0;
+}
+
+main blockquote {
+    margin: 1rem 0;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--border-list);
+    color: var(--text-muted);
+}
+
+main blockquote blockquote {
+    margin: 0.5rem 0;
+}
+
+main dl {
+    margin: 1rem 0;
+}
+
+main dt {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+main dd {
+    line-height: 1.8;
+    margin: 0 0 0.5rem 1.5rem;
+}
+
+main p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 1rem;
+}
+
+main a {
+    color: var(--text-link);
+}
+
+main a:hover {
+    color: var(--text-body);
+}
+
+main mark {
+    background-color: var(--bg-highlight);
+    color: var(--text-body);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+main li input[type="checkbox"] {
+    display: none;
+}
+
+main ul:not(.link-list) > li:has(input[type="checkbox"])::before {
+    content: "☐";
+    margin-right: 0.5rem;
+}
+
+main ul:not(.link-list) > li:has(input[type="checkbox"]:checked)::before {
+    content: "☑";
+}
+
+main img {
+    max-width: 80%;
+    max-height: 80vh;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+main .article-meta p {
+    margin-bottom: 0;
+}
+
+main ul, main ol:not(.link-list) {
+    list-style: none;
+    margin: 1rem 0 1rem 0.5rem;
+    padding-left: 1rem;
+}
+
+main ul ul, main ol ol {
+    margin: 0;
+}
+
+main ul:not(.link-list) li,
+main ol:not(.link-list) li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-body);
+    margin-bottom: 0.5rem;
+}
+
+main ol:not(.link-list) {
+    counter-reset: list-counter;
+}
+
+main ol:not(.link-list) > li {
+    counter-increment: list-counter;
+}
+
+main ol:not(.link-list) > li::before {
+    content: counter(list-counter) ".";
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+main ol:not(.link-list) ol > li::before {
+    content: counter(list-counter, lower-alpha) ".";
+}
+
+main ul:not(.link-list) > li:not(:has(input[type="checkbox"]))::before {
+    content: "⬡";
+    margin-right: 0.5rem;
+}
+
+main ul:not(.link-list) ul > li:not(:has(input[type="checkbox"]))::before {
+    content: "⬦";
+    margin-right: 0.5rem;
+}
+
+main table {
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-body);
+}
+
+main table th,
+main table td {
+    border: 1px solid var(--border-list);
+    padding: 0.4rem 1rem;
+    text-align: center;
+}
+
+main table th {
+    background-color: var(--bg-sidebar);
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+main table tr:nth-child(even) {
+    background-color: var(--bg-sidebar);
+}

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /content/
+Disallow: /pages/
+Disallow: /assets/
+Disallow: /build/
+Disallow: /data/
+Disallow: /archetypes/

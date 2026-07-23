@@ -1,0 +1,93 @@
+"""工具函数：干支日期、slug 化、用户交互、front matter 解析。"""
+
+import re
+from datetime import datetime
+from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+
+from data_loader import get_settings
+
+try:
+    from lunar_python import Solar
+except ImportError:
+    Solar = None
+
+
+def get_lunar_date(target_date=None):
+    now = target_date if target_date else datetime.now()
+    months = get_settings('month_abbreviations',
+        ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+    month_abbr = months[now.month - 1]
+
+    if Solar is None:
+        raise RuntimeError('lunar_python 未安装，请运行: pip install lunar_python')
+
+    solar = Solar.fromDate(now)
+    lunar = solar.getLunar()
+
+    year_gz = lunar.getYearInGanZhi()
+    month_gz = lunar.getMonthInGanZhi()
+    day_gz = lunar.getDayInGanZhi()
+
+    fmt = get_settings('date_format',
+        '{day} {month_abbr}. {year} / {year_gz}年 {month_gz}月 {day_gz}日')
+    return fmt.format(day=now.day, month_abbr=month_abbr, year=now.year,
+                      year_gz=year_gz, month_gz=month_gz, day_gz=day_gz)
+
+
+def slugify(text):
+    text = text.strip()
+    text = re.sub(r'[^\w\u4e00-\u9fff-]', '-', text)
+    text = re.sub(r'-+', '-', text)
+    text = text.strip('-')
+    words = text.split('-')
+    def capitalize_word(word):
+        return word if word.isupper() else word.capitalize()
+    return '-'.join(capitalize_word(word) for word in words if word)
+
+
+def make_folder_name(title, date_obj=None):
+    slug = slugify(title)
+    date_str = date_obj.strftime('%Y%m%d') if date_obj else datetime.now().strftime('%Y%m%d')
+    return f'{date_str}_{slug}'
+
+
+def parse_date_to_ymd(date_str):
+    months = {
+        'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+        'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12,
+    }
+    m = re.search(r'(\d{1,2})\s+(\w{3})\.\s+(\d{4})', date_str)
+    if m:
+        day, mon, year = int(m.group(1)), months.get(m.group(2), 1), int(m.group(3))
+        return f'{year:04d}{mon:02d}{day:02d}'
+    return None
+
+
+def ask(prompt, default=None):
+    if default is not None:
+        raw = input(f'{prompt} [{default}]: ').strip()
+        return raw if raw else default
+    return input(f'{prompt}: ').strip()
+
+
+def confirm(prompt, default='y'):
+    default_show = 'y' if default == 'y' else 'n'
+    raw = input(f'{prompt} [{default_show}]: ').strip().lower()
+    return raw if raw else default
+
+
+def parse_front_matter(text):
+    pattern = r'^---\n(.*?)\n---\n(.*)'
+    match = re.match(pattern, text, re.DOTALL)
+    if not match:
+        return {}, text.strip()
+    meta = {}
+    for line in match.group(1).split('\n'):
+        if ':' in line:
+            key, _, val = line.partition(':')
+            meta[key.strip()] = val.strip()
+    return meta, match.group(2).strip()

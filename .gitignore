@@ -1,0 +1,12 @@
+.DS_Store
+build/venv/
+__pycache__/
+*.pyc
+
+# 凭据与密钥文件
+.env
+.env.*
+credentials.json
+config.yml
+secrets.*
+*.log

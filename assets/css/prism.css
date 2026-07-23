@@ -1,0 +1,53 @@
+@media (prefers-color-scheme: dark) {
+    .codehilite .c1 { color: #7c7c7c; font-style: italic; }
+    .codehilite .sd { color: #7c7c7c; font-style: italic; }
+
+    .codehilite .k,
+    .codehilite .kd,
+    .codehilite .kc,
+    .codehilite .kp,
+    .codehilite .kr,
+    .codehilite .kt { color: #ff79c6; }
+
+    .codehilite .nb { color: #f1fa8c; }
+
+    .codehilite .nf,
+    .codehilite .na,
+    .codehilite .nc { color: #50fa7b; }
+
+    .codehilite .o,
+    .codehilite .ow { color: #ff79c6; }
+
+    .codehilite .p { color: #f8f8f2; }
+
+    .codehilite .n,
+    .codehilite .nx,
+    .codehilite .nd,
+    .codehilite .ni,
+    .codehilite .ne,
+    .codehilite .nn,
+    .codehilite .no,
+    .codehilite .nv { color: #f8f8f2; }
+
+    .codehilite .s,
+    .codehilite .s2,
+    .codehilite .sa,
+    .codehilite .sb,
+    .codehilite .sc,
+    .codehilite .se,
+    .codehilite .sh,
+    .codehilite .si,
+    .codehilite .sr,
+    .codehilite .ss,
+    .codehilite .sx,
+    .codehilite .dl { color: #f1fa8c; }
+
+    .codehilite .m,
+    .codehilite .mb,
+    .codehilite .mf,
+    .codehilite .mh,
+    .codehilite .mi,
+    .codehilite .mo { color: #bd93f9; }
+
+    .codehilite .err { color: #f44336; }
+}
