@@ -33,7 +33,11 @@
                         <h2 class="article-title">CJK字体加载优化</h2>
             <p class="post-date">10 Aug. 2026 / 丙午年 丙申月 丙辰日</p>
 <p>参考：<a href="https://www.hehehai.cn/posts/chinese-web-font-optimize" target="_blank">网页中文字体加载速度优化 - 字体分包 | Hehehai @一块木头</a><br />
-优化策略：于本地使用npm包cn-font-split对字体文件进行分包，依据字符频率及Unicode区间生成woff2切片及result.css，使浏览器按需加载所需字体。</p>
+优化策略：</p>
+<ol>
+<li>构建页面时，使用 fontTools + brotli 从完整字体文件生成单个子集，优先加载。</li>
+<li>使用npm包 cn-font-split 对字体文件进行分包，依据字符频率及Unicode区间生成woff2切片及result.css，作为回退。</li>
+</ol>
         </main>
         <footer>
             <p>&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.</p>
