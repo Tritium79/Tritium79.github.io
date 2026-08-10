@@ -18,7 +18,7 @@ Tritium79.github.io/
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
 │   ├── fonts/                  # 字体文件
-│   │   └── lxgw/               # LXGW Bright 分包产物（woff2 + result.css，由 cn-font-split 生成）
+│   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、result.css、woff2）
 │   ├── icons/                  # 图标
 │   └── images/                 # 图片资源
 │
@@ -58,6 +58,7 @@ Tritium79.github.io/
 │   ├── config.py               # 常量：路径、分类定义（从 data/ 加载）
 │   ├── data_loader.py          # 数据加载：从 data/*.json 读取配置
 │   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
+│   ├── font_subset.py          # 字体处理：扫描全站字符并生成字体子集
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
 │   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
 │   ├── templint.py             # 模板一致性检查 + 全站 Shell 同步引擎
@@ -119,7 +120,7 @@ Tritium79.github.io/
 ### 构建脚本
 
 - `build/build.py` — 主构建脚本
-- 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html`（同时复制源 `.md` 并本地化图片路径） → 更新汇总页
+- 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html`（同时复制源 `.md` 并本地化图片路径） → 更新汇总页 → 扫描全站字符并按需更新字体子集
   - 交互菜单：
 
 ```
@@ -132,18 +133,21 @@ Tritium79.github.io/
   6. 检查模板
   7. 获取日期
   8. 重建页面（根据模板重建，可选逐个/全部模式）
-  9. Git
+  9. 重建字体
+  10. Git
 ```
 
 - 所有功能支持 `q` 中途退出
 - `python build.py --check-archetypes` — 对照 `data/config.json` 检查所有 HTML 文件的结构一致性（nav、footer 等），可选自动修复
-- `python build.py --rebuild` — 全站 Shell 同步：用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面
-- `python build.py --build-all` — 一键全量：rebuild → check-archetypes
+- `python build.py --rebuild` — 全站 Shell 同步：用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面，并同步字体子集
+- `python build.py --build-all` — 一键全量：rebuild → subset-font → check-archetypes
+- `python build.py --subset-font` — 强制根据全站 HTML 重新生成字体子集
 - `python build.py --list-cat sylvae` — 非交互式列出指定分类文章
 - `python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y` — 非交互式删除文章
 - `python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
+- 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-*.woff2`
 - 所有路径以项目根目录为基准
 - Markdown 渲染扩展由 `data/settings.json` 的 `markdown_extensions` 定义
 - 发布文章时日期留空，默认使用当前干支日期（格式由 `data/settings.json` 的 `date_format` 定义）
@@ -151,6 +155,8 @@ Tritium79.github.io/
 ### assets
 
 - `fonts/` — 存放字体文件
+- `fonts/lxgw/subset.css` — 全站字符子集的字体规则，优先于分包加载
+- `fonts/lxgw/result.css` — cn-font-split 生成的分包规则，作为子集未覆盖字符的回退
 - `icons/` — 存放图标文件
 - `css/` — 模块化 CSS 文件（由 `style.css` 集中 `@import`）
 - `images/` — 通用图片资源
@@ -429,7 +435,7 @@ def hello():
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | Source Code Pro；LXGW Bright 为分包加载（unicode-range 按需），规则由 cn-font-split 生成于 `assets/fonts/lxgw/result.css`，经 style.css `@import` 引入 |
+| `fonts.css` | 字体定义 | Source Code Pro；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先）和 `result.css`（分包兜底） |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |

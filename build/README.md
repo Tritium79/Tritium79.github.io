@@ -9,11 +9,12 @@ build/
 ├── config.py          # 常量：路径、分类定义、汇总页条目模板
 ├── data_loader.py     # 数据加载：从 data/*.json 读取全站配置
 ├── content.py         # 内容生成：Markdown 渲染、图片处理、文章发布
+├── font_subset.py      # 字体处理：扫描全站字符并生成字体子集
 ├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
 ├── templint.py        # 模板一致性检查 + 全站 Shell 同步引擎
 ├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析、干支日期
 ├── git_ops.py         # Git 提交与推送
-├── requirements.txt   # Python 依赖（markdown、Pygments、lunar_python）
+├── requirements.txt   # Python 依赖（含 fonttools、brotli）
 ├── venv/              # Python 虚拟环境（gitignored）
 └── README.md          # 本文件
 ```
@@ -37,6 +38,7 @@ python build.py --retitle-by slug -t "新标题" -d "日期"  # 非交互式
 python build.py --check-archetypes        # 模板一致性检查
 python build.py --rebuild                 # 全站 Shell 同步
 python build.py --build-all               # 一键全量构建（模板同步+检查）
+python build.py --subset-font             # 重新生成全站字体子集
 python build.py --git                     # Git 提交与推送
 python build.py --lunar-date              # 干支日期
 ```
@@ -52,7 +54,8 @@ python build.py --lunar-date              # 干支日期
   6. 检查模板
   7. 获取日期
   8. 重建页面（根据模板重建，可选逐个/全部模式）
-  9. Git
+  9. 重建字体
+  10. Git
 ```
 
 **所有交互功能支持 `q` 中途退出**
@@ -127,6 +130,16 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 ---
 
 
+
+### `font_subset.py` — 全站字体子集
+
+- 扫描全站已生成 HTML 和 CSS `content:` 字符串，收集页面实际使用的字符
+- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Light.ttf` 生成单个 woff2 子集
+- 生成的 `subset.css` 使用独立字体族，放在原有 `result.css` 分包之前
+- 子集未覆盖的字符回退到 `result.css` 的 LXGW Bright 分包
+- 发布文章、`--rebuild` 和 `--build-all` 会自动检测字符集变化；交互菜单 10 或 `--subset-font` 可强制重建
+
+---
 
 ### `templint.py` — 模板检查与 Shell 同步
 

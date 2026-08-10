@@ -21,6 +21,7 @@ from config import ROOT_DIR, ARCHETYPE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
 from utils import slugify, make_folder_name, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
 from data_loader import get_nav as get_nav_data, get_footer as get_footer_data, get_settings
+from font_subset import run_font_subset
 
 
 # ── 自定义 Markdown 扩展：任务列表 ───────────────────────
@@ -492,6 +493,11 @@ def publish_article(md_path, args, is_cli_mode):
     if category in PAGE_MAP:
         updated = add_entry_to_page(PAGE_MAP[category], title, date, category, folder)
         print(f'  {"已更新" if updated else "已添加到"}: pages/{category}.html')
+
+    try:
+        run_font_subset()
+    except Exception as exc:
+        print(f'  警告: 字体子集未更新（{exc}），将继续使用现有字体分包')
 
     print('\n  完成!')
     return True

@@ -11,6 +11,7 @@
   python build.py --check-archetypes        # 模板检查
   python build.py --rebuild                 # 全站模板同步
   python build.py --build-all               # 一键全量构建（模板同步+检查）
+  python build.py --subset-font             # 重新生成全站字体子集
   python build.py --git                     # Git 提交+推送
   python build.py --lunar-date              # 干支日期
 """
@@ -30,6 +31,7 @@ from management import (
     retitle_article, retitle_article_direct,
 )
 from content import publish_article
+from font_subset import run_font_subset
 from templint import check_all, rebuild_all
 from git_ops import git_commit_push
 from utils import get_lunar_date
@@ -64,6 +66,7 @@ def parse_args():
   python build.py --check-archetypes        # 检查模板一致性
   python build.py --rebuild                 # 同步全站模板
   python build.py --build-all               # 一键全量构建（模板同步+检查）
+  python build.py --subset-font             # 重新生成全站字体子集
 
 其他:
   python build.py --git                     # Git
@@ -112,6 +115,8 @@ def parse_args():
                         help='全站模板同步')
     parser.add_argument('--build-all', action='store_true',
                         help='一键全量构建（模板同步+检查）')
+    parser.add_argument('--subset-font', action='store_true',
+                        help='重新生成全站字体子集')
 
     # 其他
     parser.add_argument('--git', action='store_true',
@@ -168,16 +173,25 @@ def main():
 
     if args.rebuild:
         rebuild_all(yes=args.yes)
+        run_font_subset()
         return
 
     if args.build_all:
         print('=== 一键全量构建 ===\n')
-        print('[1/2] 同步全站模板...')
+        print('[1/3] 同步全站模板...')
         rebuild_all(yes=True)
         print()
-        print('[2/2] 检查模板一致性...')
+        print('[2/3] 更新全站字体子集...')
+        run_font_subset()
+        print()
+        print('[3/3] 检查模板一致性...')
         check_all(interactive=False, yes_to_all=True)
         print('\n全量构建完成!')
+        return
+
+    if args.subset_font:
+        print('=== 重新生成全站字体子集 ===\n')
+        run_font_subset(force=True)
         return
 
     if args.git:
@@ -207,7 +221,8 @@ def main():
         '6':  ('检查模板',     lambda: check_all(interactive=True)),
         '7':  ('获取日期',     None),
         '8':  ('重建页面',     None),
-        '9':  ('Git',         git_commit_push),
+        '9':  ('重建字体',     lambda: run_font_subset(force=True)),
+        '10': ('Git',         git_commit_push),
     }
 
     while True:

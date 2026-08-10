@@ -1,3 +1,5 @@
 markdown>=3.10
 Pygments>=2.10
 lunar_python>=1.4.0
+fonttools>=4.0
+brotli>=1.0
