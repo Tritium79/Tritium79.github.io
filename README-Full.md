@@ -18,6 +18,7 @@ Tritium79.github.io/
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
 │   ├── fonts/                  # 字体文件
+│   │   └── lxgw/               # LXGW Bright 分包产物（woff2 + result.css，由 cn-font-split 生成）
 │   ├── icons/                  # 图标
 │   └── images/                 # 图片资源
 │
@@ -428,7 +429,7 @@ def hello():
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | LXGW Bright、Source Code Pro |
+| `fonts.css` | 字体定义 | Source Code Pro；LXGW Bright 为分包加载（unicode-range 按需），规则由 cn-font-split 生成于 `assets/fonts/lxgw/result.css`，经 style.css `@import` 引入 |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |

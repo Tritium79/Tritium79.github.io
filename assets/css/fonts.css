@@ -1,12 +1,9 @@
-@font-face {
-    font-family: "LXGW Bright";
-    src:
-        url("/assets/fonts/LXGWBright-Light.woff2") format("woff2"),
-        url("/assets/fonts/LXGWBright-Light.ttf") format("truetype");
-    font-weight: 300;
-    font-style: normal;
-    font-display: block;
-}
+/*
+ * LXGW Bright 不再在此处声明：
+ * 字体已分包（unicode-range 按需加载），规则由 cn-font-split 生成，
+ * 见 assets/fonts/lxgw/result.css（style.css 中 @import 引入）。
+ * 源文件 LXGWBright-Light.ttf / .woff2 保留在 assets/fonts/ 作为备份。
+ */
 
 @font-face {
     font-family: "Source Code Pro";
