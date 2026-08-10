@@ -90,7 +90,7 @@ main .article-meta p {
 main ul, main ol:not(.link-list) {
     list-style: none;
     margin: 1rem 0 1rem 0.5rem;
-    padding-left: 1rem;
+    padding-left: 0;
 }
 
 main ul ul, main ol ol {
