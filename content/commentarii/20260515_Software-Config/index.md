@@ -1,54 +1,50 @@
-更新时间：10 Jun. 2026 / 丙午年 甲午月 乙卯日  
-系统环境： ~~macOS Tahoe 26.4~~ macOS Golden Gate 27.0 Beta
+更新时间：10 Aug. 2026 / 丙午年 丙申月 丙辰日
+系统环境：macOS Golden Gate 27.0 Beta
 
 - 记录
-    - Apple备忘录
-    - Obsidian & Obsidian Web Clipper
-    - GoodLinks
+  - Apple备忘录
+  - Obsidian & Obsidian Web Clipper
+  - GoodLinks
 - 阅读
-    - MarginNote 4
-    - Reeden
-    - NetNewsWire
+  - MarginNote 4
+  - Reeden
+  - NetNewsWire
 - 编辑器
-    - Visual Studio Code
-    - CotEditor
-    - Zed
-    - CodeEdit
-    - MarkEdit
-    - 妙言
-    - Helix
-    - AstroNvim
+  - CotEditor
+  - Zed
+  - MarkEdit
+  - 妙言
+  - Helix
+  - AstroNvim
 - 日程
-    - Apple提醒事项
+  - Apple提醒事项
 - 浏览器
-    - Safari
-    - Chrome
-    - Edge
-    - Waterfox
+  - Safari
+  - Chrome
+  - Edge
+  - Firefox
 - 音乐
-    - Apple Music
-    - Bandcamp
-    - SoundCloud
-    - 网易云音乐
-- 项目
-    - DaVinci Resolve
-    - Logic Pro
-    - Archetype Misha Mansoor X
-    - Guitar Pro 8
-- 图片
-    - Pixelmator Pro
-    - Photomator
-    - Pixcall
+  - Apple Music
+  - Bandcamp
+  - SoundCloud
+  - 网易云音乐
+- 创作
+  - DaVinci Resolve
+  - Logic Pro
+  - Archetype Misha Mansoor X
+  - Guitar Pro 8
+  - Pixelmator Pro
+  - Photomator
 - 动漫
-    - Kazumi
-    - Venera
-    - PiliPlus
+  - Kazumi
+  - Venera
+  - PiliPlus
 - Unix
-    - WezTerm
-    - OrbStack
+  - WezTerm
+  - OrbStack
 - AI
-    - kelivo
-    - OpenCode
-    - DeepSeek
-    - Gemini
-    - ChatGPT
+  - kelivo
+  - OpenCode
+  - DeepSeek
+  - Gemini
+  - ChatGPT

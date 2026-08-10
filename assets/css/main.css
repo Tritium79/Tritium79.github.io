@@ -95,6 +95,7 @@ main ul, main ol:not(.link-list) {
 
 main ul ul, main ol ol {
     margin: 0;
+    padding-left: 1rem;
 }
 
 main ul:not(.link-list) li,
