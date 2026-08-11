@@ -27,8 +27,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #000000;
-        --bg-sidebar: #0f0f0f;
+        --bg-primary: #090909;
+        --bg-sidebar: #111111;
         --border-sidebar: #1f1f1f;
         --border-list: #222;
         --text-primary: #fff;
