@@ -186,6 +186,10 @@
         display: none;
     }
 
+    header nav a::after {
+        transform-origin: center;
+    }
+
     main {
         margin-left: 0;
         width: 100%;
