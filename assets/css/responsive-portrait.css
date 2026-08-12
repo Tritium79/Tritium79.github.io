@@ -71,7 +71,7 @@
 
     header nav .nav-toggle-btn {
         position: absolute;
-        top: 0.75rem;
+        top: 0.5rem;
         right: 0.75rem;
         padding: 0.1rem 0.3rem;
     }
@@ -115,6 +115,16 @@
         color: var(--text-muted);
     }
 
+    body:has(.link-list) .current-section,
+    body:has(.signature) .current-section {
+        display: none;
+    }
+
+    body:has(.link-list) .nav-toggle-btn,
+    body:has(.signature) .nav-toggle-btn {
+        margin-left: auto;
+    }
+
     .nav-toggle-btn {
         display: inline;
         font-size: 1.4rem;
@@ -151,14 +161,14 @@
         visibility: visible;
         opacity: 1;
         pointer-events: auto;
-        transition: opacity 0.35s ease;
+        transition: opacity 0.2s ease;
     }
 
     .nav-toggle:not(:checked) ~ nav {
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+        transition: opacity 0.2s ease, visibility 0s linear 0.2s;
     }
 
     header nav a {
