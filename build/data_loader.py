@@ -76,7 +76,7 @@ def get_nav(default=None):
         default = [
             ('index.html', '首页', 'Domus'),
             ('pages/sylvae.html', '随笔', 'Sylvae'),
-            ('pages/commentarii.html', '随记', 'Commentarii'),
+            ('pages/commentarii.html', '记录', 'Commentarii'),
             ('pages/interpretationes.html', '译文', 'Interpretationes'),
             ('pages/tabularium.html', '存档', 'Tabularium'),
             ('pages/amici.html', '友链', 'Amici'),

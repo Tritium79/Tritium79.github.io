@@ -5,8 +5,8 @@
         "page": "pages/sylvae.html"
     },
     "commentarii": {
-        "name": "随记 / Commentarii",
-        "section_cn": "随记",
+        "name": "记录 / Commentarii",
+        "section_cn": "记录",
         "page": "pages/commentarii.html"
     },
     "interpretationes": {

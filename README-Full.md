@@ -28,7 +28,7 @@ Tritium79.github.io/
 │   │       ├── index.html      # 生成的页面
 │   │       ├── index.md        # 源 Markdown（图片路径已本地化）
 │   │       └── (附属资源，如图片)
-│   ├── commentarii/            # 随记 / Commentarii
+│   ├── commentarii/            # 记录 / Commentarii
 │   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
@@ -46,7 +46,7 @@ Tritium79.github.io/
 │
 ├── pages/                      # 章节
 │   ├── tabularium.html         # 存档/Tabularium
-│   ├── commentarii.html        # 随记 / Commentarii
+│   ├── commentarii.html        # 记录 / Commentarii
 │   ├── deme.html               # 关于 / De Me
 │   ├── amici.html              # 友链 / Amici
 │   ├── sylvae.html             # 随笔 / Sylvae
@@ -92,7 +92,7 @@ Tritium79.github.io/
 | 章节名              | 中文名  | 拉丁文名   |
 |--------------------|-------|-----------|
 | `sylvae`           | 随笔   | Sylvae    |
-| `commentarii`      | 随记   | Commentarii |
+| `commentarii`      | 记录   | Commentarii |
 | `interpretationes` | 译文   | Interpretationes |
 | `tabularium`       | 存档   | Tabularium |
 
@@ -182,7 +182,7 @@ Tritium79.github.io/
     "nav": [
         {"href": "index.html", "cn": "首页", "la": "Domus"},
         {"href": "pages/sylvae.html", "cn": "随笔", "la": "Sylvae"},
-        {"href": "pages/commentarii.html", "cn": "随记", "la": "Commentarii"},
+        {"href": "pages/commentarii.html", "cn": "记录", "la": "Commentarii"},
         {"href": "pages/interpretationes.html", "cn": "译文", "la": "Interpretationes"},
         {"href": "pages/tabularium.html", "cn": "存档", "la": "Tabularium"},
         {"href": "pages/amici.html", "cn": "友链", "la": "Amici"},
