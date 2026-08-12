@@ -1,0 +1,6 @@
+- Pixelmator Pro
+- Photomator
+- Indigo
+- Apple Photos
+- Apple Camera
+- Exiftool
