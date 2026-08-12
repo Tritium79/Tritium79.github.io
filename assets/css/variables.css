@@ -1,6 +1,7 @@
 :root {
     --bg-primary: #ffffff;
     --bg-sidebar: #F6F6F6;
+    --bg-header: #FFFFFF;
     --border-sidebar: #e0e0e0;
     --border-list: #ddd;
     --text-primary: #000;
@@ -27,8 +28,9 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #090909;
+        --bg-primary: #111111;
         --bg-sidebar: #111111;
+        --bg-header: #111111;
         --border-sidebar: #1f1f1f;
         --border-list: #222;
         --text-primary: #fff;
@@ -36,8 +38,8 @@
         --text-body: #fff;
         --text-muted: #777;
         --text-link: #666;
-        --text-sidebar-hover: #b5563a;
-        --text-list-hover: #b5563a;
+        --text-sidebar-hover: #4aa9c5;
+        --text-list-hover: #4aa9c5;
         --bg-code: #1a1a1a;
         --text-code: #d4d4d4;
         --callout-abstract: #4aa9c5;

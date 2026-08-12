@@ -366,17 +366,15 @@ def has_latex(html):
 
 # ── 模板渲染 ─────────────────────────────────────────────
 
-def generate_nav_links(current_section_cn, prefix=''):
+def generate_nav_links(current_section, prefix=''):
     items = get_nav_data()
     lines = []
-    for href, cn, la in items:
-        cls = 'nav-current' if cn == current_section_cn else ''
+    for href, la in items:
+        cls = 'nav-current' if la == current_section else ''
         path = prefix + href
         ac = f' class="{cls}"' if cls else ''
         lines.append(
             f'                <a href="{path}"{ac}>'
-            f'<span class="nav-cn">{cn}</span>'
-            f'<span class="sep">/</span>'
             f'<span class="nav-la">{la}</span>'
             f'</a>'
         )

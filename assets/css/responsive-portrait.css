@@ -1,4 +1,4 @@
-@media (max-width: 1004px) and (min-height: 680px) {
+@media (max-width: 649px) {
     @media (prefers-reduced-motion: no-preference) {
         body, header, main, footer {
             animation: none;
@@ -35,6 +35,58 @@
 
     .header-bar > a:hover {
         color: var(--text-sidebar-hover);
+    }
+
+    .header-bar > a.avatar {
+        display: none;
+    }
+
+    header nav a.avatar {
+        position: absolute;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        padding: 0;
+    }
+
+    header nav a.avatar img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .header-bar .site-title {
+        transition: opacity 0.35s ease;
+    }
+
+    header:has(.nav-toggle:checked) .header-bar {
+        display: none;
+    }
+
+    header nav .nav-toggle-btn {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    header nav a.nav-title-link {
+        position: absolute;
+        top: 11rem;
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+    }
+
+    header nav a.nav-title-link::after {
+        display: none;
+    }
+
+    header nav a.nav-title-link .site-title {
+        font-size: 1.4rem;
+        margin: 0;
     }
 
     header img {
@@ -74,28 +126,33 @@
         left: 0;
         width: 100%;
         height: 100vh;
+        height: 100dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 2.5rem;
         background-color: var(--bg-primary);
         z-index: 99;
         margin: 0;
-        padding: 5rem 2rem;
+        padding: 15rem 2rem 5rem;
         border: none;
-        transition: all 0.35s ease;
     }
 
     .nav-toggle:checked ~ nav {
         visibility: visible;
         opacity: 1;
         pointer-events: auto;
+        transition: opacity 0.35s ease;
     }
 
     .nav-toggle:not(:checked) ~ nav {
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
+        transition: opacity 0.35s ease, visibility 0s linear 0.35s;
     }
 
     header nav a {

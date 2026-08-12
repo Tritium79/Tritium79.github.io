@@ -76,7 +76,7 @@ python build.py --lunar-date              # 干支日期
 | `ROOT_DIR` | 项目根目录 |
 | `ARCHETYPE_PATH` | `archetypes/archetype.html` |
 | `CATEGORIES` | 分类列表 `[(key, name), ...]`，从 `data/categories.json` 加载 |
-| `SECTION_MAP` | 分类 key → 中文简称，从 `data/categories.json` 加载 |
+| `SECTION_MAP` | 分类 key → 显示名称，从 `data/categories.json` 加载 |
 | `PAGE_MAP` | 分类 key → 对应汇总页路径，从 `data/categories.json` 加载 |
 | `ENTRY_TEMPLATE` | 汇总页 `<li>` 条目模板，含 `%%CATEGORY%%` 等占位符 |
 
@@ -96,7 +96,7 @@ python build.py --lunar-date              # 干支日期
 | `get_avatar()` | `data/config.json` | 头像文件名 |
 | `get_css_file()` | `data/config.json` | 样式表文件名 |
 | `get_footer()` | `data/config.json` | 页脚 HTML |
-| `get_nav()` | `data/config.json` | 导航列表 `[(href, cn, la), ...]` |
+| `get_nav()` | `data/config.json` | 导航列表 `[(href, la), ...]` |
 | `get_settings(key)` | `data/settings.json` | 构建过程设置（markdown、日期、文件管理器等） |
 | `clear_cache()` | — | 清空文件缓存 |
 

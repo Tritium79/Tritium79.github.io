@@ -74,17 +74,17 @@ def get_footer(default=None):
 def get_nav(default=None):
     if default is None:
         default = [
-            ('index.html', '首页', 'Domus'),
-            ('pages/sylvae.html', '随笔', 'Sylvae'),
-            ('pages/commentarii.html', '记录', 'Commentarii'),
-            ('pages/interpretationes.html', '译文', 'Interpretationes'),
-            ('pages/tabularium.html', '存档', 'Tabularium'),
-            ('pages/amici.html', '友链', 'Amici'),
-            ('pages/deme.html', '关于', 'De Me'),
+            ('index.html', 'Domus'),
+            ('pages/sylvae.html', 'Sylvae'),
+            ('pages/commentarii.html', 'Commentarii'),
+            ('pages/transcripta.html', 'Transcripta'),
+            ('pages/archivum.html', 'Archivum'),
+            ('pages/amici.html', 'Amici'),
+            ('pages/deme.html', 'De Me'),
         ]
     config = _load('config.json')
     if config and 'nav' in config:
-        return [(item['href'], item['cn'], item['la']) for item in config['nav']]
+        return [(item['href'], item['la']) for item in config['nav']]
     return default
 
 

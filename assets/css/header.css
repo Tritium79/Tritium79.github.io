@@ -9,8 +9,8 @@
 }
 
 header {
-    width: calc(100% / 32 * 7);
-    min-width: 160px;
+    width: calc(100% / 16 * 3);
+    min-width: 150px;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -19,8 +19,8 @@ header {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 6rem 2rem 2rem;
-    background-color: var(--bg-sidebar);
+    padding: 4rem 2rem 2rem;
+    background-color: var(--bg-header);
 }
 
 .header-bar > a {
@@ -103,4 +103,39 @@ header nav a.nav-current:hover {
 
 header nav a.nav-current:hover::after {
     background-color: var(--text-sidebar-hover);
+}
+
+@media (min-width: 650px) {
+    header::after {
+        content: "";
+        position: absolute;
+        top: 2.5%;
+        right: 0;
+        height: 95%;
+        border-right: 1px solid var(--text-muted);
+    }
+
+    header nav a.nav-title-link,
+    header nav a.avatar {
+        display: none;
+    }
+
+    header nav a {
+        align-self: center;
+        text-align: center;
+    }
+
+    header nav a::after {
+        transform-origin: center;
+    }
+}
+
+/* 短视口桌面模式：侧栏改为随页面整体滚动（不再固定），底部导航可全部露出 */
+@media (min-width: 650px) and (max-height: 669px) {
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: auto;
+    }
 }

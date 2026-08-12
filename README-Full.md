@@ -23,34 +23,34 @@ Tritium79.github.io/
 │   └── images/                 # 图片资源
 │
 ├── content/                    # 文章
-│   ├── tabularium/             # 存档 / Tabularium
+│   ├── archivum/               # Archivum
 │   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html      # 生成的页面
 │   │       ├── index.md        # 源 Markdown（图片路径已本地化）
 │   │       └── (附属资源，如图片)
-│   ├── commentarii/            # 记录 / Commentarii
+│   ├── commentarii/            # Commentarii
 │   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
 │   │       └── (附属资源)
-│   ├── sylvae/                 # 随笔 / Sylvae
+│   ├── sylvae/                 # Sylvae
 │   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
 │   │       └── (附属资源)
-│   └── interpretationes/       # 译文 / Interpretationes
+│   └── transcripta/            # Transcripta
 │       └── {YYYYMMDD}_{Article-Slug}/
 │           ├── index.html
 │           ├── index.md
 │           └── (附属资源)
 │
 ├── pages/                      # 章节
-│   ├── tabularium.html         # 存档/Tabularium
-│   ├── commentarii.html        # 记录 / Commentarii
-│   ├── deme.html               # 关于 / De Me
-│   ├── amici.html              # 友链 / Amici
-│   ├── sylvae.html             # 随笔 / Sylvae
-│   └── interpretationes.html   # 译文 / Interpretationes
+│   ├── archivum.html           # Archivum
+│   ├── commentarii.html        # Commentarii
+│   ├── deme.html               # De Me
+│   ├── amici.html              # Amici
+│   ├── sylvae.html             # Sylvae
+│   └── transcripta.html        # Transcripta
 │
 ├── build/                    # 构建脚本
 │   ├── build.py                # 入口：CLI 参数解析 + 交互菜单
@@ -89,12 +89,12 @@ Tritium79.github.io/
 
 ### 章节（category）
 
-| 章节名              | 中文名  | 拉丁文名   |
-|--------------------|-------|-----------|
-| `sylvae`           | 随笔   | Sylvae    |
-| `commentarii`      | 记录   | Commentarii |
-| `interpretationes` | 译文   | Interpretationes |
-| `tabularium`       | 存档   | Tabularium |
+| 章节 key            | 显示名称        |
+|--------------------|----------------|
+| `sylvae`           | Sylvae         |
+| `commentarii`      | Commentarii    |
+| `transcripta`      | Transcripta    |
+| `archivum`         | Archivum       |
 
 新增章节需同时在 `data/categories.json` 和 `data/config.json` 的 `nav` 中注册，并在 `pages/` 下创建对应的 `.html` 汇总页。
 
@@ -180,13 +180,13 @@ Tritium79.github.io/
     "css_file": "style.css",
     "footer": "&copy; 2026 <a href=\"...\">Tritium79</a>. All rights reserved.",
     "nav": [
-        {"href": "index.html", "cn": "首页", "la": "Domus"},
-        {"href": "pages/sylvae.html", "cn": "随笔", "la": "Sylvae"},
-        {"href": "pages/commentarii.html", "cn": "记录", "la": "Commentarii"},
-        {"href": "pages/interpretationes.html", "cn": "译文", "la": "Interpretationes"},
-        {"href": "pages/tabularium.html", "cn": "存档", "la": "Tabularium"},
-        {"href": "pages/amici.html", "cn": "友链", "la": "Amici"},
-        {"href": "pages/deme.html", "cn": "关于", "la": "De Me"}
+        {"href": "index.html", "la": "Domus"},
+        {"href": "pages/sylvae.html", "la": "Sylvae"},
+        {"href": "pages/commentarii.html", "la": "Commentarii"},
+        {"href": "pages/transcripta.html", "la": "Transcripta"},
+        {"href": "pages/archivum.html", "la": "Archivum"},
+        {"href": "pages/amici.html", "la": "Amici"},
+        {"href": "pages/deme.html", "la": "De Me"}
     ]
 }
 ```
@@ -199,11 +199,11 @@ Tritium79.github.io/
 | `avatar` | 头像文件名 | 运行 `--build-all` |
 | `css_file` | 样式表文件名 | 运行 `--build-all` |
 | `footer` | 页脚 HTML 内容 | 运行 `--build-all` |
-| `nav` | 导航链接数组，每项含 `href`/`cn`/`la` | 运行 `--build-all` |
+| `nav` | 导航链接数组，每项含 `href`/`la` | 运行 `--build-all` |
 
 ### data/settings.json
 
-构建过程设置（Markdown 渲染、日期格式、文件管理器等），详见 `build/README-Full.md`。
+构建过程设置（Markdown 渲染、日期格式、文件管理器等），详见 `build/README.md`。
 
 
 
@@ -216,9 +216,8 @@ Tritium79.github.io/
 1. **注册分类**：在 `data/categories.json` 中添加一条：
    ```json
    "your-key": {
-       "name": "中文 / Latin",
-       "section_cn": "中文",
-       "page": "pages/your-key.html"
+        "name": "Latin",
+        "page": "pages/your-key.html"
    }
    ```
 
@@ -227,7 +226,7 @@ Tritium79.github.io/
 3. **创建汇总页**：在 `pages/` 下创建 `{key}.html`，结构如下：
    ```html
    <main>
-       <h2>中文名</h2>
+        <h2>Latin</h2>
        <p>描述...</p>
        <hr />
         <ol class="link-list">
@@ -279,14 +278,12 @@ Tritium79.github.io/
 | `pages/*.html` | `../style.css` | `../index.html` | `../assets/images/avatar.png` |
 | `content/*/*/index.html` | `../../../style.css` | `../../../index.html` | `../../../assets/images/avatar.png` |
 
-### 导航双语格式
+### 导航格式
 
 导航链接必须使用以下结构，不得更改：
 
 ```html
 <a href="...">
-    <span class="nav-cn">中文</span>
-    <span class="sep">/</span>
     <span class="nav-la">Latin</span>
 </a>
 ```
@@ -298,7 +295,7 @@ Tritium79.github.io/
 | 变量 | 用途 | 适用范围 | 示例值 |
 |------|------|---------|--------|
 | `{{ title }}` | 页面标题 `<title>` | base + article | `序` |
-| `{{ section }}` | 当前章节名（nav-current / current-section） | base + article | `随笔` |
+| `{{ section }}` | 当前章节名（nav-current / current-section） | base + article | `Sylvae` |
 | `{{ content }}` | `<main>` 内的 HTML 内容（含 h2 标题和日期） | archetype | `<p>...</p>` |
 | `{{ root_path }}` | 相对路径前缀（`/`、`../`、`../../../`） | archetype | `/` |
 | `{{ nav_links }}` | 从 `data/config.json` 生成的导航链接 HTML | archetype | `<a href="...">...</a>` |
@@ -439,22 +436,24 @@ def hello():
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |
-| `header.css` | 固定侧边栏 | 桌面端 7/32 宽度，fixed 定位，导航链接样式 |
-| `main.css` | 主内容区 | 桌面端 25/32 宽度，常规文档流样式（段落、列表、表格、图片） |
+| `header.css` | 侧边栏 | 桌面端 3/16 宽度（`min-width: 150px`），桌面 fixed / 短视口 absolute，导航链接样式，含短视口媒体查询 |
+| `main.css` | 主内容区 | 与侧栏对齐（`margin-left: max(3/16, 150px)`），常规文档流样式（段落、列表、表格、图片） |
 | `components.css` | 组件样式 | `.link-list`、`.post-date`、`.signature` |
 | `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
 | `footer.css` | 页脚 | 与 main 同宽对齐 |
-| `responsive-wide.css` | 宽屏模式 | `min-width: 1005px` + `max-height: 679px` |
-| `responsive-portrait.css` | 竖屏模式 | `max-width: 1004px` + `min-height: 680px`（汉堡菜单） |
-| `responsive-min.css` | 最小模式 | `max-width: 1004px` + `max-height: 679px` |
+| `responsive-portrait.css` | 竖屏模式 | `max-width: 649px`（汉堡菜单，不论高度） |
+
+### 短视口模式（替代原宽屏模式）
+
+桌面模式下视口高度低于 670px 时，固定侧栏（约 675–705px 高）底部导航会被裁切。原宽屏模式（`responsive-wide.css`）已删除，由 `header.css` 末尾的媒体查询（`min-width: 650px and max-height: 669px`）接管：将 `header` 改为 `position: absolute` 随页面整体滚动，使底部导航可以滚动露出。侧栏不再固定，滚动后滑出屏幕（不钉住）。
 
 ### 布局系统
 
-采用 **32 列固定比例网格**：
+采用 **16 列固定比例网格**：
 
-- `header` 宽度：`calc(100% / 32 * 7)`（约 21.875%）
-- `main` / `footer` 宽度：`calc(100% / 32 * 25)`（约 78.125%）
-- `main` 左外边距与 `header` 宽度相等，形成并排列
+- `header` 宽度：`calc(100% / 16 * 3)`（18.75%），`min-width: 150px`
+- `main` / `footer` 左外边距：`max(calc(100% / 16 * 3), 150px)`——与侧栏实际宽度对齐（窄视口下侧栏受 `min-width` 限制时，`main`/`footer` 随之右移）
+- `main` / `footer` 宽度：`calc(100% - 左外边距)`，与侧栏并排无重叠
 
 > 修改布局比例时，需同步调整 `header`、`main`、`footer` 三处的 `width` 与 `margin-left`。
 
@@ -478,7 +477,7 @@ def hello():
 | `.header-bar` | 头部导航栏容器（桌面端 `display: contents`，移动端恢复 flex） | `header` 内部 |
 | `.current-section` | 当前页面标题，仅移动端显示 | `.header-bar` 内 |
 | `.nav-toggle-btn` / `.nav-toggle` | 移动端汉堡菜单（纯 CSS checkbox hack） | `.header-bar` 内 / 同级 |
-| `.nav-cn` / `.nav-la` / `.sep` | 导航双语标签与中英文分隔符 | `nav a` 内部 |
+| `.nav-la` | 导航 Latin 标签 | `nav a` 内部 |
 | `.post-date` | 文章页日期行 | `main` 内，紧跟 `h2` |
 | `.article-date` | 汇总页文章列表中的日期 | `ul li` 内 |
 | `.article-meta` | 文章元信息容器 | `main` 内（build.py 生成） |
@@ -499,58 +498,48 @@ def hello():
 
 ### 模式总览（二维象限分割）
 
-四条模式以宽度 1005px 和高度 680px 为轴，互斥无重叠：
+当前生效的三条规则以宽度 650px 和高度 670px 为轴：
 
 ```
-               宽度 1005px
-              ───────┬───────
+               宽度 650px
+              ───────┬─────────
                      │
      竖屏            │    桌面
   (顶栏+汉堡菜单)    │  (固定侧栏)
-  高度 ≥ 680px       │  高度 ≥ 680px
+  宽度 < 650px       │  宽度 ≥ 650px
+  不论高度           │  高度 ≥ 670px
                      │
-  ──────────────────┼──────────────────
-                     │
-     最小            │    宽屏
-  (可滚动顶栏+嵌入)  │  (固定顶栏+展开)
-  高度 < 680px       │  高度 < 680px
-                     │
+                     ├─────────
+                     │  短视口
+                     │  (随页滚动侧栏)
+                     │  宽度 ≥ 650px
+                     │  高度 < 670px
 ```
+
+（历史四象限：宽度 1005px 与高度 680px 为轴，宽屏模式与最小模式均已删除。）
 
 ### 桌面模式
 
-- 默认模式，无媒体查询条件
-- 宽度 ≥ 1005px 且高度 ≥ 680px 时激活（即不满足其他三种模式时自动生效）
+- 宽度 ≥ 650px 且高度 ≥ 670px 时激活
+- 固定侧栏（3/16）+ 正文并排
 
 ### 竖屏模式
 
-- **断点**：`max-width: 1004px` 且 `min-height: 680px`（宽度 ≤ 1004px 且高度 ≥ 680px 时触发）
+- **断点**：`max-width: 649px`（宽度 ≤ 649px 时触发，不论高度）
 - **导航切换**：使用隐藏的 checkbox（`#nav-toggle`）+ `label` 实现纯 CSS 全屏菜单，无 JavaScript。
 - `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载头像、标题、菜单按钮的横向排列。
 
-### 宽屏模式
+### 短视口模式
 
-- **断点**：`min-width: 1005px` 且 `max-height: 679px`（宽度 ≥ 1005px 且高度 ≤ 679px 时触发）
-- 侧栏（`header`）变为固定顶栏，头像缩小，博客标题与导航链接水平排列
-- 导航按钮全部展开在顶栏上，隐藏汉堡菜单按钮和当前章节标记
-- `main` 内容区取消左侧边距，铺满全宽，左右内边距增大至 `12rem`
-- 标题、日期、正文居中对齐
-- 图片铺满整个内容区宽度（`width: 100%`），无最大高度限制，保持原始比例
-
-### 最小模式
-
-- **触发器**：`max-width: 1004px` 且 `max-height: 679px`（宽度 ≤ 1004px 且高度 ≤ 679px 时触发）
-- 基于竖屏布局，但顶栏不再是固定定位 + 全屏菜单覆盖层
-- `header` 变为 `position: relative`，随页面滚动（可滑走）
-- 隐藏汉堡菜单按钮和当前章节标记
-- 导航链接展开嵌入在顶栏下方（竖排，中文/拉丁文上下排列），与竖屏全屏菜单样式一致但处于正常文档流中
-- `main` 内容区铺满全宽，简化内边距，文字左对齐
+- **断点**：`min-width: 650px` 且 `max-height: 669px`（宽度 ≥ 650px 且高度 ≤ 669px 时触发）
+- 即桌面模式的矮视口分支：侧栏由 `position: fixed` 改为 `position: absolute` 随页面整体滚动，底部导航可滚动露出（不钉住）
+- 与桌面模式共享分割线、导航居中、下划线样式（见 `header.css` 的 `min-width: 650px` 块）
 
 ### 修改 CSS 时的注意事项
 
 1. **变量优先**：新增颜色应先在 `:root` 中定义变量，再在暗色模式中覆盖，最后在选择器中使用。
 2. **布局联动**：修改侧边栏宽度时，必须同步修改 `main` 和 `footer` 的 `margin-left` 与 `width`。
-3. **模式覆盖**：四种模式互斥（基于宽度/高度二维分割），新增媒体查询时注意不要破坏此结构。
+3. **模式覆盖**：桌面/短视口/竖屏三模式互斥（以宽度 650px 为轴、高度 670px 分支），新增媒体查询时注意不要破坏此结构。
 4. **动画尊重**：新增动画应包裹在 `@media (prefers-reduced-motion: no-preference)` 中，保证可访问性。
 5. **避免直接修改 `.token.*`**：代码高亮类名由 Prism.js 生成，暗色模式覆盖即可，无需新增选择器。
 

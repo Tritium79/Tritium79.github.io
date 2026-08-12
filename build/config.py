@@ -24,7 +24,7 @@ else:
     _raw = {}
 
 CATEGORIES = [(k, v['name']) for k, v in _raw.items()]
-SECTION_MAP = {k: v['section_cn'] for k, v in _raw.items()}
+SECTION_MAP = {k: v['name'] for k, v in _raw.items()}
 PAGE_MAP = {k: ROOT_DIR / v['page'] for k, v in _raw.items()}
 
 # 从 data/settings.json 加载汇总页条目模板

@@ -91,16 +91,16 @@ def _extract_nav_entries(html):
 
 def _get_expected_nav_entries():
     return [
-        (Path(href).name, re.sub(r'\s+', '', f'{cn}/{la}'))
-        for href, cn, la in get_nav_data()
+        (Path(href).name, re.sub(r'\s+', '', la))
+        for href, la in get_nav_data()
     ]
 
 
 def _get_section_from_path(file_path):
     rel = _rel_path(file_path)
-    for href, cn, _ in get_nav_data():
+    for href, la in get_nav_data():
         if rel == href:
-            return cn
+            return la
     parts = Path(rel).parts
     if len(parts) >= 2 and parts[1] in SECTION_MAP:
         return SECTION_MAP[parts[1]]
