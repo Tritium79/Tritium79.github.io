@@ -14,7 +14,9 @@
                     ><img src="{{ root_path }}assets/images/avatar.png" alt="avatar"
                 /></a>
                 <a href="{{ root_path }}index.html"><div class="site-title">Tritium79's Blog</div></a>
-                <span class="current-section">{{ section }}</span>
+                <a class="current-section" href="{{ root_path }}{{ section_href }}"
+                    ><span class="nav-la">{{ section }}</span></a
+                >
                 <label for="nav-toggle" class="nav-toggle-btn">≡</label>
             </div>
             <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />

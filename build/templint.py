@@ -22,6 +22,7 @@ from data_loader import (
     get_html_lang,
     get_avatar,
     get_css_file,
+    get_section_href,
 )
 
 
@@ -215,6 +216,7 @@ def rebuild_from_base(file_path):
     out = template
     out = out.replace('{{ title }}', title)
     out = out.replace('{{ section }}', section)
+    out = out.replace('{{ section_href }}', get_section_href(section))
     out = out.replace('{{ content }}', main.strip())
     out = out.replace('{{ nav_links }}', generate_nav_links(section, pref))
     out = out.replace('{{ footer_content }}', get_footer_data())

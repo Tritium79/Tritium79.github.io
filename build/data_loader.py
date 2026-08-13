@@ -88,6 +88,14 @@ def get_nav(default=None):
     return default
 
 
+def get_section_href(section):
+    """根据章节显示名称返回其导航页相对路径（如 pages/sylvae.html）。"""
+    for href, la in get_nav():
+        if la == section:
+            return href
+    return ''
+
+
 # ── data/settings.json ──────────────────────────────────
 
 def get_settings(key=None, default=None):

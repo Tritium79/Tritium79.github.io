@@ -20,7 +20,12 @@ from markdown.extensions import Extension
 from config import ROOT_DIR, ARCHETYPE_PATH, CATEGORIES, SECTION_MAP, PAGE_MAP
 from utils import slugify, make_folder_name, ask, confirm, parse_front_matter, get_lunar_date
 from management import add_entry_to_page
-from data_loader import get_nav as get_nav_data, get_footer as get_footer_data, get_settings
+from data_loader import (
+    get_nav as get_nav_data,
+    get_footer as get_footer_data,
+    get_settings,
+    get_section_href,
+)
 from font_subset import run_font_subset
 
 
@@ -392,6 +397,7 @@ def fill_template(template, title, date, content, section):
     html = html.replace('{{ title }}', title)
     html = html.replace('{{ content }}', full_content)
     html = html.replace('{{ section }}', section)
+    html = html.replace('{{ section_href }}', get_section_href(section))
     html = html.replace('{{ nav_links }}', generate_nav_links(section, '../../../'))
     html = html.replace('{{ footer_content }}', get_footer_data())
     html = html.replace('{{ root_path }}', '../../../')
