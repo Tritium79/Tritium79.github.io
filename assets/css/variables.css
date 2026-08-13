@@ -2,7 +2,6 @@
     --bg-primary: #ffffff;
     --bg-sidebar: #F6F6F6;
     --bg-header: #FFFFFF;
-    --border-sidebar: #e0e0e0;
     --border-list: #ddd;
     --text-primary: #000;
     --text-nav: #000;
@@ -10,7 +9,6 @@
     --text-muted: #888;
     --text-link: #999;
     --text-sidebar-hover: #4aa9c5;
-    --text-list-hover: #4aa9c5;
     --bg-code: #f5f5f5;
     --text-code: #1a1a1a;
     --callout-abstract: #4aa9c5;
@@ -24,6 +22,14 @@
     --callout-question: #ff9800;
     --callout-bg: #f8f9fa;
     --bg-highlight: #C2EAF0;
+
+    /* 竖屏汉堡菜单布局：头像 < 标题 < 链接的纵向节奏 */
+    --menu-avatar-top: 4rem;
+    --menu-title-top: 11rem;
+    --menu-links-top: 15rem;
+    --menu-close-top: 0.5rem;
+    --menu-close-right: 0.75rem;
+    --bar-height: 32px; /* 顶栏内容高度近似值，用于 main 顶部留白 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,7 +37,6 @@
         --bg-primary: #111111;
         --bg-sidebar: #111111;
         --bg-header: #111111;
-        --border-sidebar: #1f1f1f;
         --border-list: #222;
         --text-primary: #fff;
         --text-nav: #fff;
@@ -39,7 +44,6 @@
         --text-muted: #777;
         --text-link: #666;
         --text-sidebar-hover: #4aa9c5;
-        --text-list-hover: #4aa9c5;
         --bg-code: #1a1a1a;
         --text-code: #d4d4d4;
         --callout-abstract: #4aa9c5;

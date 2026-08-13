@@ -45,7 +45,7 @@ def _prefix(depth):
 def _parse_head_body_main(file_path):
     text = file_path.read_text(encoding='utf-8')
     h = re.search(r'<head>(.*?)</head>', text, re.DOTALL)
-    b = re.search(r'<body>(.*?)</body>', text, re.DOTALL)
+    b = re.search(r'<body[^>]*>(.*?)</body>', text, re.DOTALL)
     m = re.search(r'<main>(.*?)</main>', text, re.DOTALL)
     return (
         h.group(1) if h else '',
@@ -198,6 +198,9 @@ def rebuild_from_base(file_path):
     depth = _depth(file_path)
     pref = _prefix(depth)
     section = _get_section_from_path(file_path)
+    rel = _rel_path(file_path)
+    # 首页与汇总页标记为 section-page（竖屏下隐藏 current-section）
+    body_class = ' class="section-page"' if rel in ('index.html',) or rel.startswith('pages/') else ''
 
     head, _, main = _parse_head_body_main(file_path)
     title = _get_title_from_head(head)
@@ -215,6 +218,7 @@ def rebuild_from_base(file_path):
 
     out = template
     out = out.replace('{{ title }}', title)
+    out = out.replace('{{ body_class }}', body_class)
     out = out.replace('{{ section }}', section)
     out = out.replace('{{ section_href }}', get_section_href(section))
     out = out.replace('{{ content }}', main.strip())

@@ -26,6 +26,12 @@ body {
     flex-direction: column;
 }
 
+a:focus-visible,
+.nav-toggle-btn:focus-visible {
+    outline: 2px solid var(--text-sidebar-hover);
+    outline-offset: 2px;
+}
+
 @keyframes fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }

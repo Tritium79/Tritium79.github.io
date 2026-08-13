@@ -395,6 +395,7 @@ def fill_template(template, title, date, content, section):
 
     html = template
     html = html.replace('{{ title }}', title)
+    html = html.replace('{{ body_class }}', '')
     html = html.replace('{{ content }}', full_content)
     html = html.replace('{{ section }}', section)
     html = html.replace('{{ section_href }}', get_section_href(section))

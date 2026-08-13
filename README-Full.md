@@ -296,6 +296,8 @@ Tritium79.github.io/
 |------|------|---------|--------|
 | `{{ title }}` | 页面标题 `<title>` | base + article | `序` |
 | `{{ section }}` | 当前章节名（nav-current / current-section） | base + article | `Sylvae` |
+| `{{ section_href }}` | 当前章节导航页相对路径（current-section 链接目标） | base + article | `pages/sylvae.html` |
+| `{{ body_class }}` | 非文章页的 body 类标记（` class="section-page"` 或空） | base + article | ` class="section-page"` |
 | `{{ content }}` | `<main>` 内的 HTML 内容（含 h2 标题和日期） | archetype | `<p>...</p>` |
 | `{{ root_path }}` | 相对路径前缀（`/`、`../`、`../../../`） | archetype | `/` |
 | `{{ nav_links }}` | 从 `data/config.json` 生成的导航链接 HTML | archetype | `<a href="...">...</a>` |
@@ -437,11 +439,12 @@ def hello():
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |
 | `header.css` | 侧边栏 | 桌面端 3/16 宽度（`min-width: 150px`），桌面 fixed / 短视口 absolute，导航链接样式，含短视口媒体查询 |
+| `menu.css` | 竖屏汉堡菜单覆盖层 | `@media (max-width: 649px)`：全屏菜单本体（淡入淡出、可滚动）、菜单内关闭按钮/头像/站点标题、菜单链接样式 |
 | `main.css` | 主内容区 | 与侧栏对齐（`margin-left: max(3/16, 150px)`），常规文档流样式（段落、列表、表格、图片） |
 | `components.css` | 组件样式 | `.link-list`、`.post-date`、`.signature` |
 | `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
 | `footer.css` | 页脚 | 与 main 同宽对齐 |
-| `responsive-portrait.css` | 竖屏模式 | `max-width: 649px`（汉堡菜单，不论高度） |
+| `responsive-portrait.css` | 竖屏模式 | `max-width: 649px`：顶栏、正文与页脚的竖屏布局（汉堡菜单见 `menu.css`） |
 
 ### 短视口模式（替代原宽屏模式）
 
@@ -468,19 +471,21 @@ def hello():
 | `--text-*` | 文本色（primary、nav、body、muted、link） |
 | `--text-*-hover` | 悬停色（sidebar、list） |
 
-> 亮色模式悬停色为 `#4aa9c5`（青蓝），暗色模式为 `#b5563a`（砖红），形成视觉反差。
+> 悬停色 `--text-sidebar-hover` 在亮暗模式下均为 `#4aa9c5`（青蓝）。暗色砖红 `#b5563a` 仅用于脚注链接（`components.css` 中的 `.footnote-ref`/`.footnote-backref`，硬编码例外）。
+>
+> 例外：脚注链接与 `prism.css`（代码高亮 token）使用硬编码颜色，不经过 CSS 变量。
 
 ### 类名命名规则
 
 | 类名 | 用途 | 所在位置 |
 |------|------|---------|
 | `.header-bar` | 头部导航栏容器（桌面端 `display: contents`，移动端恢复 flex） | `header` 内部 |
-| `.current-section` | 当前页面标题，仅移动端显示 | `.header-bar` 内 |
+| `.current-section` | 当前章节链接（跳转本章节导航页），仅移动端显示；首页与汇总页（`body.section-page`）隐藏 | `.header-bar` 内 |
+| `.section-page` | 非文章页标记（首页与汇总页的 body 类），用于竖屏下隐藏 current-section 并保持菜单按钮位置 | `body` |
 | `.nav-toggle-btn` / `.nav-toggle` | 移动端汉堡菜单（纯 CSS checkbox hack） | `.header-bar` 内 / 同级 |
 | `.nav-la` | 导航 Latin 标签 | `nav a` 内部 |
 | `.post-date` | 文章页日期行 | `main` 内，紧跟 `h2` |
 | `.article-date` | 汇总页文章列表中的日期 | `ul li` 内 |
-| `.article-meta` | 文章元信息容器 | `main` 内（build.py 生成） |
 | `.signature` | 首页签名/引言 | `main` 内 |
 | `.arithmatex` / `.katex-display` | 数学公式溢出处理 | 文章页 KaTeX 容器 |
 | `.token.*` | 代码高亮（Prism.js 兼容） | 暗色模式覆盖 |
@@ -490,7 +495,7 @@ def hello():
 在 `prefers-reduced-motion: no-preference` 下，内容按以下顺序依次淡入，形成级联效果：
 
 1. `main` — 0.04s 延迟
-2. `main h2, main h3` — 0.08s 延迟
+2. `main h2, main h3, main h4, main h5, main h6` — 0.08s 延迟
 3. `main p, ul, table, ol, pre, blockquote` — 0.16s 延迟
 4. `footer` — 0.24s 延迟
 
@@ -527,7 +532,9 @@ def hello():
 
 - **断点**：`max-width: 649px`（宽度 ≤ 649px 时触发，不论高度）
 - **导航切换**：使用隐藏的 checkbox（`#nav-toggle`）+ `label` 实现纯 CSS 全屏菜单，无 JavaScript。
-- `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载头像、标题、菜单按钮的横向排列。
+- `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载标题、当前章节链接（`.current-section`，指向本章节导航页）、菜单按钮的横向排列（竖屏下顶栏不显示头像）。
+- **首页与汇总页**（`body.section-page`）：不显示 `.current-section`，菜单按钮通过 `margin-left: auto` 保持右侧位置。
+- **汉堡菜单**（规则位于 `menu.css`，布局变量见 `variables.css` 的 `--menu-*`）：打开时 `header-bar` 隐藏，关闭按钮（≡）移至菜单右上角；菜单内依次为头像（`--menu-avatar-top: 4rem`）、站点标题（`--menu-title-top: 11rem`）、导航链接（`--menu-links-top: 15rem` 起）。菜单为全屏覆盖层（`100dvh`、`overflow-y: auto`），内容随菜单滚动，整体 0.2s 淡入淡出。
 
 ### 短视口模式
 
