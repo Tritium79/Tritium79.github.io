@@ -13,6 +13,7 @@
     color: var(--text-primary);
     text-decoration: none;
     font-weight: bold;
+    -webkit-text-stroke: 0.25px currentColor;
     transition: color 0.15s ease;
 }
 

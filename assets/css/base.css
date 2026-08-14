@@ -38,7 +38,6 @@ main dt,
 main ol:not(.link-list) > li::before,
 main ol:not(.link-list) ol > li::before,
 main table th,
-.link-list li a,
 .callout-title,
 .footnote-ref {
     -webkit-text-stroke: 0.5px currentColor;
