@@ -32,17 +32,6 @@ a:focus-visible,
     outline-offset: 2px;
 }
 
-b,
-strong,
-main dt,
-main ol:not(.link-list) > li::before,
-main ol:not(.link-list) ol > li::before,
-main table th,
-.callout-title,
-.footnote-ref {
-    -webkit-text-stroke: 0.5px currentColor;
-}
-
 @keyframes fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }

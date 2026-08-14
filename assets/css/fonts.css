@@ -1,8 +1,10 @@
 /*
  * LXGW Bright 不再在此处声明：
- * 字体已分包（unicode-range 按需加载），规则由 cn-font-split 生成，
- * 见 assets/fonts/lxgw/result.css（style.css 中 @import 引入）。
- * 源文件 LXGWBright-Light.ttf / .woff2 保留在 assets/fonts/ 作为备份。
+ * - 字体子集由 build/font_subset.py 生成：Light 300 全站字符、Medium 700 仅粗体字符，
+ *   规则见 assets/fonts/lxgw/subset.css（style.css 中 @import 引入）。
+ * - 分包回退由 cn-font-split 生成：Light 见 assets/fonts/lxgw/light/result.css，
+ *   Medium 见 assets/fonts/lxgw/medium/result.css。
+ * 源文件 LXGWBright-Light.ttf / LXGWBright-Medium.ttf 保留在 assets/fonts/ 作为备份。
  */
 
 @font-face {

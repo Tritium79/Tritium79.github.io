@@ -18,7 +18,9 @@ Tritium79.github.io/
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
 │   ├── fonts/                  # 字体文件
-│   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、result.css、woff2）
+│   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、subset-*.woff2 单子集）
+│   │       ├── light/          # Light 300 分包产物（result.css + woff2 切片）
+│   │       └── medium/         # Medium 700 分包产物（result.css + woff2 切片）
 │   ├── icons/                  # 图标
 │   └── images/                 # 图片资源
 │
@@ -147,7 +149,7 @@ Tritium79.github.io/
 - `python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
-- 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-*.woff2`
+- 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-*.woff2`（Light 300 全站字符）与 `subset-medium-*.woff2`（Medium 700 仅粗体字符）
 - 所有路径以项目根目录为基准
 - Markdown 渲染扩展由 `data/settings.json` 的 `markdown_extensions` 定义
 - 发布文章时日期留空，默认使用当前干支日期（格式由 `data/settings.json` 的 `date_format` 定义）
@@ -155,8 +157,9 @@ Tritium79.github.io/
 ### assets
 
 - `fonts/` — 存放字体文件
-- `fonts/lxgw/subset.css` — 全站字符子集的字体规则，优先于分包加载
-- `fonts/lxgw/result.css` — cn-font-split 生成的分包规则，作为子集未覆盖字符的回退
+- `fonts/lxgw/subset.css` — 全站字符子集的字体规则（Light 300 与 Medium 700 两个 `@font-face`），优先于分包加载
+- `fonts/lxgw/light/result.css` — cn-font-split 生成的分包规则（Light 300），作为子集未覆盖字符的回退
+- `fonts/lxgw/medium/result.css` — cn-font-split 生成的分包规则（Medium 700），粗体字重回退
 - `icons/` — 存放图标文件
 - `css/` — 模块化 CSS 文件（由 `style.css` 集中 `@import`）
 - `images/` — 通用图片资源
@@ -204,6 +207,10 @@ Tritium79.github.io/
 ### data/settings.json
 
 构建过程设置（Markdown 渲染、日期格式、文件管理器等），详见 `build/README.md`。
+
+| 字段 | 说明 |
+|------|------|
+| `managed_root_files` | 根目录 HTML 白名单，仅此列表中的文件会被模板检查与重建扫描（默认 `["index.html"]`）。根目录其他 `.html`（如 Google 验证文件 `google*.html`）不受构建脚本管理，不会被覆盖 |
 
 
 
@@ -434,7 +441,7 @@ def hello():
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | Source Code Pro；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先）和 `result.css`（分包兜底） |
+| `fonts.css` | 字体定义 | Source Code Pro；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |

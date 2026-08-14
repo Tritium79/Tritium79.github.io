@@ -1,4 +1,4 @@
-"""Generate a site-wide LXGW Bright subset from rendered HTML pages."""
+"""Generate site-wide LXGW Bright subsets (Light 300 全站 / Medium 700 粗体-only) from rendered HTML pages."""
 
 from hashlib import sha256
 from html.parser import HTMLParser
@@ -8,47 +8,79 @@ import re
 from config import ROOT_DIR
 
 
-FONT_SOURCE = ROOT_DIR / 'assets' / 'fonts' / 'LXGWBright-Light.ttf'
 FONT_DIR = ROOT_DIR / 'assets' / 'fonts' / 'lxgw'
 SUBSET_CSS = FONT_DIR / 'subset.css'
 SUBSET_FAMILY = 'LXGW Bright Subset'
+_FONT_FACES = [
+    {
+        'source': ROOT_DIR / 'assets' / 'fonts' / 'LXGWBright-Light.ttf',
+        'weight': 300,
+        'prefix': 'subset-',
+        'bold_only': False,
+    },
+    {
+        'source': ROOT_DIR / 'assets' / 'fonts' / 'LXGWBright-Medium.ttf',
+        'weight': 700,
+        'prefix': 'subset-medium-',
+        'bold_only': True,
+    },
+]
 _IGNORED_TAGS = {'script', 'style', 'template'}
+_VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 _TEXT_ATTRIBUTES = {'alt', 'aria-label', 'placeholder', 'title', 'value'}
+_BOLD_TAGS = {'b', 'strong', 'dt', 'th'}
+_BOLD_CLASSES = {'link-list', 'callout-title', 'footnote-ref'}
 _CSS_CONTENT_RE = re.compile(r'(?<![-\w])content\s*:\s*(["\'])(.*?)\1', re.DOTALL)
 
 
 class _VisibleTextParser(HTMLParser):
-    """Collect rendered text and text-like attributes from a static HTML page."""
+    """Collect rendered text and text-like attributes with bold-context flags."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.parts = []
         self._ignored_depth = 0
+        self._bold_stack = []
+
+    def _is_bold_element(self, tag, attrs):
+        if tag in _BOLD_TAGS:
+            return True
+        for name, value in attrs:
+            if name == 'class' and value and _BOLD_CLASSES & set(value.split()):
+                return True
+        return False
 
     def handle_starttag(self, tag, attrs):
         if tag in _IGNORED_TAGS:
             self._ignored_depth += 1
             return
+        bold = self._is_bold_element(tag, attrs)
+        in_bold = any(self._bold_stack) or bold
+        if tag not in _VOID_TAGS:
+            self._bold_stack.append(bold)
         if self._ignored_depth:
             return
         for name, value in attrs:
             if name in _TEXT_ATTRIBUTES and value:
-                self.parts.append(value)
+                self.parts.append((value, in_bold))
 
     def handle_startendtag(self, tag, attrs):
         if self._ignored_depth or tag in _IGNORED_TAGS:
             return
+        in_bold = any(self._bold_stack)
         for name, value in attrs:
             if name in _TEXT_ATTRIBUTES and value:
-                self.parts.append(value)
+                self.parts.append((value, in_bold))
 
     def handle_endtag(self, tag):
+        if self._bold_stack:
+            self._bold_stack.pop()
         if tag in _IGNORED_TAGS and self._ignored_depth:
             self._ignored_depth -= 1
 
     def handle_data(self, data):
         if not self._ignored_depth:
-            self.parts.append(data)
+            self.parts.append((data, any(self._bold_stack)))
 
 
 def _site_html_files():
@@ -69,15 +101,20 @@ def _keep_character(character):
     return codepoint >= 0x20 or character in ('\u00a0', '\u200b', '\u200c', '\u200d')
 
 
-def collect_site_chars():
-    """Return a deterministic, de-duplicated set of characters used by the site."""
-    characters = set()
+def _parse_site_text():
+    """Yield (text, is_bold) tuples from all site HTML pages."""
     for path in _site_html_files():
         parser = _VisibleTextParser()
         parser.feed(path.read_text(encoding='utf-8'))
         parser.close()
-        for text in parser.parts:
-            characters.update(character for character in text if _keep_character(character))
+        yield from parser.parts
+
+
+def collect_site_chars():
+    """Return a deterministic, de-duplicated set of characters used by the site."""
+    characters = set()
+    for text, _ in _parse_site_text():
+        characters.update(character for character in text if _keep_character(character))
     for path in _site_css_files():
         css = path.read_text(encoding='utf-8')
         for match in _CSS_CONTENT_RE.finditer(css):
@@ -85,9 +122,18 @@ def collect_site_chars():
     return ''.join(sorted(characters))
 
 
-def _source_signature(chars):
+def collect_bold_chars():
+    """Return a deterministic, de-duplicated set of characters appearing in bold text."""
+    characters = set()
+    for text, is_bold in _parse_site_text():
+        if is_bold:
+            characters.update(character for character in text if _keep_character(character))
+    return ''.join(sorted(characters))
+
+
+def _source_signature(chars, source_path):
     digest = sha256(chars.encode('utf-8'))
-    with FONT_SOURCE.open('rb') as source:
+    with source_path.open('rb') as source:
         for chunk in iter(lambda: source.read(1024 * 1024), b''):
             digest.update(chunk)
     return digest.hexdigest()[:12]
@@ -114,7 +160,7 @@ def _unicode_range(chars):
     return ','.join(formatted)
 
 
-def _write_subset_font(chars, output_path):
+def _write_subset_font(chars, source_path, output_path):
     try:
         from fontTools import subset
         from fontTools.ttLib import TTFont
@@ -133,7 +179,7 @@ def _write_subset_font(chars, output_path):
     if temporary_path.exists():
         temporary_path.unlink()
 
-    font = TTFont(str(FONT_SOURCE))
+    font = TTFont(str(source_path))
     try:
         subsetter = subset.Subsetter(options=options)
         subsetter.populate(text=chars)
@@ -146,18 +192,30 @@ def _write_subset_font(chars, output_path):
     temporary_path.replace(output_path)
 
 
-def _write_subset_css(chars, filename, signature):
-    css = f'''/* Generated by build/font_subset.py */
-/* Source: assets/fonts/LXGWBright-Light.ttf; characters: {len(chars)}; signature: {signature} */
+def _font_face_css(chars, source_name, filename, family, weight, signature):
+    return f'''/* Source: assets/fonts/{source_name}; characters: {len(chars)}; signature: {signature} */
 @font-face {{
-    font-family: "{SUBSET_FAMILY}";
+    font-family: "{family}";
     src: url("./{filename}") format("woff2");
-    font-weight: 300;
+    font-weight: {weight};
     font-style: normal;
     font-display: block;
     unicode-range: {_unicode_range(chars)};
 }}
 '''
+
+
+def _write_subset_css(faces):
+    css = '/* Generated by build/font_subset.py */\n'
+    for face in faces:
+        css += _font_face_css(
+            face['chars'],
+            face['source'].name,
+            face['filename'],
+            SUBSET_FAMILY,
+            face['weight'],
+            face['signature'],
+        )
     temporary_path = SUBSET_CSS.with_name(SUBSET_CSS.name + '.tmp')
     temporary_path.write_text(css, encoding='utf-8')
     temporary_path.replace(SUBSET_CSS)
@@ -170,28 +228,49 @@ def _existing_subset_matches(filename):
 
 
 def run_font_subset(force=False):
-    """Update the site-wide subset when the collected character set changes."""
-    if not FONT_SOURCE.exists():
-        raise FileNotFoundError(f'字体源文件不存在: {FONT_SOURCE}')
-
-    FONT_DIR.mkdir(parents=True, exist_ok=True)
+    """Update the site-wide subsets (Light 300 全站 / Medium 700 粗体-only) when the collected characters change."""
     chars = collect_site_chars()
     if not chars:
         raise RuntimeError('未从全站 HTML 收集到可用字符，已取消字体子集生成')
+    bold_chars = collect_bold_chars()
 
-    signature = _source_signature(chars)
-    filename = f'subset-{signature}.woff2'
-    if not force and _existing_subset_matches(filename):
-        print(f'  字体子集无变化，跳过生成（{len(chars)} 个字符）')
-        return False
+    faces = []
+    changed = False
+    for face in _FONT_FACES:
+        if not face['source'].exists():
+            raise FileNotFoundError(f'字体源文件不存在: {face["source"]}')
 
-    _write_subset_font(chars, FONT_DIR / filename)
-    _write_subset_css(chars, filename, signature)
+        face_chars = bold_chars if face['bold_only'] else chars
+        if not face_chars:
+            print(f"  {face['source'].name}: 未收集到粗体字符，跳过")
+            continue
+
+        signature = _source_signature(face_chars, face['source'])
+        filename = f"{face['prefix']}{signature}.woff2"
+        if force or not _existing_subset_matches(filename):
+            FONT_DIR.mkdir(parents=True, exist_ok=True)
+            _write_subset_font(face_chars, face['source'], FONT_DIR / filename)
+            label = '粗体字符' if face['bold_only'] else '全站字符'
+            print(f"  {face['source'].name}: 子集已生成 {filename}（{label}: {len(face_chars)} 个）")
+            changed = True
+        else:
+            label = '粗体字符' if face['bold_only'] else '全站字符'
+            print(f"  {face['source'].name}: 子集无变化，跳过（{label}: {len(face_chars)} 个）")
+
+        faces.append({
+            'filename': filename,
+            'signature': signature,
+            'weight': face['weight'],
+            'source': face['source'],
+            'chars': face_chars,
+        })
+
+    if changed or force:
+        _write_subset_css(faces)
 
     for old_path in FONT_DIR.glob('subset-*.woff2'):
-        if old_path.name != filename:
+        current = [face['filename'] for face in faces]
+        if old_path.name not in current:
             old_path.unlink()
 
-    print(f'  字体子集已生成: assets/fonts/lxgw/{filename}')
-    print(f'  全站字符: {len(chars)} 个')
-    return True
+    return changed

@@ -134,10 +134,11 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 ### `font_subset.py` — 全站字体子集
 
 - 扫描全站已生成 HTML 和 CSS `content:` 字符串，收集页面实际使用的字符
-- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Light.ttf` 生成单个 woff2 子集
-- 生成的 `subset.css` 使用独立字体族，放在原有 `result.css` 分包之前
-- 子集未覆盖的字符回退到 `result.css` 的 LXGW Bright 分包
-- 发布文章、`--rebuild` 和 `--build-all` 会自动检测字符集变化；交互菜单 10 或 `--subset-font` 可强制重建
+- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Light.ttf` 生成**全站字符**单子集（weight 300，`subset-*.woff2`）
+- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Medium.ttf` 生成**粗体字符**单子集（weight 700，`subset-medium-*.woff2`），仅收录粗体上下文中出现的字符（`<b>`、`<strong>`、`<dt>`、`<th>`、`.link-list`、`.callout-title`、`.footnote-ref`）
+- 生成的 `subset.css` 包含两个 `@font-face`（同一字体族、不同字重），放在原有分包 `result.css` 之前
+- 子集未覆盖的字符回退到 `light/result.css`（Light）与 `medium/result.css`（Medium）的 LXGW Bright 分包
+- 发布文章、`--rebuild` 和 `--build-all` 会自动检测字符集变化；交互菜单 9 或 `--subset-font` 可强制重建
 
 ---
 
@@ -153,6 +154,8 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 | `rebuild_all(yes)` | 强制全站 Shell 同步（跳过 archetypes/ 模板） |
 
 **检查依据**：`data/config.json` 的 `nav`（导航）和 `footer`（页脚），而非某个 HTML 参考文件。
+
+**扫描白名单**：`_find_html_files()` 仅纳入本站管理的 HTML —— 根目录只扫描 `data/settings.json` 的 `managed_root_files`（默认 `["index.html"]`），另有 `pages/*.html`、`content/**/index.html`、`archetypes/archetype.html`。根目录其他文件（如 Google 验证文件 `google*.html`）一律不纳入检查与重建，避免被误覆盖。
 
 **保护机制**：archetypes/ 下的文件不会被写入覆盖，`{{ nav_links }}` 和 `{{ footer_content }}` 的模板变量跳过检查。
 

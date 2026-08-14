@@ -23,6 +23,7 @@ from data_loader import (
     get_avatar,
     get_css_file,
     get_section_href,
+    get_settings,
 )
 
 
@@ -233,9 +234,15 @@ def rebuild_from_base(file_path):
 # ── 全站扫描 ─────────────────────────────────────────────
 
 def _find_html_files():
+    """白名单扫描：仅纳入本站管理范围内的 HTML 文件。
+
+    根目录只扫描 data/settings.json 的 managed_root_files 白名单（默认 index.html），
+    其余根目录文件（如 Google 验证文件 google*.html）一律不纳入，避免被误重建。
+    """
     files = []
-    for f in ROOT_DIR.glob('*.html'):
-        if f.name not in ('archetype.html',):
+    for name in get_settings('managed_root_files', ['index.html']):
+        f = ROOT_DIR / name
+        if f.exists():
             files.append(f)
     pd = ROOT_DIR / 'pages'
     if pd.exists():
