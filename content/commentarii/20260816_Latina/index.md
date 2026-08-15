@@ -2,4 +2,5 @@
 - [HORATIUS.NET - Q. HORATIUS FLACCUS](https://www.horatius.net/la/)
 - [The Latin Library](https://www.thelatinlibrary.com/)
 - [Poeti d’Italia in lingua latina](https://www.poetiditalia.it/)
+- [Lingua Latina - Vicipaedia](https://la.wikipedia.org/wiki/Lingua_Latina)
 - [简明拉丁文入门手册](简明拉丁文入门手册.pdf)
