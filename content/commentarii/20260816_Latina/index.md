@@ -1,0 +1,5 @@
+- [Latin is Simple - a Latin Online Dictionary for Students](https://www.latin-is-simple.com/)
+- [HORATIUS.NET - Q. HORATIUS FLACCUS](https://www.horatius.net/la/)
+- [The Latin Library](https://www.thelatinlibrary.com/)
+- [Poeti d’Italia in lingua latina](https://www.poetiditalia.it/)
+- [简明拉丁文入门手册](简明拉丁文入门手册.pdf)
