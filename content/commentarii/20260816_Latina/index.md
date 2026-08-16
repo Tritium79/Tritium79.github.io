@@ -4,3 +4,4 @@
 - [Poeti d’Italia in lingua latina](https://www.poetiditalia.it/)
 - [Lingua Latina - Vicipaedia](https://la.wikipedia.org/wiki/Lingua_Latina)
 - [简明拉丁文入门手册](简明拉丁文入门手册.pdf)
+- [Perseus Digital Library](https://www.perseus.tufts.edu/hopper/)
