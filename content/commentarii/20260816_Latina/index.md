@@ -5,3 +5,7 @@
 - [Lingua Latina - Vicipaedia](https://la.wikipedia.org/wiki/Lingua_Latina)
 - [简明拉丁文入门手册](简明拉丁文入门手册.pdf)
 - [Perseus Digital Library](https://www.perseus.tufts.edu/hopper/)
+- [Latin Dictionary Olivetti](https://www.online-latin-dictionary.com/)
+- [Adfixum: Latin Declension & Meaning | latindictionary.io](https://www.latindictionary.io/word/adfixum)
+- [Latin Dictionary and Grammar Resources - Latdict](https://latin-dictionary.net/)
+- [Logeion](https://logeion.uchicago.edu/)
