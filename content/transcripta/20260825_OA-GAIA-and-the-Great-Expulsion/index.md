@@ -147,6 +147,3 @@ such as the Great Pyramids, the Valley of Kings, Cape Canaveral, Jerusalem, Mecc
 
 Now you know a quick rundown of what happened to Earth in OA. Join us next time for another interesting video. And don't forget to like and subscribe if you want to see more of this content. 
 > 结语。
-
-**等待BGM放完**
-**此处打码为原视频自带，非译者所为**
