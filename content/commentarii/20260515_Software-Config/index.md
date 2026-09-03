@@ -1,56 +1,55 @@
 更新时间：3 Sep. 2026 / 丙午年 丙申月 庚辰日
 系统环境：macOS Golden Gate 27.0 Beta
-
 - 记录&阅读
-    - Apple 备忘录
-    - [Obsidian](https://obsidian.md/)
-    - [GoodLinks](https://goodlinks.app/)
-    - [Emacs](https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html)
-    - [MarginNote 4](https://www.marginnote.com/)
-    - [Reeden](https://reeden.app/)
-    - [NetNewsWire](https://netnewswire.com/)
+	- Apple 备忘录
+	- [Obsidian](https://obsidian.md/)
+	- [GoodLinks](https://goodlinks.app/)
+	- [Emacs](https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html)
+	- [MarginNote 4](https://www.marginnote.com/)
+	- [Reeden](https://reeden.app/)
+	- [NetNewsWire](https://netnewswire.com/)
 - 编辑器
-    - [CotEditor](https://coteditor.com/)
-    - [Zed](https://zed.dev/)
-    - [MarkEdit](https://github.com/MarkEdit-app/MarkEdit)
-    - [妙言](https://miaoyan.app/)
-    - [Helix](https://helix-editor.com/)
-    - [AstroNvim](https://astronvim.com/)
+	- [CotEditor](https://coteditor.com/)
+	- [Zed](https://zed.dev/)
+	- [MarkEdit](https://github.com/MarkEdit-app/MarkEdit)
+	- [妙言](https://miaoyan.app/)
+	- [Helix](https://helix-editor.com/)
+	- [AstroNvim](https://astronvim.com/)
 - 日程
-    - Apple 提醒事项
+	- Apple 提醒事项
 - 浏览器
-    - [Apple Safari](https://www.apple.com/safari/)
-    - [Google Chrome](https://www.google.com/chrome/)
+	- [Apple Safari](https://www.apple.com/safari/)
+	- [Google Chrome](https://www.google.com/chrome/)
 - 音乐
-    - [Apple Music](https://www.apple.com/apple-music/)
-    - [Bandcamp](https://bandcamp.com/)
-    - [SoundCloud](https://soundcloud.com/)
-    - [网易云音乐](https://music.163.com/)
+	- [Apple Music](https://www.apple.com/apple-music/)
+	- [Bandcamp](https://bandcamp.com/)
+	- [SoundCloud](https://soundcloud.com/)
+	- [网易云音乐](https://music.163.com/)
 - 创作
-    - [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve)
-    - [Logic Pro](https://www.apple.com/logic-pro/)
-    - [Archetype Misha Mansoor X](https://neuraldsp.com/plugins/archetype-misha-mansoor)
-    - [Guitar Pro](https://www.guitar-pro.com/)
-    - [Pixelmator Pro](https://www.apple.com/pixelmator-pro/)
-    - [Photomator](https://www.pixelmator.com/photomator/)
+	- [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve)
+	- [Logic Pro](https://www.apple.com/logic-pro/)
+	- [Archetype Misha Mansoor X](https://neuraldsp.com/plugins/archetype-misha-mansoor)
+	- [Guitar Pro](https://www.guitar-pro.com/)
+	- [Pixelmator Pro](https://www.apple.com/pixelmator-pro/)
+	- [Photomator](https://www.pixelmator.com/photomator/)
 - 动漫
-    - [Kazumi](https://kazumi.app/)
-    - [Venera](https://github.com/venera-app/venera)
-    - [PiliPlus](https://github.com/bggRGjQaUbCoE/PiliPlus)
+	- [Kazumi](https://kazumi.app/)
+	- [Venera](https://github.com/venera-app/venera)
+	- [PiliPlus](https://github.com/bggRGjQaUbCoE/PiliPlus)
 - Unix
-    - [WezTerm](https://wezterm.org/)
-    - [kitty](https://sw.kovidgoyal.net/kitty/)
-    - [OrbStack](https://orbstack.dev/)
+	- [WezTerm](https://wezterm.org/)
+	- [kitty](https://sw.kovidgoyal.net/kitty/)
+	- [OrbStack](https://orbstack.dev/)
 - AI
-    - [kelivo](https://kelivo.psycheas.top/)
-    - [OpenCode](https://opencode.ai/)
-    - [DeepSeek](https://www.deepseek.com/)
-    - [Gemini](https://gemini.google.com/)
-    - [ChatGPT](https://chatgpt.com/)
+	- [kelivo](https://kelivo.psycheas.top/)
+	- [OpenCode](https://opencode.ai/)
+	- [DeepSeek](https://www.deepseek.com/)
+	- [Gemini](https://gemini.google.com/)
+	- [ChatGPT](https://chatgpt.com/)
 - 网络
-    - Shadowrocket
-    - [Lulu](https://objective-see.org/products/lulu.html)
+	- Shadowrocket
+	- [Lulu](https://objective-see.org/products/lulu.html)
 - 浏览器插件
-    - [Tampermonkey](https://www.tampermonkey.net/)
-    - [SingleFile](https://www.getsinglefile.com/)
-    - [DarkReader](https://darkreader.org/)
+	- [Tampermonkey](https://www.tampermonkey.net/)
+	- [SingleFile](https://www.getsinglefile.com/)
+	- [DarkReader](https://darkreader.org/)
