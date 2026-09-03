@@ -13,14 +13,26 @@
 - [CSS Zen Garden: The Beauty of CSS Design](https://csszengarden.com/)
 - [CSS Zen Garden: The Beauty of CSS Design](https://czg.vercel.app/)
 - [CSS Zen Garden: The Beauty of CSS Design](https://csszengarden.com/221/)
+- [CSS Zen Garden](https://daveshea.com/projects/zen/)
+- [Dave Shea](https://daveshea.com/)
+- [Elliot Jay Stocks](https://elliotjaystocks.com/)
 - [Zen Garden Websites](https://www.zengardenwebsites.com/#home)
+- [A Single Div](https://a.singlediv.com/)
 ### Apple
 - [Apple Design](https://developer.apple.com/cn/design/)
 - [Apple HIG](https://developer.apple.com/cn/design/human-interface-guidelines/)
 ### Blogs
 - [Matt Mulderberg](https://jhvanderschee.github.io/matt_mulderberg/#home)
+- [Robin Rendle](https://robinrendle.com)
+- [Frank Chimero](https://frankchimero.com/)
+- [Rauno Freiberg](https://rauno.me/)
+- [Lynn Fisher](https://lynnandtonic.com/)
+- [https://jerrycheung.com/posts/2025-09-18-no-css-no-js.html](https://jerrycheung.com/posts/2025-09-18-no-css-no-js.html)
 ### Brands
 - [TVアニメ「私を喰べたい、ひとでなし」公式サイト](https://wata-tabe.com/)
 - [TVアニメ「転生したら剣でした」公式サイト](https://tenken-anime.com/s1/)
 - [TVアニメ「転生したら剣でしたⅡ」公式サイト](https://tenken-anime.com/#Staffcast)
 - [Carminis – Floral Poems](https://carminis.shop/)
+### Docs
+- [HTML&CSS](https://www.htmlandcssbook.com/)
+- [MDN Web Docs](https://developer.mozilla.org/zh-CN/)
