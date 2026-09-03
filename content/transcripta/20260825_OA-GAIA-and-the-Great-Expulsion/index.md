@@ -146,4 +146,4 @@ such as the Great Pyramids, the Valley of Kings, Cape Canaveral, Jerusalem, Mecc
 > 例如大金字塔、帝王谷、卡纳维拉尔角、耶路撒冷、麦加、麦地那等等。
 
 Now you know a quick rundown of what happened to Earth in OA. Join us next time for another interesting video. And don't forget to like and subscribe if you want to see more of this content. 
-> 结语。
+> （结语）

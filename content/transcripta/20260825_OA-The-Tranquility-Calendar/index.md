@@ -45,8 +45,8 @@ When humans first landed on the moon, the first words that were spoken were **"H
 
 The exact middle of the moment the word **tranquility** was spoken is the central date for the **Tranquility Calendar**.
 > 说出“**tranquility**”一词的时间中点，就是**静海历**的中心基准时刻。
-> 登月舱着陆时间为1969年7月20日20:17:40(UTC)，阿姆斯特朗踏上月表时间为1969年7月21日02:56:20(UTC)
-> 根据NASA档案，此时间中点应处于1969年07月20日20:17:59(UTC)到1969年07月20日20:18:04(UTC)之间
+> tips：登月舱着陆时间为1969年7月20日20:17:40(UTC)，阿姆斯特朗踏上月表时间为1969年7月21日02:56:20(UTC)
+> tips：根据NASA档案，此时间中点应处于1969年07月20日20:17:59(UTC)到1969年07月20日20:18:04(UTC)之间
 
 Before this point, it's labeled as **BT**, and after this point is **AT**.
 > 这一时刻之前记为 **BT**，之后则记为 **AT**。
