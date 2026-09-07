@@ -5,3 +5,5 @@ Disallow: /assets/
 Disallow: /build/
 Disallow: /data/
 Disallow: /archetypes/
+Disallow: /en/
+Disallow: /la/
