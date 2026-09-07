@@ -6,6 +6,7 @@
   python build.py -f article.md -c sylvae   # CLI 模式
   python build.py --list                    # 列出文章
   python build.py --delete                  # 删除文章
+  python build.py --edit                    # 修改文章（新 md 重新生成）
   python build.py --rename                  # 管理目录
   python build.py --retitle                 # 修改标题/日期
   python build.py --check-archetypes        # 模板检查
@@ -27,6 +28,7 @@ from config import ROOT_DIR, CATEGORIES
 from management import (
     list_articles, list_articles_direct,
     delete_article, delete_article_direct,
+    edit_article, edit_article_direct,
     file_manager,
     retitle_article, retitle_article_direct,
 )
@@ -54,12 +56,14 @@ def parse_args():
 文章管理（交互式）:
   python build.py --list                    # 列出所有文章
   python build.py --delete                  # 删除文章
+  python build.py --edit                    # 修改文章（用新 md 重新生成）
   python build.py --rename                  # 管理目录
   python build.py --retitle                 # 修改标题/日期
 
 文章管理（非交互式 CLI）:
   python build.py --list-cat sylvae               # 直接列出指定分类文章
   python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y  # 直接删除
+  python build.py --edit-by sylvae YYYYMMDD_Slug-Name -f new.md -y  # 直接修改
   python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "New Title" -d "Date"  # 直接修改
 
 模板与全站:
@@ -93,6 +97,8 @@ def parse_args():
                         help='列出文章（交互式选择分类）')
     parser.add_argument('--delete', action='store_true',
                         help='删除文章（交互式选择）')
+    parser.add_argument('--edit', action='store_true',
+                        help='修改文章：用新 md 重新生成，保留原标题/日期（交互式选择）')
     parser.add_argument('--rename', action='store_true',
                         help='管理目录（交互式文件管理器）')
     parser.add_argument('--retitle', action='store_true',
@@ -104,6 +110,9 @@ def parse_args():
     parser.add_argument('--delete-by', nargs=2,
                         metavar=('CATEGORY', 'SLUG'),
                         help='直接删除文章（指定分类和文件夹名）')
+    parser.add_argument('--edit-by', nargs=2,
+                        metavar=('CATEGORY', 'SLUG'),
+                        help='直接修改文章：用 -f 指定的新 md 重新生成，保留原标题/日期')
     parser.add_argument('--retitle-by', nargs=2,
                         metavar=('CATEGORY', 'SLUG'),
                         help='直接修改文章标题/日期（需配合 -t/-d）')
@@ -152,6 +161,22 @@ def main():
 
     if args.delete:
         delete_article()
+        return
+
+    if args.edit_by:
+        cat, slug = args.edit_by
+        if not args.file:
+            print('错误: --edit-by 需配合 -f 指定新 Markdown 文件路径')
+            sys.exit(1)
+        md_path = resolve_path(args.file)
+        if not md_path.exists():
+            print(f"错误: 文件不存在: {md_path}")
+            sys.exit(1)
+        edit_article_direct(cat, slug, md_path, yes=args.yes)
+        return
+
+    if args.edit:
+        edit_article()
         return
 
     if args.rename:
@@ -215,14 +240,15 @@ def main():
     MENU_OPTIONS = {
         '1':  ('文章列表',     list_articles),
         '2':  ('发布文章',     None),
-        '3':  ('删除文章',     delete_article),
-        '4':  ('修改标题',     retitle_article),
-        '5':  ('管理目录',     file_manager),
-        '6':  ('检查模板',     lambda: check_all(interactive=True)),
-        '7':  ('获取日期',     None),
-        '8':  ('重建页面',     None),
-        '9':  ('重建字体',     lambda: run_font_subset(force=True)),
-        '10': ('Git',         git_commit_push),
+        '3':  ('修改文章',     edit_article),
+        '4':  ('删除文章',     delete_article),
+        '5':  ('修改标题',     retitle_article),
+        '6':  ('管理目录',     file_manager),
+        '7':  ('检查模板',     lambda: check_all(interactive=True)),
+        '8':  ('获取日期',     None),
+        '9':  ('重建页面',     None),
+        '10': ('重建字体',     lambda: run_font_subset(force=True)),
+        '11': ('Git',         git_commit_push),
     }
 
     while True:
@@ -258,7 +284,7 @@ def main():
             input('\n按回车键继续...')
             continue
 
-        if choice == '7':
+        if choice == '8':
             raw = input('输入日期 (20xx-xx-xx，留空为当前日期): ').strip()
             if raw:
                 try:
@@ -271,7 +297,7 @@ def main():
             input('\n按回车键继续...')
             continue
 
-        if choice == '8':
+        if choice == '9':
             print('=== 重建页面（根据模板重建所有页面）===\n')
             raw = input('模式: [1] 逐个询问  [2] 全部自动 (回车/q 取消): ').strip().lower()
             if raw in ('', 'q'):

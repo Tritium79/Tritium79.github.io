@@ -7,6 +7,7 @@ import re
 import shutil
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -730,6 +731,141 @@ def migrate_article_folder_names():
             print(f'  {r}')
     else:
         print('  没有需要迁移的文件夹')
+
+
+# ── 修改文章（用新 md 重新生成，保留原标题/日期）────────
+
+def _read_article_meta(cat_key, folder):
+    """读取文章的标题与日期，返回 (title, date) 或 (None, None)。"""
+    html_path = ROOT_DIR / 'content' / cat_key / folder / 'index.html'
+    if not html_path.exists():
+        return None, None
+    html = html_path.read_text(encoding='utf-8')
+    title = _extract_article_title(html)
+    date_match = re.search(r'<p class="post-date">(.*?)</p>', html)
+    date = date_match.group(1).strip() if date_match else ''
+    if not title or not date:
+        return None, None
+    return title, date
+
+
+def _regenerate_with_md(cat_key, folder, title, date, md_path):
+    """用新 md 原地重新生成文章，保留原标题与日期。"""
+    from content import publish_article
+
+    args = SimpleNamespace(title=title, date=date, category=cat_key,
+                           folder=folder, yes=True)
+    return publish_article(md_path, args, is_cli_mode=True)
+
+
+def edit_article():
+    print('分类:')
+    for i, (key, name) in enumerate(CATEGORIES, 1):
+        print(f'  {i}. {name} ({key})')
+
+    while True:
+        cat_idx = select_category_index()
+        if cat_idx is None:
+            print('  已取消')
+            return
+        cat_key = CATEGORIES[cat_idx][0]
+        cat_dir = ROOT_DIR / 'content' / cat_key
+
+        articles = []
+        if cat_dir.exists():
+            for folder in sorted(cat_dir.iterdir()):
+                if folder.is_dir() and (folder / 'index.html').exists():
+                    html = (folder / 'index.html').read_text(encoding='utf-8')
+                    title_match = _extract_article_title(html)
+                    title = title_match or folder.name
+                    articles.append({'title': title, 'folder': folder.name})
+
+        if articles:
+            break
+        print('  该分类暂无文章，请重试')
+
+    print(f'\n【{CATEGORIES[cat_idx][1]}】')
+    for i, art in enumerate(articles, 1):
+        print(f'  {i}. {art["title"]}')
+        print(f'     文件夹: {art["folder"]}')
+    print()
+
+    while True:
+        choice = input(f'选择要修改的文章编号 (1-{len(articles)})，q 退出: ').strip().lower()
+        if choice == 'q':
+            print('  已取消')
+            return
+        try:
+            art_idx = int(choice) - 1
+            if 0 <= art_idx < len(articles):
+                break
+        except ValueError:
+            pass
+        print('  无效编号，请重试')
+
+    article = articles[art_idx]
+    folder = article['folder']
+    title, date = _read_article_meta(cat_key, folder)
+    if not title or not date:
+        print(f'  错误: 无法从 index.html 提取标题/日期: content/{cat_key}/{folder}/')
+        return
+
+    print(f'\n当前文章:')
+    print(f'  标题: {title} (保持不变)')
+    print(f'  日期: {date} (保持不变)')
+    print(f'  文件夹: content/{cat_key}/{folder}/\n')
+
+    while True:
+        raw = input('新 Markdown 文件路径 (q 退出): ').strip()
+        if raw.lower() == 'q':
+            print('  已取消')
+            return
+        if not raw:
+            print('  路径为空，请重试')
+            continue
+        md_path = Path(raw)
+        if not md_path.is_absolute():
+            md_path = ROOT_DIR / raw
+        if md_path.exists():
+            break
+        print(f'  文件不存在: {raw}')
+
+    confirm = input(f'用该 md 重新生成并覆盖原文章? [y/n]: ').strip().lower()
+    if confirm not in ['y', '']:
+        print('  已取消')
+        return
+
+    _regenerate_with_md(cat_key, folder, title, date, md_path)
+
+
+def edit_article_direct(category, folder, md_path, yes=False):
+    cat_keys = [c[0] for c in CATEGORIES]
+    if category not in cat_keys:
+        print(f'错误: 无效分类 "{category}"，可选: {", ".join(cat_keys)}')
+        return False
+
+    article_dir = ROOT_DIR / 'content' / category / folder
+    if not article_dir.exists() or not (article_dir / 'index.html').exists():
+        print(f'错误: 文章不存在: content/{category}/{folder}/')
+        return False
+
+    title, date = _read_article_meta(category, folder)
+    if not title or not date:
+        print(f'错误: 无法从 index.html 提取标题/日期: content/{category}/{folder}/')
+        return False
+
+    print(f'修改文章: {title}')
+    print(f'  位置: content/{category}/{folder}/')
+    print(f'  新 md: {md_path}')
+    print(f'  标题/日期保持不变')
+
+    if not yes:
+        ans = input('确认重新生成? [y/N]: ').strip().lower()
+        if ans not in ('y', ''):
+            print('  已取消')
+            return False
+
+    return _regenerate_with_md(category, folder, title, date, md_path)
 
 
 def retitle_article():

@@ -75,6 +75,7 @@
 | 发布文章 | `python build.py -f article.md -c sylvae -y` |
 | 列出文章 | `python build.py --list-cat sylvae` |
 | 删除文章 | `python build.py --delete-by sylvae Slug-Name -y` |
+| 修改文章内容（用新 md 重新生成，保留原标题/日期） | `python build.py --edit-by sylvae Slug-Name -f new.md -y` |
 | 修改文章标题/日期 | `python build.py --retitle-by sylvae Slug-Name -t "新标题" -d "日期"` |
 | 全站模板同步 | `python build.py --rebuild -y` |
 | 模板一致性检查 | `python build.py --check-archetypes` |

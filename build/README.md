@@ -32,6 +32,8 @@ python build.py --list                    # 交互式文章列表
 python build.py --list-cat sylvae         # 非交互式列表
 python build.py --delete                  # 交互式删除
 python build.py --delete-by sylvae slug   # 非交互式删除
+python build.py --edit                    # 交互式修改文章（新 md 重新生成）
+python build.py --edit-by sylvae slug -f new.md -y  # 非交互式修改文章
 python build.py --rename                  # 交互式文件管理器
 python build.py --retitle                 # 交互式修改标题/日期
 python build.py --retitle-by slug -t "新标题" -d "日期"  # 非交互式
@@ -48,14 +50,15 @@ python build.py --lunar-date              # 干支日期
   0. 退出工具
   1. 文章列表
   2. 发布文章
-  3. 删除文章
-  4. 修改标题
-  5. 管理目录
-  6. 检查模板
-  7. 获取日期
-  8. 重建页面（根据模板重建，可选逐个/全部模式）
-  9. 重建字体
-  10. Git
+  3. 修改文章（用新 md 重新生成，保留原标题/日期）
+  4. 删除文章
+  5. 修改标题
+  6. 管理目录
+  7. 检查模板
+  8. 获取日期
+  9. 重建页面（根据模板重建，可选逐个/全部模式）
+  10. 重建字体
+  11. Git
 ```
 
 **所有交互功能支持 `q` 中途退出**
@@ -169,6 +172,8 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 | `list_articles_direct(category)` | ❌ | 直接列出指定分类 |
 | `delete_article()` | ✔️ | 选分类 → 选文章 → 确认删除 |
 | `delete_article_direct(cat, slug, yes)` | ❌ | 直接按 slug 删除 |
+| `edit_article()` | ✔️ | 选分类 → 选文章 → 指定新 md → 重新生成（保留原标题/日期） |
+| `edit_article_direct(cat, slug, md_path, yes)` | ❌ | 直接按 slug 用新 md 重新生成（保留原标题/日期） |
 | `retitle_article()` | ✔️ | 选分类 → 选文章 → 改标题/日期 |
 | `retitle_article_direct(cat, slug, title, date)` | ❌ | 直接按 slug 修改 |
 | `file_manager()` | ✔️ | 文件浏览器：导航、重命名、删除、标记移动 |

@@ -132,14 +132,15 @@ Tritium79.github.io/
   0. 退出工具
   1. 文章列表
   2. 发布文章
-  3. 删除文章
-  4. 修改标题
-  5. 管理目录
-  6. 检查模板
-  7. 获取日期
-  8. 重建页面（根据模板重建，可选逐个/全部模式）
-  9. 重建字体
-  10. Git
+  3. 修改文章（用新 md 重新生成，保留原标题/日期）
+  4. 删除文章
+  5. 修改标题
+  6. 管理目录
+  7. 检查模板
+  8. 获取日期
+  9. 重建页面（根据模板重建，可选逐个/全部模式）
+  10. 重建字体
+  11. Git
 ```
 
 - 所有功能支持 `q` 中途退出
@@ -149,6 +150,7 @@ Tritium79.github.io/
 - `python build.py --subset-font` — 强制根据全站 HTML 重新生成字体子集
 - `python build.py --list-cat sylvae` — 非交互式列出指定分类文章
 - `python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y` — 非交互式删除文章
+- `python build.py --edit-by sylvae YYYYMMDD_Slug-Name -f new.md -y` — 非交互式修改文章：用指定 md 重新生成，保留原标题/日期
 - `python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
