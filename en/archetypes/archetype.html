@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ title }} | Tritium79's Blog</title>
+        <link rel="stylesheet" href="{{ root_path }}style.css" />
+        {{ katex }}
+    </head>
+    <body{{ body_class }}>
+        <header>
+            <div class="header-bar">
+                <a href="{{ root_path }}pages/deme.html" class="avatar"
+                    ><img src="{{ root_path }}assets/images/avatar.png" alt="avatar"
+                /></a>
+                <a href="{{ root_path }}index.html"><div class="site-title">Tritium79's Blog</div></a>
+                <a class="current-section" href="{{ root_path }}{{ section_href }}"
+                    ><span class="nav-la">{{ section }}</span></a
+                >
+                <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+            <nav>
+                <label for="nav-toggle" class="nav-toggle-btn">≡</label>
+                <a href="{{ root_path }}pages/deme.html" class="avatar"
+                    ><img src="{{ root_path }}assets/images/avatar.png" alt="avatar"
+                /></a>
+                <a href="{{ root_path }}index.html" class="nav-title-link"
+                    ><div class="site-title nav-title">Tritium79's Blog</div></a
+                >
+{{ nav_links }}
+            </nav>
+        </header>
+        <main>
+            {{ content }}
+        </main>
+        <footer>
+            <p>{{ footer_content }}</p>
+        </footer>
+    </body>
+</html>
