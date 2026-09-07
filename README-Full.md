@@ -18,6 +18,9 @@ Tritium79.github.io/
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
 │   ├── fonts/                  # 字体文件
+│   │   ├── CormorantGaramond-Light.woff2   # Latin 装饰字体（header/footer/标题区，weight 300）
+│   │   ├── SourceCodePro-Light.otf         # 等宽代码字体
+│   │   ├── LXGWBright-*.ttf               # LXGW Bright 源字体备份（子集化源）
 │   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、subset-*.woff2 单子集）
 │   │       ├── light/          # Light 300 分包产物（result.css + woff2 切片）
 │   │       └── medium/         # Medium 700 分包产物（result.css + woff2 切片）
@@ -157,6 +160,8 @@ Tritium79.github.io/
 ### assets
 
 - `fonts/` — 存放字体文件
+- `fonts/CormorantGaramond-Light.woff2` — Cormorant Garamond Light（Latin 衬线装饰字体，weight 300），用于 header/footer 及标题区；源文件 `.ttf` 保留在 `assets/fonts/`
+- `fonts/SourceCodePro-Light.otf` — Source Code Pro Light，代码字体
 - `fonts/lxgw/subset.css` — 全站字符子集的字体规则（Light 300 与 Medium 700 两个 `@font-face`），优先于分包加载
 - `fonts/lxgw/light/result.css` — cn-font-split 生成的分包规则（Light 300），作为子集未覆盖字符的回退
 - `fonts/lxgw/medium/result.css` — cn-font-split 生成的分包规则（Medium 700），粗体字重回退
@@ -233,8 +238,8 @@ Tritium79.github.io/
 3. **创建汇总页**：在 `pages/` 下创建 `{key}.html`，结构如下：
    ```html
    <main>
-        <h2>Latin</h2>
-       <p>描述...</p>
+        <div class="page-title" role="heading" aria-level="1"><span class="nav-la">Latin</span></div>
+       <p class="page-desc">描述...</p>
        <hr />
         <ol class="link-list">
             <!-- build.py 会自动在此处追加文章条目 -->
@@ -305,7 +310,7 @@ Tritium79.github.io/
 | `{{ section }}` | 当前章节名（nav-current / current-section） | base + article | `Sylvae` |
 | `{{ section_href }}` | 当前章节导航页相对路径（current-section 链接目标） | base + article | `pages/sylvae.html` |
 | `{{ body_class }}` | 非文章页的 body 类标记（` class="section-page"` 或空） | base + article | ` class="section-page"` |
-| `{{ content }}` | `<main>` 内的 HTML 内容（含 h2 标题和日期） | archetype | `<p>...</p>` |
+| `{{ content }}` | `<main>` 内的 HTML 内容（含标题 div、日期与分隔 hr） | archetype | `<p>...</p>` |
 | `{{ root_path }}` | 相对路径前缀（`/`、`../`、`../../../`） | archetype | `/` |
 | `{{ nav_links }}` | 从 `data/config.json` 生成的导航链接 HTML | archetype | `<a href="...">...</a>` |
 | `{{ footer_content }}` | 从 `data/config.json` 读取的页脚内容 | archetype | `&copy; 2026 ...` |
@@ -441,31 +446,31 @@ def hello():
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | Source Code Pro；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
+| `fonts.css` | 字体定义 | Source Code Pro、Cormorant Garamond（Latin 装饰字体，weight 300）；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
-| `base.css` | 全局重置与动画 | `box-sizing`, 字体栈, flex 列布局, `fade-in` 动画 |
-| `header.css` | 侧边栏 | 桌面端 3/16 宽度（`min-width: 150px`），桌面 fixed / 短视口 absolute，导航链接样式，含短视口媒体查询 |
-| `menu.css` | 竖屏汉堡菜单覆盖层 | `@media (max-width: 649px)`：全屏菜单本体（淡入淡出、可滚动）、菜单内关闭按钮/头像/站点标题、菜单链接样式 |
-| `main.css` | 主内容区 | 与侧栏对齐（`margin-left: max(3/16, 150px)`），常规文档流样式（段落、列表、表格、图片） |
-| `components.css` | 组件样式 | `.link-list`、`.post-date`、`.signature` |
+| `base.css` | 全局重置与动画 | `box-sizing`, 字体栈（LXGW Bright 中文 + Cormorant 仅 header/footer/标题区）, flex 列布局, `fade-in` 动画 |
+| `header.css` | 侧边栏 | 桌面端固定宽 `200px`，桌面 fixed / 短视口 absolute，导航链接样式，含短视口媒体查询 |
+| `menu.css` | 竖屏汉堡菜单覆盖层 | `@media (max-width: 800px)`：全屏菜单本体（淡入淡出、可滚动）、菜单内关闭按钮/头像/站点标题、菜单链接样式 |
+| `main.css` | 主内容区 | 与侧栏对齐（`margin-left: 200px`），常规文档流样式（段落、列表、表格、图片）；正文链接默认黑色 + 淡灰 `dashed` 下划线（`text-underline-offset` 拉开间距），悬停变 `--cyan` 并平滑过渡 |
+| `components.css` | 组件样式 | `.link-list`、`.article-title`、`.page-title`、`.welcome`、`.post-date`、`.article-divider`、`.signature` |
 | `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
-| `footer.css` | 页脚 | 与 main 同宽对齐 |
-| `responsive-portrait.css` | 竖屏模式 | `max-width: 649px`：顶栏、正文与页脚的竖屏布局（汉堡菜单见 `menu.css`） |
+| `footer.css` | 页脚 | 与 main 同宽对齐（`margin-left: 200px`） |
+| `responsive-portrait.css` | 竖屏模式 | `max-width: 800px`：顶栏、正文与页脚的竖屏布局（汉堡菜单见 `menu.css`） |
 
 ### 短视口模式（替代原宽屏模式）
 
-桌面模式下视口高度低于 670px 时，固定侧栏（约 675–705px 高）底部导航会被裁切。原宽屏模式（`responsive-wide.css`）已删除，由 `header.css` 末尾的媒体查询（`min-width: 650px and max-height: 669px`）接管：将 `header` 改为 `position: absolute` 随页面整体滚动，使底部导航可以滚动露出。侧栏不再固定，滚动后滑出屏幕（不钉住）。
+桌面模式下视口高度低于 670px 时，固定侧栏底部导航会被裁切。原宽屏模式（`responsive-wide.css`）已删除，由 `header.css` 末尾的媒体查询（`min-width: 801px and max-height: 669px`）接管：将 `header` 改为 `position: absolute` 随页面整体滚动，使底部导航可以滚动露出。侧栏不再固定，滚动后滑出屏幕（不钉住）。
 
 ### 布局系统
 
-采用 **16 列固定比例网格**：
+桌面/短视口采用 **固定侧栏宽度**：
 
-- `header` 宽度：`calc(100% / 16 * 3)`（18.75%），`min-width: 150px`
-- `main` / `footer` 左外边距：`max(calc(100% / 16 * 3), 150px)`——与侧栏实际宽度对齐（窄视口下侧栏受 `min-width` 限制时，`main`/`footer` 随之右移）
-- `main` / `footer` 宽度：`calc(100% - 左外边距)`，与侧栏并排无重叠
+- `header` 宽度：固定 `200px`
+- `main` / `footer` 左外边距：`200px`——与侧栏实际宽度对齐
+- `main` / `footer` 宽度：`calc(100% - 200px)`，与侧栏并排无重叠
 
-> 修改布局比例时，需同步调整 `header`、`main`、`footer` 三处的 `width` 与 `margin-left`。
+> 修改侧栏宽度时，需同步调整 `header`、`main`、`footer` 三处的 `width` 与 `margin-left`。
 
 ### 颜色变量体系
 
@@ -476,24 +481,31 @@ def hello():
 | `--bg-*` | 背景色（primary、sidebar、code） |
 | `--border-*` | 边框色（sidebar、list） |
 | `--text-*` | 文本色（primary、nav、body、muted、link） |
+| `--cyan` | 强调色青蓝（`#4aa9c5`），单一来源：悬停色、脚注、callout-abstract |
 | `--text-*-hover` | 悬停色（sidebar、list） |
 
-> 悬停色 `--text-sidebar-hover` 在亮暗模式下均为 `#4aa9c5`（青蓝）。暗色砖红 `#b5563a` 仅用于脚注链接（`components.css` 中的 `.footnote-ref`/`.footnote-backref`，硬编码例外）。
+> 强调青蓝 `#4aa9c5` 收敛为单一变量 `--cyan`：`--text-sidebar-hover` 与 `--callout-abstract` 均以 `var(--cyan)` 定义，脚注链接（`.footnote-ref`/`.footnote-backref`）也已改用 `var(--cyan)`（亮暗模式相同）。
 >
-> 例外：脚注链接与 `prism.css`（代码高亮 token）使用硬编码颜色，不经过 CSS 变量。
+> 例外：仅 `prism.css`（代码高亮 token）使用硬编码颜色，不经过 CSS 变量。
 
 ### 类名命名规则
 
 | 类名 | 用途 | 所在位置 |
 |------|------|---------|
 | `.header-bar` | 头部导航栏容器（桌面端 `display: contents`，移动端恢复 flex） | `header` 内部 |
+| `.header-bar > a.avatar` | 桌面侧栏头像容器，精确 `80px × 80px` flex 居中（`img` 为 `display: block`） | `header` 内部 |
 | `.current-section` | 当前章节链接（跳转本章节导航页），仅移动端显示；首页与汇总页（`body.section-page`）隐藏 | `.header-bar` 内 |
 | `.section-page` | 非文章页标记（首页与汇总页的 body 类），用于竖屏下隐藏 current-section 并保持菜单按钮位置 | `body` |
 | `.nav-toggle-btn` / `.nav-toggle` | 移动端汉堡菜单（纯 CSS checkbox hack） | `.header-bar` 内 / 同级 |
-| `.nav-la` | 导航 Latin 标签 | `nav a` 内部 |
-| `.post-date` | 文章页日期行 | `main` 内，紧跟 `h2` |
+| `.nav-la` | 导航 Latin 标签（Cormorant Garamond，weight 300） | `nav a` 内部 |
+| `.article-title` | 文章页标题（`<div id="article-title">`，weight 300），不依赖 h2 语义 | `main` 内 |
+| `.page-title` | 章节页/首页标题（`<div role="heading" aria-level="1">`，Cormorant + weight 300） | `main` 内 |
+| `.page-desc` | 章节页描述文字（结构标记，无专属 CSS，样式继承 `main p`） | `main` 内 |
+| `.welcome` | Domus 首页欢迎语（Cormorant + weight 300） | `main` 内 |
+| `.post-date` | 文章页日期行 | `main` 内，紧跟标题 |
+| `.article-divider` | 文章页日期与正文间的分隔 `hr`（`margin-bottom: 1rem`） | `main` 内，紧跟日期 |
 | `.article-date` | 汇总页文章列表中的日期 | `ul li` 内 |
-| `.signature` | 首页签名/引言 | `main` 内 |
+| `.signature` | 首页签名/引言（Cormorant 斜体） | `main` 内 |
 | `.arithmatex` / `.katex-display` | 数学公式溢出处理 | 文章页 KaTeX 容器 |
 | `.token.*` | 代码高亮（Prism.js 兼容） | 暗色模式覆盖 |
 
@@ -502,7 +514,7 @@ def hello():
 在 `prefers-reduced-motion: no-preference` 下，内容按以下顺序依次淡入，形成级联效果：
 
 1. `main` — 0.04s 延迟
-2. `main h2, main h3, main h4, main h5, main h6` — 0.08s 延迟
+2. `main h2, main h3, main h4, main h5, main h6, main .article-title` — 0.08s 延迟
 3. `main p, ul, table, ol, pre, blockquote` — 0.16s 延迟
 4. `footer` — 0.24s 延迟
 
@@ -510,21 +522,21 @@ def hello():
 
 ### 模式总览（二维象限分割）
 
-当前生效的三条规则以宽度 650px 和高度 670px 为轴：
+当前生效的三条规则以宽度 800px 和高度 670px 为轴：
 
 ```
-               宽度 650px
+               宽度 800px
               ───────┬─────────
                      │
      竖屏            │    桌面
   (顶栏+汉堡菜单)    │  (固定侧栏)
-  宽度 < 650px       │  宽度 ≥ 650px
+  宽度 ≤ 800px       │  宽度 > 800px
   不论高度           │  高度 ≥ 670px
                      │
                      ├─────────
                      │  短视口
                      │  (随页滚动侧栏)
-                     │  宽度 ≥ 650px
+                     │  宽度 > 800px
                      │  高度 < 670px
 ```
 
@@ -532,12 +544,12 @@ def hello():
 
 ### 桌面模式
 
-- 宽度 ≥ 650px 且高度 ≥ 670px 时激活
-- 固定侧栏（3/16）+ 正文并排
+- 宽度 > 800px（`min-width: 801px`）且高度 ≥ 670px 时激活
+- 固定侧栏（200px 宽）+ 正文并排
 
 ### 竖屏模式
 
-- **断点**：`max-width: 649px`（宽度 ≤ 649px 时触发，不论高度）
+- **断点**：`max-width: 800px`（宽度 ≤ 800px 时触发，不论高度）
 - **导航切换**：使用隐藏的 checkbox（`#nav-toggle`）+ `label` 实现纯 CSS 全屏菜单，无 JavaScript。
 - `.header-bar` 在移动端从 `display: contents` 恢复为 `display: flex`，承载标题、当前章节链接（`.current-section`，指向本章节导航页）、菜单按钮的横向排列（竖屏下顶栏不显示头像）。
 - **首页与汇总页**（`body.section-page`）：不显示 `.current-section`，菜单按钮通过 `margin-left: auto` 保持右侧位置。
@@ -545,15 +557,15 @@ def hello():
 
 ### 短视口模式
 
-- **断点**：`min-width: 650px` 且 `max-height: 669px`（宽度 ≥ 650px 且高度 ≤ 669px 时触发）
+- **断点**：`min-width: 801px` 且 `max-height: 669px`（宽度 > 800px 且高度 ≤ 669px 时触发）
 - 即桌面模式的矮视口分支：侧栏由 `position: fixed` 改为 `position: absolute` 随页面整体滚动，底部导航可滚动露出（不钉住）
-- 与桌面模式共享分割线、导航居中、下划线样式（见 `header.css` 的 `min-width: 650px` 块）
+- 与桌面模式共享分割线、导航居中、下划线样式（见 `header.css` 的 `min-width: 801px` 块）
 
 ### 修改 CSS 时的注意事项
 
 1. **变量优先**：新增颜色应先在 `:root` 中定义变量，再在暗色模式中覆盖，最后在选择器中使用。
 2. **布局联动**：修改侧边栏宽度时，必须同步修改 `main` 和 `footer` 的 `margin-left` 与 `width`。
-3. **模式覆盖**：桌面/短视口/竖屏三模式互斥（以宽度 650px 为轴、高度 670px 分支），新增媒体查询时注意不要破坏此结构。
+3. **模式覆盖**：桌面/短视口/竖屏三模式互斥（以宽度 800px 为轴、高度 670px 分支），新增媒体查询时注意不要破坏此结构。
 4. **动画尊重**：新增动画应包裹在 `@media (prefers-reduced-motion: no-preference)` 中，保证可访问性。
 5. **避免直接修改 `.token.*`**：代码高亮类名由 Prism.js 生成，暗色模式覆盖即可，无需新增选择器。
 
@@ -618,10 +630,14 @@ python build.py --rebuild -y
 
 `rebuild_from_base()` 重建时会保留以下内容：
 
-- `<main>` 标签内的所有内容（文章正文 + h2 标题 + 日期）
+- `<main>` 标签内的所有内容（文章正文 + 标题 div + 日期 + 分隔 hr）
 - 页面标题（从 `<title>` 中提取后填入 `{{ title }}`）
 - 使用 `{{ root_path }}` 变量自动根据文件深度设置相对路径前缀
 - `archetypes/` 下的模板文件始终跳过，不会被写入覆盖
+
+> 文章页标题元素固定为 `<div class="article-title" id="article-title">`（以固定 id 作为定位锚点）。
+> 重建时若发现旧文件仍为 `<h1>/<h2>` 标题（迁移过渡期），会自动统一迁移为上述 div 结构；
+> 正文中的 `<h2>`（Markdown 章节标题）不会被误判为文章标题。
 
 > 重建后建议运行 `python build.py --check-archetypes` 验证一致性。
 

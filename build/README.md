@@ -122,7 +122,7 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 | `render_markdown(text)` | MD → HTML（extra + codehilite + nl2br） |
 | `process_images(html, md_path, output_dir)` | 查找本地图片并复制到输出目录 |
 | `generate_nav_links(section, prefix)` | 从 `data/config.json` 生成导航 HTML |
-| `fill_template(template, title, date, content, section)` | 填充 archetype.html 的所有模板变量（h2+date 拼入 content） |
+| `fill_template(template, title, date, content, section)` | 填充 archetype.html 的所有模板变量（标题 div + date + 分隔 hr 拼入 content） |
 | `publish_article(md_path, args, is_cli_mode)` | 主发布函数 |
 
 **图片搜索顺序**：Markdown 同目录 → 项目根目录；远程图片（http/https/data:）跳过。

@@ -9,8 +9,8 @@
 }
 
 header {
-    width: calc(100% / 16 * 3);
-    min-width: 150px;
+    width: 200px;
+    min-width: 200px;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -21,6 +21,7 @@ header {
     align-items: center;
     padding: 4rem 2rem 2rem;
     background-color: var(--bg-header);
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
 }
 
 .header-bar > a {
@@ -33,12 +34,20 @@ header {
     color: var(--text-sidebar-hover);
 }
 
+.header-bar > a.avatar {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 header img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 2rem;
+    display: block;
     transition: box-shadow 0.2s ease;
 }
 
@@ -48,7 +57,8 @@ header img:hover {
 
 .site-title {
     font-size: 1.4rem;
-    margin-bottom: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
     text-align: center;
     width: 100%;
 }
@@ -105,7 +115,7 @@ header nav a.nav-current:hover::after {
     background-color: var(--text-sidebar-hover);
 }
 
-@media (min-width: 650px) {
+@media (min-width: 801px) {
     header::after {
         content: "";
         position: absolute;
@@ -131,7 +141,7 @@ header nav a.nav-current:hover::after {
 }
 
 /* 短视口桌面模式：侧栏改为随页面整体滚动（不再固定），底部导航可全部露出 */
-@media (min-width: 650px) and (max-height: 669px) {
+@media (min-width: 801px) and (max-height: 669px) {
     header {
         position: absolute;
         top: 0;

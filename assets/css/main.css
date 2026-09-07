@@ -1,7 +1,7 @@
 main {
     flex: 1;
-    margin-left: max(calc(100% / 16 * 3), 150px);
-    width: calc(100% - max(calc(100% / 16 * 3), 150px));
+    margin-left: 200px;
+    width: calc(100% - 200px);
     padding: 4rem 4rem;
     background-color: var(--bg-primary);
 }
@@ -49,11 +49,18 @@ main p {
 }
 
 main a {
-    color: var(--text-link);
+    color: var(--text-body);
+    text-decoration: underline dashed var(--text-muted);
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 main a:hover {
-    color: var(--text-body);
+    color: var(--cyan);
+    text-decoration: underline dashed var(--cyan);
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
 }
 
 main mark {

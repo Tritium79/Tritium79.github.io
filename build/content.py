@@ -387,8 +387,9 @@ def generate_nav_links(current_section, prefix=''):
 
 
 def fill_template(template, title, date, content, section):
-    full_content = f'            <h2 class="article-title">{title}</h2>\n'
+    full_content = f'            <div class="article-title" id="article-title">{title}</div>\n'
     full_content += f'            <p class="post-date">{date}</p>\n'
+    full_content += '            <hr class="article-divider" />\n'
     full_content += content
 
     katex_html = KATEX_HTML if has_latex(content) else ''

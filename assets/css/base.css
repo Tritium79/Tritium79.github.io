@@ -42,7 +42,8 @@ a:focus-visible,
         animation: fade-in 0.45s ease-out 0.04s both;
     }
 
-    main h2, main h3, main h4, main h5, main h6 {
+    main h2, main h3, main h4, main h5, main h6,
+    main .article-title {
         animation: fade-in 0.45s ease-out 0.08s both;
     }
 

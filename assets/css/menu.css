@@ -1,6 +1,6 @@
-/* 竖屏汉堡菜单覆盖层（随 header.css 之后加载，仅 max-width: 649px 生效） */
+/* 竖屏汉堡菜单覆盖层（随 header.css 之后加载，仅 max-width: 800px 生效） */
 
-@media (max-width: 649px) {
+@media (max-width: 800px) {
     /* 菜单打开时隐藏顶栏，关闭按钮移入菜单内部 */
     header:has(.nav-toggle:checked) .header-bar {
         display: none;
@@ -39,8 +39,9 @@
     header nav a.nav-title-link {
         position: absolute;
         top: var(--menu-title-top);
-        left: 0;
-        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: fit-content;
         margin: 0;
         padding: 0;
         justify-content: center;
@@ -53,6 +54,7 @@
     header nav a.nav-title-link .site-title {
         font-size: 1.4rem;
         margin: 0;
+        width: auto;
     }
 
     /* 菜单覆盖层本体：全屏、可滚动、淡入淡出 */

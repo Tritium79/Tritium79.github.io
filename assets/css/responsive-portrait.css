@@ -1,4 +1,4 @@
-@media (max-width: 649px) {
+@media (max-width: 800px) {
     @media (prefers-reduced-motion: no-preference) {
         body, header, main, footer {
             animation: none;
@@ -43,8 +43,7 @@
 
     .site-title {
         font-size: 0.95rem;
-        margin-bottom: 0;
-        margin-left: 0.3rem;
+        margin: 0 0 0 0.3rem;
         width: auto;
     }
 

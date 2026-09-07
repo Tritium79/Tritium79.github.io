@@ -206,11 +206,19 @@ def rebuild_from_base(file_path):
     head, _, main = _parse_head_body_main(file_path)
     title = _get_title_from_head(head)
 
-    # Ensure article pages use the dedicated title class
+    # Ensure article pages use the dedicated title element.
+    # 文章标题固定为 <div class="article-title" id="article-title">。
+    # 若旧文件仍是 <h2 class="article-title">（或任何 <h2>/<h1> 标题），迁移为 div；
+    # 正文中的 <h2>（Markdown 标题）不受影响。
     if 'content/' in _rel_path(file_path):
-        first_h2 = re.search(r'<h2[^>]*>', main)
-        if first_h2 and 'article-title' not in first_h2.group():
-            main = re.sub(r'<h2>', '<h2 class="article-title">', main, 1)
+        title_re = re.compile(
+            r'<(h1|h2|div)\b[^>]*class="article-title"[^>]*>'
+        )
+        m = title_re.search(main)
+        if m:
+            main = title_re.sub(
+                '<div class="article-title" id="article-title">', main, 1
+            )
 
     # Inject KaTeX if the main content contains LaTeX delimiters
     katex_html = KATEX_HTML if has_latex(main) else ''
