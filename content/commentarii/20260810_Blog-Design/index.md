@@ -1,3 +1,4 @@
+更新时间：8 Sep. 2026 / 丙午年 丁酉月 乙酉日
 ### Motherfucking Websites
 - [Motherfucking Website](http://motherfuckingwebsite.com/)
 - [Better Motherfucking Website](http://bettermotherfuckingwebsite.com/)
@@ -18,9 +19,6 @@
 - [Elliot Jay Stocks](https://elliotjaystocks.com/)
 - [Zen Garden Websites](https://www.zengardenwebsites.com/#home)
 - [A Single Div](https://a.singlediv.com/)
-### Apple
-- [Apple Design](https://developer.apple.com/cn/design/)
-- [Apple HIG](https://developer.apple.com/cn/design/human-interface-guidelines/)
 ### Blogs
 - [Matt Mulderberg](https://jhvanderschee.github.io/matt_mulderberg/#home)
 - [Robin Rendle](https://robinrendle.com)
@@ -33,6 +31,11 @@
 - [TVアニメ「転生したら剣でした」公式サイト](https://tenken-anime.com/s1/)
 - [TVアニメ「転生したら剣でしたⅡ」公式サイト](https://tenken-anime.com/#Staffcast)
 - [Carminis – Floral Poems](https://carminis.shop/)
+- [Learn HTML & CSS](https://www.htmlandcssbook.com/)
 ### Docs
-- [HTML&CSS](https://www.htmlandcssbook.com/)
 - [MDN Web Docs](https://developer.mozilla.org/zh-CN/)
+- [HTML Standard](https://html.spec.whatwg.org/)
+- [web.dev](https://web.dev/?hl=zh-cn)
+- [W3C](https://www.w3.org/)
+- [Design - Apple Developer](https://developer.apple.com/design/)
+- [Human Interface Guidelines | Apple Developer Documentation](https://developer.apple.com/design/human-interface-guidelines/)
