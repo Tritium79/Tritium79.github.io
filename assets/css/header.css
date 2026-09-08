@@ -104,7 +104,7 @@ header nav a.nav-current::after {
 }
 
 header nav a.nav-current::after {
-    background-color: var(--text-muted);
+    background-color: var(--text-nav);
 }
 
 header nav a.nav-current:hover {

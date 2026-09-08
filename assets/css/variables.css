@@ -6,7 +6,7 @@
     --text-primary: #000;
     --text-nav: #000;
     --text-body: #000;
-    --text-muted: #888;
+    --text-muted: #808080;
     --text-link: #999;
     --cyan: #4aa9c5;
     --text-sidebar-hover: var(--cyan);
@@ -42,7 +42,7 @@
         --text-primary: #eeeeee;
         --text-nav: #eeeeee;
         --text-body: #eeeeee;
-        --text-muted: #777;
+        --text-muted: #808080;
         --text-link: #666;
         --cyan: #4aa9c5;
         --text-sidebar-hover: var(--cyan);

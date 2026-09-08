@@ -42,13 +42,20 @@ a:focus-visible,
         animation: fade-in 0.45s ease-out 0.04s both;
     }
 
-    main h2, main h3, main h4, main h5, main h6,
-    main .article-title {
-        animation: fade-in 0.45s ease-out 0.08s both;
+    /* 页面/文章标题与日期行：随 main 同步淡入 */
+    main .page-title,
+    main p.page-desc,
+    main .article-title,
+    main .post-date {
+        animation: fade-in 0.45s ease-out 0.04s both;
     }
 
+    /* 汇总列表与文章正文 */
+    main .link-list,
+    main .link-list p.article-date,
+    main h2, main h3, main h4, main h5, main h6,
     main p, main ul, main table, main ol, main pre, main blockquote {
-        animation: fade-in 0.45s ease-out 0.16s both;
+        animation: fade-in 0.45s ease-out 0.08s both;
     }
 
     footer {
