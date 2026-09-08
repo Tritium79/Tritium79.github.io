@@ -1,0 +1,80 @@
+更新时间：8 Sep. 2026 / 丙午年 丁酉月 乙酉日
+- Vocalist
+	- Sennzai
+	- eili
+	- Ruru
+- 前卫金属&其他金属/摇滚
+	- Gabriel Silva Castro / Johari / Yūrei
+	- No Ostriches / MALIVUK / Legacy of Atlas
+	- Absently
+	- Amiensus
+	- Andromida
+	- Arch Echo
+	- Archaeologist
+	- Asemic
+	- Asymmetric Universe
+	- Auron
+	- Cartoon Theory
+	- Dave Dunsire
+	- David Maxim Micic
+	- Divine Realm
+	- Earthside
+	- Echo Spiral
+	- Eschar
+	- For Giants
+	- Invent Animate
+	- Itzamna
+	- Mammoth
+	- The Mariana Hollow
+	- NOVELISTS
+	- Owane
+	- Plini
+	- Poh Hock
+	- Pollen
+	- Riverside
+	- Sithu Aye
+	- Solaris Waves
+	- Valis Ablaze
+	- Wide Eyes
+	- Widek
+	- 65daysofstatic
+- 同人音乐
+	- ARForest
+	- Ashrount
+	- Felysrator
+	- Feryquitous
+	- Hagali
+	- HaLuna
+	- Imy
+	- Jun Kuroda
+	- Noah
+	- Project-G
+	- Ryo Arue
+	- satella
+	- 瀬名水紀
+	- Street
+	- tokiwa
+	- WHITEFISTS
+- Electronic&Ambient&Others
+	- Aaron Cherof
+	- Athena IV
+	- Boxplot
+	- Digitonal
+	- Karl Boltzmann
+	- Luke Martin
+	- Peeeedro
+	- Tusks
+- Original Soundtrack
+	- Stellaris
+	- Blade Runner
+	- 私を喰べたい、ひとでなし
+	- 転生したら剣でした
+	- Minecraft
+	- 孤山独影（Cairn）
+	- 黑猫速递（Easy Delivery Co.)
+	- Dystopika
+	- 3Blue1Brown
+- Compilation / Single
+	- Chroma Veil - NEKOLOGICAL
+	- Stellaris - Animalost
+	- The Unattended - #ffffff Records
