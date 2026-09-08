@@ -1,3 +1,4 @@
+更新时间：8 Sep. 2026 / 丙午年 丁酉月 乙酉日
 - [Latin is Simple - a Latin Online Dictionary for Students](https://www.latin-is-simple.com/)
 - [All Articles and Videos | Latinitium](https://latinitium.com/all-articles-and-videos/)
 - [HORATIUS.NET - Q. HORATIUS FLACCUS](https://www.horatius.net/la/)
