@@ -1,9 +1,9 @@
 更新时间：8 Sep. 2026 / 丙午年 丁酉月 乙酉日
-- Vocalist
+- Vocalists
 	- Sennzai
 	- eili
 	- Ruru
-- 前卫金属&其他金属/摇滚
+- 前卫金属 & 其他金属/摇滚
 	- Gabriel Silva Castro / Johari / Yūrei
 	- No Ostriches / MALIVUK / Legacy of Atlas
 	- Absently
@@ -55,7 +55,7 @@
 	- Street
 	- tokiwa
 	- WHITEFISTS
-- Electronic&Ambient&Others
+- Electronic & Ambient & Others
 	- Aaron Cherof
 	- Athena IV
 	- Boxplot
@@ -74,7 +74,7 @@
 	- 黑猫速递（Easy Delivery Co.)
 	- Dystopika
 	- 3Blue1Brown
-- Compilation / Single
+- Compilation & Single
 	- Chroma Veil - NEKOLOGICAL
 	- Stellaris - Animalost
 	- The Unattended - #ffffff Records
