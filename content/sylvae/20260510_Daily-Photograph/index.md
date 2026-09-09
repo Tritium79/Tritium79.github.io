@@ -1,13 +1,13 @@
 日常拍摄，随手所得，时间地点不一。
 
-![GreenLeaves.jpeg](GreenLeaves.jpeg)
+![GreenLeaves.jpg](GreenLeaves.jpg)
 
-![PinkFlowers.jpeg](PinkFlowers.jpeg)
+![PinkFlowers.jpg](PinkFlowers.jpg)
 
-![RedFlowers.jpeg](RedFlowers.jpeg)
+![RedFlowers.jpg](RedFlowers.jpg)
 
-![Rice.jpeg](Rice.jpeg)
+![Rice.jpg](Rice.jpg)
 
-![Mushrooms.jpeg](Mushrooms.jpeg)
+![Mushrooms.jpg](Mushrooms.jpg)
 
-![OrangeCat.jpeg](OrangeCat.jpeg)
+![OrangeCat.jpg](OrangeCat.jpg)
