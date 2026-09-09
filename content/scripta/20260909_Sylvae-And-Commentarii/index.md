@@ -1,3 +1,3 @@
-Sylvae，即“树木”、“森林”，古罗马诗人[斯塔提乌斯（Publius Papinius Statius）](https://en.wikipedia.org/wiki/Statius)有[《森林集》（Silvae）](https://www.thelatinlibrary.com/statius.html)。
+Sylvae，即“树木”、“森林”，[斯塔提乌斯（Publius Papinius Statius）](https://en.wikipedia.org/wiki/Statius)有[《森林集》（Silvae）](https://www.thelatinlibrary.com/statius.html)。
 
 Commentarii，即“笔记”、“记录”，因[尤利乌斯·凯撒（Gaius Iulius Caesar）](https://en.wikipedia.org/wiki/Julius_Caesar)的著作[《高卢战记》（Commentarii de Bello Gallico）](https://en.wikipedia.org/wiki/Commentarii_de_Bello_Gallico)与[《内战记》（Commentarii de Bello Civili）](https://en.wikipedia.org/wiki/Commentarii_de_Bello_Civili#Contents)而闻名。
