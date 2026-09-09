@@ -1,13 +1,18 @@
-"""工具函数：干支日期、slug 化、用户交互、front matter 解析。"""
+"""工具函数：干支日期、slug 化、用户交互、front matter 解析、路径容错。"""
 
 import re
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
 
-from data_loader import get_settings
+from data_loader import get_settings, ROOT_DIR
+
+# 成对包裹引号映射（ASCII + 中文引号），供路径输入去引号使用
+_QUOTE_PAIRS = {'"': '"', "'": "'", '\u201c': '\u201d', '\u2018': '\u2019'}
+_ZERO_WIDTH_CHARS = '\ufeff\u200b\u200c\u200d'
 
 try:
     from lunar_python import Solar
@@ -65,6 +70,79 @@ def parse_date_to_ymd(date_str):
         day, mon, year = int(m.group(1)), months.get(m.group(2), 1), int(m.group(3))
         return f'{year:04d}{mon:02d}{day:02d}'
     return None
+
+
+# ── 路径输入容错 ─────────────────────────────────────────
+# 终端粘贴路径时常见问题：成对包裹引号、全角字符、零宽/不可见字符、
+# Unicode 规范化差异等，导致 Path 精确匹配失败。以下函数生成候选变体并逐一探测。
+
+def _strip_quotes(s):
+    """去除成对包裹的引号（ASCII 与中文引号）。"""
+    if len(s) >= 2 and s[0] in _QUOTE_PAIRS and s[-1] == _QUOTE_PAIRS[s[0]]:
+        return s[1:-1]
+    return s
+
+
+def _halfwidth(s):
+    """全角字符 → 半角变体（含全角空格 → 普通空格）。"""
+    return ''.join(
+        chr(ord(c) - 0xFEE0) if 0xFF01 <= ord(c) <= 0xFF5E
+        else (' ' if c == '\u3000' else c)
+        for c in s
+    )
+
+
+def _path_variants(raw):
+    """生成路径输入的候选字符串（去引号、NFC、全角→半角），保序去重。"""
+    s = raw.strip().strip(_ZERO_WIDTH_CHARS)
+    base = _strip_quotes(s).strip().strip(_ZERO_WIDTH_CHARS)
+    variants = []
+    for v in (base,
+              unicodedata.normalize('NFC', base),
+              _halfwidth(base),
+              unicodedata.normalize('NFC', _halfwidth(base))):
+        if v and v not in variants:
+            variants.append(v)
+    return variants
+
+
+def resolve_md_path(raw):
+    """将用户输入的 Markdown 路径解析为可用的 Path。
+
+    依次尝试：项目根目录相对路径、当前工作目录相对路径、绝对路径原样匹配。
+    优先返回已存在的文件；全部找不到时返回按 ROOT_DIR 拼接的兜底 Path
+    （保持与原 resolve_path 一致的报错路径）。
+    """
+    if raw is None:
+        return None
+    raw_s = raw.strip()
+    for cand in _path_variants(raw_s):
+        p = Path(cand)
+        if p.is_absolute():
+            if p.exists():
+                return p
+            continue
+        for base in (ROOT_DIR, Path.cwd()):
+            probe = base / cand
+            if probe.exists():
+                return probe
+    p0 = Path(raw_s)
+    return p0 if p0.is_absolute() else ROOT_DIR / p0
+
+
+def path_input_hint(raw):
+    """检测输入是否带可自动修正的字符，返回提示文案（找不到文件时打印）。"""
+    if not raw:
+        return ''
+    s = raw.strip()
+    tips = []
+    if len(s) >= 2 and s[0] in _QUOTE_PAIRS and s[-1] == _QUOTE_PAIRS[s[0]]:
+        tips.append('路径被成对引号包裹，已自动去除引号重试')
+    if any(0xFF01 <= ord(c) <= 0xFF5E or c == '\u3000' for c in s):
+        tips.append('路径含全角字符，已自动转半角重试')
+    if any(c in _ZERO_WIDTH_CHARS for c in s):
+        tips.append('路径含不可见字符（零宽/BOM），已自动剔除重试')
+    return '  ' + '；'.join(tips) if tips else ''
 
 
 def ask(prompt, default=None):

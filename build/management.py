@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, CATEGORIES, PAGE_MAP, ENTRY_TEMPLATE
 from data_loader import get_settings
-from utils import parse_date_to_ymd
+from utils import parse_date_to_ymd, resolve_md_path, path_input_hint
 
 
 # ── 文章标题工具 ──────────────────────────────────────
@@ -823,12 +823,13 @@ def edit_article():
         if not raw:
             print('  路径为空，请重试')
             continue
-        md_path = Path(raw)
-        if not md_path.is_absolute():
-            md_path = ROOT_DIR / raw
+        md_path = resolve_md_path(raw)
         if md_path.exists():
             break
         print(f'  文件不存在: {raw}')
+        hint = path_input_hint(raw)
+        if hint:
+            print(hint)
 
     confirm = input(f'用该 md 重新生成并覆盖原文章? [y/n]: ').strip().lower()
     if confirm not in ['y', '']:

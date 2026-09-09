@@ -24,7 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from config import ROOT_DIR, CATEGORIES
+from config import CATEGORIES
 from management import (
     list_articles, list_articles_direct,
     delete_article, delete_article_direct,
@@ -36,7 +36,7 @@ from content import publish_article
 from font_subset import run_font_subset
 from templint import check_all, rebuild_all
 from git_ops import git_commit_push
-from utils import get_lunar_date
+from utils import get_lunar_date, resolve_md_path, path_input_hint
 
 
 def parse_args():
@@ -137,8 +137,7 @@ def parse_args():
 
 
 def resolve_path(path_str):
-    path = Path(path_str)
-    return path if path.is_absolute() else ROOT_DIR / path
+    return resolve_md_path(path_str)
 
 
 def main():
@@ -171,6 +170,9 @@ def main():
         md_path = resolve_path(args.file)
         if not md_path.exists():
             print(f"错误: 文件不存在: {md_path}")
+            hint = path_input_hint(args.file)
+            if hint:
+                print(hint)
             sys.exit(1)
         edit_article_direct(cat, slug, md_path, yes=args.yes)
         return
@@ -231,6 +233,9 @@ def main():
         md_path = resolve_path(args.file)
         if not md_path.exists():
             print(f"错误: 文件不存在: {md_path}")
+            hint = path_input_hint(args.file)
+            if hint:
+                print(hint)
             sys.exit(1)
         publish_article(md_path, args, is_cli_mode=True)
         return
@@ -278,6 +283,9 @@ def main():
                 if md_path and md_path.exists():
                     break
                 print(f'  文件不存在: {raw if raw else "(空)"}')
+                hint = path_input_hint(raw)
+                if hint:
+                    print(hint)
             if raw.lower() == 'q':
                 continue
             publish_article(md_path, args, is_cli_mode=False)
