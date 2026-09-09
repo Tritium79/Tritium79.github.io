@@ -1,1 +1,1 @@
-Commentarii一词原意为“笔记”、“记录”，因[尤利乌斯·凯撒（Gaius Iulius Caesar）](https://zh.wikipedia.org/wiki/%E5%B0%A4%E5%88%A9%E7%83%8F%E6%96%AF%C2%B7%E5%87%B1%E6%92%92)的著作[《高卢战记》（Commentarii de Bello Gallico）](https://zh.wikipedia.org/wiki/%E9%AB%98%E7%9B%A7%E6%88%B0%E8%A8%98)而闻名，本博客的Commentarii章节，用于存放各种遐思。
+Commentarii一词原意为“笔记”、“记录”，因[尤利乌斯·凯撒（Gaius Iulius Caesar）](https://zh.wikipedia.org/wiki/%E5%B0%A4%E5%88%A9%E7%83%8F%E6%96%AF%C2%B7%E5%87%B1%E6%92%92)的著作[《高卢战记》（Commentarii de Bello Gallico）](https://zh.wikipedia.org/wiki/%E9%AB%98%E7%9B%A7%E6%88%B0%E8%A8%98)而闻名。本博客的Commentarii章节，用于存放各种遐思。
