@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>[博客建设]网站运行维护 | Tritium79's Blog</title>
+        <title>Blog CJK字体加载优化 | Tritium79's Blog</title>
         <link rel="stylesheet" href="../../../style.css" />
         <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg" />
         
@@ -15,8 +15,8 @@
                     ><img src="../../../assets/images/avatar.png" alt="avatar"
                 /></a>
                 <a href="../../../index.html"><div class="site-title">Tritium79's Blog</div></a>
-                <a class="current-section" href="../../../pages/archivum.html"
-                    ><span class="nav-la">Archivum</span></a
+                <a class="current-section" href="../../../pages/collectanea.html"
+                    ><span class="nav-la">Collectanea</span></a
                 >
                 <label for="nav-toggle" class="nav-toggle-btn">≡</label>
             </div>
@@ -34,23 +34,23 @@
                 <a href="../../../pages/sylvae.html"><span class="nav-la">Sylvae</span></a>
                 <a href="../../../pages/commentarii.html"><span class="nav-la">Commentarii</span></a>
                 <a href="../../../pages/transcripta.html"><span class="nav-la">Transcripta</span></a>
-                <a href="../../../pages/archivum.html" class="nav-current"><span class="nav-la">Archivum</span></a>
+                <a href="../../../pages/collectanea.html" class="nav-current"><span class="nav-la">Collectanea</span></a>
+                <a href="../../../pages/archivum.html"><span class="nav-la">Archivum</span></a>
                 <a href="../../../pages/amici.html"><span class="nav-la">Amici</span></a>
                 <a href="../../../pages/deme.html"><span class="nav-la">De Me</span></a>
             </nav>
         </header>
         <main>
-            <div class="article-title" id="article-title">[博客建设]网站运行维护</div>
+            <div class="article-title" id="article-title">Blog CJK字体加载优化</div>
             <p class="post-date">10 Aug. 2026 / 丙午年 丙申月 丙辰日</p>
             <hr class="article-divider" />
-            <p>更新时间：28 Aug. 2026 / 丙午年 丙申月 甲戌日</p>
-<ul>
-<li><a href="https://github.com/" target="_blank">GitHub Pages</a></li>
-<li><a href="https://www.cloudflare.com/" target="_blank">Cloudflare</a></li>
-<li><a href="https://search.google.com/search-console" target="_blank">Google Search Console </a></li>
-<li><a href="https://pagespeed.web.dev/" target="_blank">PageSpeed Insights</a></li>
-<li><a href="https://www.spaceship.com/zh/" target="_blank">Spaceship</a></li>
-</ul>
+            <p>更新时间：10 Aug. 2026 / 丙午年 丙申月 丙辰日</p>
+<p>参考：<a href="https://www.hehehai.cn/posts/chinese-web-font-optimize" target="_blank">网页中文字体加载速度优化 - 字体分包 | Hehehai @一块木头</a><br />
+优化策略：</p>
+<ol>
+<li>构建页面时，使用 fontTools + brotli 从完整字体文件生成单个子集，优先加载。</li>
+<li>使用npm包 cn-font-split 对字体文件进行分包，依据字符频率及Unicode区间生成woff2切片及result.css，作为回退。</li>
+</ol>
         </main>
         <footer>
             <p>&copy; 2026 <a href="https://tritium79.com/">Tritium79</a>. All rights reserved.</p>

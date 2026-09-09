@@ -11,6 +11,10 @@
         "name": "Transcripta",
         "page": "pages/transcripta.html"
     },
+    "collectanea": {
+        "name": "Collectanea",
+        "page": "pages/collectanea.html"
+    },
     "archivum": {
         "name": "Archivum",
         "page": "pages/archivum.html"

@@ -141,7 +141,7 @@ header nav a.nav-current:hover::after {
 }
 
 /* 短视口桌面模式：侧栏改为随页面整体滚动（不再固定），底部导航可全部露出 */
-@media (min-width: 801px) and (max-height: 669px) {
+@media (min-width: 801px) and (max-height: 719px) {
     header {
         position: absolute;
         top: 0;

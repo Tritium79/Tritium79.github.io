@@ -78,6 +78,7 @@ def get_nav(default=None):
             ('pages/sylvae.html', 'Sylvae'),
             ('pages/commentarii.html', 'Commentarii'),
             ('pages/transcripta.html', 'Transcripta'),
+            ('pages/collectanea.html', 'Collectanea'),
             ('pages/archivum.html', 'Archivum'),
             ('pages/amici.html', 'Amici'),
             ('pages/deme.html', 'De Me'),
