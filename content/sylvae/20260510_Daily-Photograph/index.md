@@ -1,4 +1,4 @@
-日常摄影，随手所得，时间地点不一。
+日常拍摄，随手所得，时间地点不一。
 
 ![GreenLeaves.jpeg](GreenLeaves.jpeg)
 

@@ -1,2 +1,2 @@
-iPad mini & Apple Pencil Pro
+iPad mini (A17Pro) & Apple Pencil Pro
 ![iPad-mini.jpeg](iPad-mini.jpeg)
