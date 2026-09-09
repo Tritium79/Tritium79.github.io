@@ -8,9 +8,9 @@
  */
 
 @font-face {
-    font-family: "Source Code Pro";
-    src: url("/assets/fonts/SourceCodePro-Light.otf") format("opentype");
-    font-weight: 300;
+    font-family: "Inconsolata";
+    src: url("/assets/fonts/Inconsolata-VF.woff2") format("woff2");
+    font-weight: 275 900;
     font-style: normal;
 }
 

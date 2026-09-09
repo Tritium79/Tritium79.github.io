@@ -10,7 +10,7 @@ main pre {
 }
 
 main code {
-    font-family: "Source Code Pro", "SF Mono", "Fira Code", "Consolas", monospace;
+    font-family: "Inconsolata", "SF Mono", "Fira Code", "Consolas", monospace;
     font-size: 0.9em;
     color: var(--text-code);
 }

@@ -19,7 +19,7 @@ Tritium79.github.io/
 │   ├── css/                    # 模块化 CSS 文件
 │   ├── fonts/                  # 字体文件
 │   │   ├── CormorantGaramond-Light.woff2   # Latin 装饰字体（header/footer/标题区，weight 300）
-│   │   ├── SourceCodePro-Light.otf         # 等宽代码字体
+│   │   ├── Inconsolata-VF.woff2            # 等宽代码字体（可变字重）
 │   │   ├── LXGWBright-*.ttf               # LXGW Bright 源字体备份（子集化源）
 │   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、subset-*.woff2 单子集）
 │   │       ├── light/          # Light 300 分包产物（result.css + woff2 切片）
@@ -163,7 +163,7 @@ Tritium79.github.io/
 
 - `fonts/` — 存放字体文件
 - `fonts/CormorantGaramond-Light.woff2` — Cormorant Garamond Light（Latin 衬线装饰字体，weight 300），用于 header/footer 及标题区；源文件 `.ttf` 保留在 `assets/fonts/`
-- `fonts/SourceCodePro-Light.otf` — Source Code Pro Light，代码字体
+- `fonts/Inconsolata-VF.woff2` — Inconsolata 可变字体（wght 275–900、wdth 50–200），代码字体（`@font-face` 声明 `font-weight: 275 900`）；源文件 `.ttf` 保留在 `assets/fonts/` 作为备份
 - `fonts/lxgw/subset.css` — 全站字符子集的字体规则（Light 300 与 Medium 700 两个 `@font-face`），优先于分包加载
 - `fonts/lxgw/light/result.css` — cn-font-split 生成的分包规则（Light 300），作为子集未覆盖字符的回退
 - `fonts/lxgw/medium/result.css` — cn-font-split 生成的分包规则（Medium 700），粗体字重回退
@@ -448,7 +448,7 @@ def hello():
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | Source Code Pro、Cormorant Garamond（Latin 装饰字体，weight 300）；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
+| `fonts.css` | 字体定义 | Inconsolata（等宽代码字体，可变字重 275 900）、Cormorant Garamond（Latin 装饰字体，weight 300）；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈（LXGW Bright 中文 + Cormorant 仅 header/footer/标题区）, flex 列布局, `fade-in` 动画 |
