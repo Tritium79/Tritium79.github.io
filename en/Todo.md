@@ -18,7 +18,7 @@ en 站目前每分类仅 1 篇样张，中文站已有 24 篇。需按下列映�
 - [ ] 20260629_Daily-Photograph-2 → 生活日常（二）（建议：Daily Photograph (2)）
 - [ ] 20260828_Blog-Domain → 博客域名（建议：Blog Domain）
 
-### Commentarii（中文 7 篇 / en 现有 1 篇）
+### Scripta（中文 7 篇 / en 现有 1 篇）
 
 - [x] 20260816_Latina → Latina（已完成）
 - [ ] 20260515_Software-Config → 软件记录（建议：Software Records）

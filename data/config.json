@@ -10,9 +10,9 @@
     "nav": [
         {"href": "index.html", "la": "Domus"},
         {"href": "pages/sylvae.html", "la": "Sylvae"},
-        {"href": "pages/commentarii.html", "la": "Commentarii"},
+        {"href": "pages/scripta.html", "la": "Scripta"},
         {"href": "pages/transcripta.html", "la": "Transcripta"},
-        {"href": "pages/collectanea.html", "la": "Collectanea"},
+        {"href": "pages/commentarii.html", "la": "Commentarii"},
         {"href": "pages/archivum.html", "la": "Archivum"},
         {"href": "pages/amici.html", "la": "Amici"},
         {"href": "pages/deme.html", "la": "De Me"}

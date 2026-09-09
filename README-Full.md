@@ -33,7 +33,7 @@ Tritium79.github.io/
 │   │       ├── index.html      # 生成的页面
 │   │       ├── index.md        # 源 Markdown（图片路径已本地化）
 │   │       └── (附属资源，如图片)
-│   ├── commentarii/            # Commentarii
+│   ├── scripta/                # Scripta
 │   │   └── {YYYYMMDD}_{Article-Slug}/
 │   │       ├── index.html
 │   │       ├── index.md
@@ -51,7 +51,7 @@ Tritium79.github.io/
 │
 ├── pages/                      # 章节
 │   ├── archivum.html           # Archivum
-│   ├── commentarii.html        # Commentarii
+│   ├── scripta.html            # Scripta
 │   ├── deme.html               # De Me
 │   ├── amici.html              # Amici
 │   ├── sylvae.html             # Sylvae
@@ -97,7 +97,7 @@ Tritium79.github.io/
 | 章节 key            | 显示名称        |
 |--------------------|----------------|
 | `sylvae`           | Sylvae         |
-| `commentarii`      | Commentarii    |
+| `scripta`          | Scripta        |
 | `transcripta`      | Transcripta    |
 | `archivum`         | Archivum       |
 
@@ -192,7 +192,7 @@ Tritium79.github.io/
     "nav": [
         {"href": "index.html", "la": "Domus"},
         {"href": "pages/sylvae.html", "la": "Sylvae"},
-        {"href": "pages/commentarii.html", "la": "Commentarii"},
+        {"href": "pages/scripta.html", "la": "Scripta"},
         {"href": "pages/transcripta.html", "la": "Transcripta"},
         {"href": "pages/archivum.html", "la": "Archivum"},
         {"href": "pages/amici.html", "la": "Amici"},

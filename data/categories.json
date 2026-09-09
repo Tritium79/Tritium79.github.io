@@ -3,17 +3,17 @@
         "name": "Sylvae",
         "page": "pages/sylvae.html"
     },
-    "commentarii": {
-        "name": "Commentarii",
-        "page": "pages/commentarii.html"
+    "scripta": {
+        "name": "Scripta",
+        "page": "pages/scripta.html"
     },
     "transcripta": {
         "name": "Transcripta",
         "page": "pages/transcripta.html"
     },
-    "collectanea": {
-        "name": "Collectanea",
-        "page": "pages/collectanea.html"
+    "commentarii": {
+        "name": "Commentarii",
+        "page": "pages/commentarii.html"
     },
     "archivum": {
         "name": "Archivum",

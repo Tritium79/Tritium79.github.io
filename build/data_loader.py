@@ -76,9 +76,9 @@ def get_nav(default=None):
         default = [
             ('index.html', 'Domus'),
             ('pages/sylvae.html', 'Sylvae'),
-            ('pages/commentarii.html', 'Commentarii'),
+            ('pages/scripta.html', 'Scripta'),
             ('pages/transcripta.html', 'Transcripta'),
-            ('pages/collectanea.html', 'Collectanea'),
+            ('pages/commentarii.html', 'Commentarii'),
             ('pages/archivum.html', 'Archivum'),
             ('pages/amici.html', 'Amici'),
             ('pages/deme.html', 'De Me'),
