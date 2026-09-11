@@ -78,7 +78,7 @@ en 站目前每分类仅 1 篇样张，中文站已有 24 篇。需按下列映�
 - [ ] 当前 en 站为纯手工维护，未接入 `build.py` 数据驱动（`data/`、`archetypes/` 变量渲染、字体子集、模板一致性检查）
 - [ ] 若接入：评估 `data/` 增加语言维度（每语言一套 config/categories）与 `build.py` 增加 `--lang` 的改造范围
 - [ ] 决定 `en/style.css` 与中文 `style.css` 的同步策略（当前 en 剔除了 lxgw 中文字体导入、改用 Cormorant Garamond 正文栈，放在 en/style.css 尾部覆盖）
-- [ ] README-Full.md / AGENTS.md 需补记多语言目录结构（en/、la/ 顶层目录）
+- [ ] README.md / AGENTS.md 需补记多语言目录结构（en/、la/ 顶层目录）
 
 ---
 
