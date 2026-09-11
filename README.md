@@ -445,7 +445,7 @@ def hello():
 
 ```html
 <li>
-    <a href="../content/{category}/{slug}/index.html">{title}</a>
+    <a class="article-link" href="../content/{category}/{slug}/index.html">{title}</a>
     <p class="article-date">{date}</p>
 </li>
 ```
@@ -483,7 +483,7 @@ def hello():
 | `header.css` | 侧边栏 | 桌面端固定宽 `200px`，桌面 fixed / 短视口 absolute，导航链接样式，含短视口媒体查询 |
 | `menu.css` | 竖屏汉堡菜单覆盖层 | `@media (max-width: 800px)`：全屏菜单本体（淡入淡出、可滚动）、菜单内关闭按钮/头像/站点标题、菜单链接样式 |
 | `main.css` | 主内容区 | 与侧栏对齐（`margin-left: 200px`），常规文档流样式（段落、列表、表格、图片）；正文链接默认黑色 + 淡灰 `dashed` 下划线（`text-underline-offset` 拉开间距），悬停变 `--cyan` 并平滑过渡 |
-| `components.css` | 组件样式 | `.link-list`、`.article-title`、`.page-title`、`.welcome`、`.post-date`、`.article-divider`、`.signature` |
+| `components.css` | 组件样式 | `.link-list`、`.article-link`、`.article-title`、`.page-title`、`.page-desc`、`.welcome`、`.post-date`、`.article-divider`、`.signature` |
 | `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
 | `footer.css` | 页脚 | 与 main 同宽对齐（`margin-left: 200px`） |
 | `responsive-portrait.css` | 竖屏模式 | `max-width: 800px`：顶栏、正文与页脚的竖屏布局（汉堡菜单见 `menu.css`） |
@@ -530,10 +530,11 @@ def hello():
 | `.nav-la` | 导航 Latin 标签（Cormorant Garamond，weight 300） | `nav a` 内部 |
 | `.article-title` | 文章页标题（`<div id="article-title">`，weight 300），不依赖 h2 语义 | `main` 内 |
 | `.page-title` | 章节页/首页标题（`<div role="heading" aria-level="1">`，Cormorant + weight 300） | `main` 内 |
-| `.page-desc` | 章节页描述文字（结构标记，无专属 CSS，样式继承 `main p`） | `main` 内 |
+| `.page-desc` | 章节页描述文字（Cormorant Garamond，置于 LXGW 前） | `main` 内 |
 | `.welcome` | Domus 首页欢迎语（Cormorant + weight 300） | `main` 内 |
 | `.post-date` | 文章页日期行 | `main` 内，紧跟标题 |
 | `.article-divider` | 文章页日期与正文间的分隔 `hr`（`margin-bottom: 1rem`） | `main` 内，紧跟日期 |
+| `.article-link` | 汇总页文章列表中的标题链接（Cormorant Garamond，置于 LXGW 前） | `ul li` 内 |
 | `.article-date` | 汇总页文章列表中的日期 | `ul li` 内 |
 | `.signature` | 首页签名/引言（Cormorant 斜体） | `main` 内 |
 | `.arithmatex` / `.katex-display` | 数学公式溢出处理 | 文章页 KaTeX 容器 |

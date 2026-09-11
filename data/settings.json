@@ -6,7 +6,7 @@
     "separator_replacement": "<br />",
     "open_links_in_new_tab": true,
     "commit_message_format": "{date} Update",
-    "entry_template": "<li>\n                    <a\n                        href=\"../content/%%CATEGORY%%/%%FOLDER%%/index.html\"\n                        >%%TITLE%%</a\n                    >\n                    <p class=\"article-date\">\n                        %%DATE%%\n                    </p>\n                </li>",
+    "entry_template": "<li>\n                    <a\n                        href=\"../content/%%CATEGORY%%/%%FOLDER%%/index.html\"\n                        class=\"article-link\"\n                        >%%TITLE%%</a\n                    >\n                    <p class=\"article-date\">\n                        %%DATE%%\n                    </p>\n                </li>",
     "managed_root_files": ["index.html"],
     "css_bundle": {
         "output": "style.css",

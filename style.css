@@ -665,12 +665,17 @@ main table tr:nth-child(even) {
     color: var(--text-sidebar-hover);
 }
 
+.link-list li a.article-link {
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
+}
+
 .link-list li .article-date {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 0.25rem;
     margin-bottom: 0;
     font-weight: normal;
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
 }
 
 .nav-la {
@@ -684,6 +689,7 @@ main table tr:nth-child(even) {
 }
 
 .article-title {
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
     font-weight: 300;
     margin: 0rem 0 1rem;
 }
@@ -694,11 +700,16 @@ main table tr:nth-child(even) {
     margin: 0 0 0.8rem;
 }
 
+.page-desc {
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
+}
+
 .post-date {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin: 0 0 1rem;
     font-weight: normal;
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
 }
 
 .article-divider {

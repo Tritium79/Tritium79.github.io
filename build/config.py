@@ -29,4 +29,4 @@ PAGE_MAP = {k: ROOT_DIR / v['page'] for k, v in _raw.items()}
 
 # 从 data/settings.json 加载汇总页条目模板
 ENTRY_TEMPLATE = get_settings('entry_template',
-    '<li>\n                    <a\n                        href="../content/%%CATEGORY%%/%%FOLDER%%/index.html"\n                        >%%TITLE%%</a\n                    >\n                    <p class="article-date">\n                        %%DATE%%\n                    </p>\n                </li>')
+    '<li>\n                    <a\n                        href="../content/%%CATEGORY%%/%%FOLDER%%/index.html"\n                        class="article-link"\n                        >%%TITLE%%</a\n                    >\n                    <p class="article-date">\n                        %%DATE%%\n                    </p>\n                </li>')
