@@ -8,6 +8,22 @@
     "commit_message_format": "{date} Update",
     "entry_template": "<li>\n                    <a\n                        href=\"../content/%%CATEGORY%%/%%FOLDER%%/index.html\"\n                        >%%TITLE%%</a\n                    >\n                    <p class=\"article-date\">\n                        %%DATE%%\n                    </p>\n                </li>",
     "managed_root_files": ["index.html"],
+    "css_bundle": {
+        "output": "style.css",
+        "sources": [
+            "assets/css/fonts.css",
+            "assets/css/variables.css",
+            "assets/css/prism.css",
+            "assets/css/base.css",
+            "assets/css/header.css",
+            "assets/css/menu.css",
+            "assets/css/main.css",
+            "assets/css/components.css",
+            "assets/css/code.css",
+            "assets/css/footer.css",
+            "assets/css/responsive-portrait.css"
+        ]
+    },
     "file_manager": {
         "hidden_dirs": ["build", ".git"],
         "allowed_extensions": [".html", ".css", ".md", ".otf", ".ttf", ".woff2", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico"]

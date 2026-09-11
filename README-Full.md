@@ -13,7 +13,7 @@
 ```
 Tritium79.github.io/
 ├── index.html                  # 首页
-├── style.css                   # CSS 入口（集中 @import）
+├── style.css                   # CSS 入口（由 assets/css/ 模块构建时合并生成）
 │
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
@@ -21,7 +21,7 @@ Tritium79.github.io/
 │   │   ├── CormorantGaramond-Light.woff2   # Latin 装饰字体（header/footer/标题区，weight 300）
 │   │   ├── Inconsolata-VF.woff2            # 等宽代码字体（可变字重）
 │   │   ├── LXGWBright-*.ttf               # LXGW Bright 源字体备份（子集化源）
-│   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、subset-*.woff2 单子集）
+│   │   └── lxgw/               # LXGW Bright 子集与分包产物（subset.css、subset-lxgw-light/medium.woff2 固定名单子集）
 │   │       ├── light/          # Light 300 分包产物（result.css + woff2 切片）
 │   │       └── medium/         # Medium 700 分包产物（result.css + woff2 切片）
 │   ├── icons/                  # 图标
@@ -63,6 +63,7 @@ Tritium79.github.io/
 │   ├── config.py               # 常量：路径、分类定义（从 data/ 加载）
 │   ├── data_loader.py          # 数据加载：从 data/*.json 读取配置
 │   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
+│   ├── css_bundle.py           # 样式合并：将 assets/css/ 模块合并为根目录 style.css
 │   ├── font_subset.py          # 字体处理：扫描全站字符并生成字体子集
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
 │   ├── utils.py                # 工具函数：slugify、ask、confirm、front matter 解析
@@ -140,21 +141,26 @@ Tritium79.github.io/
   8. 获取日期
   9. 重建页面（根据模板重建，可选逐个/全部模式）
   10. 重建字体
-  11. Git
+  11. 重建样式（合并 assets/css/ 为 style.css）
+  12. Git
 ```
 
 - 所有功能支持 `q` 中途退出
 - `python build.py --check-archetypes` — 对照 `data/config.json` 检查所有 HTML 文件的结构一致性（nav、footer 等），可选自动修复
-- `python build.py --rebuild` — 全站 Shell 同步：用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面，并同步字体子集
-- `python build.py --build-all` — 一键全量：rebuild → subset-font → check-archetypes
+- `python build.py --rebuild` — 全站 Shell 同步：合并 CSS → 用当前模板（archetype.html）+ 数据（data/config.json）重建所有页面 → 同步字体子集
+- `python build.py --build-all` — 一键全量：build-css → rebuild → subset-font → check-archetypes
 - `python build.py --subset-font` — 强制根据全站 HTML 重新生成字体子集
+- `python build.py --build-css` — 按 `data/settings.json` 的 `css_bundle` 顺序强制合并 `assets/css/` 模块为根目录 `style.css`
 - `python build.py --list-cat sylvae` — 非交互式列出指定分类文章
 - `python build.py --delete-by sylvae YYYYMMDD_Slug-Name -y` — 非交互式删除文章
 - `python build.py --edit-by sylvae YYYYMMDD_Slug-Name -f new.md -y` — 非交互式修改文章：用指定 md 重新生成，保留原标题/日期
 - `python build.py --retitle-by sylvae YYYYMMDD_Slug-Name -t "新标题" -d "新日期"` — 非交互式修改标题/日期
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
-- 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-*.woff2`（Light 300 全站字符）与 `subset-medium-*.woff2`（Medium 700 仅粗体字符）
+- 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-lxgw-light.woff2`（Light 300 全站字符）与 `subset-lxgw-medium.woff2`（Medium 700 仅粗体字符）；文件名固定（不含内容哈希），是否变化由 `subset.css` 注释中的签名判断
+- 模板对 Light 子集输出 `<link rel="preload" as="font" type="font/woff2" crossorigin>`，因文件名固定，preload 永不失效，换字体无需联动重建
+- CSS 入口 `style.css` 为构建产物：`css_bundle.py` 将 `assets/css/` 模块按 `data/settings.json` 的 `css_bundle.sources` 顺序合并，替代运行时 `@import` 链，减少串行请求轮次；请勿直接编辑 `style.css`，改动模块后运行 `--build-css`（或 `--build-all`）
+- `assets/fonts/lxgw/subset.css` 与 `light/medium/result.css` 含相对 `url()`，不参与合并，由模板以独立 `<link>` 引入
 - 所有路径以项目根目录为基准
 - Markdown 渲染扩展由 `data/settings.json` 的 `markdown_extensions` 定义
 - 发布文章时日期留空，默认使用当前干支日期（格式由 `data/settings.json` 的 `date_format` 定义）
@@ -164,11 +170,11 @@ Tritium79.github.io/
 - `fonts/` — 存放字体文件
 - `fonts/CormorantGaramond-Light.woff2` — Cormorant Garamond Light（Latin 衬线装饰字体，weight 300），用于 header/footer 及标题区；源文件 `.ttf` 保留在 `assets/fonts/`
 - `fonts/Inconsolata-VF.woff2` — Inconsolata 可变字体（wght 275–900、wdth 50–200），代码字体（`@font-face` 声明 `font-weight: 275 900`）；源文件 `.ttf` 保留在 `assets/fonts/` 作为备份
-- `fonts/lxgw/subset.css` — 全站字符子集的字体规则（Light 300 与 Medium 700 两个 `@font-face`），优先于分包加载
+- `fonts/lxgw/subset.css` — 全站字符子集的字体规则（Light 300 与 Medium 700 两个 `@font-face`），优先于分包加载；引用固定文件名的 `subset-lxgw-light.woff2` / `subset-lxgw-medium.woff2`，并以注释中的签名标记内容版本
 - `fonts/lxgw/light/result.css` — cn-font-split 生成的分包规则（Light 300），作为子集未覆盖字符的回退
 - `fonts/lxgw/medium/result.css` — cn-font-split 生成的分包规则（Medium 700），粗体字重回退
 - `icons/` — 存放图标文件
-- `css/` — 模块化 CSS 文件（由 `style.css` 集中 `@import`）
+- `css/` — 模块化 CSS 模块（源文件）；由 `build/css_bundle.py` 按 `data/settings.json` 的 `css_bundle.sources` 顺序合并为根目录 `style.css`
 - `images/` — 通用图片资源
 
 ---
@@ -444,11 +450,11 @@ def hello():
 
 ### 文件组织逻辑
 
-`style.css` 按以下顺序分组，自上而下阅读即可理解整体架构：
+`assets/css/` 下的模块按以下顺序被 `build/css_bundle.py` 合并为根目录 `style.css`（顺序定义于 `data/settings.json` 的 `css_bundle.sources`），自上而下阅读即可理解整体架构：
 
 | 文件 | 内容 | 说明 |
 |------|------|------|
-| `fonts.css` | 字体定义 | Inconsolata（等宽代码字体，可变字重 275 900）、Cormorant Garamond（Latin 装饰字体，weight 300）；`style.css` 依次引入 LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）和分包兜底（`light/result.css`、`medium/result.css`） |
+| `fonts.css` | 字体定义 | Inconsolata（等宽代码字体，可变字重 275 900）、Cormorant Garamond（Latin 装饰字体，weight 300）；LXGW Bright 的 `subset.css`（优先，含 Light 300 / Medium 700）与分包兜底（`light/result.css`、`medium/result.css`）不参与合并，由模板以独立 `<link>` 引入 |
 | `variables.css` | CSS 变量 + 暗色模式 | 颜色、背景、边框等全局 Token，含 `@media (prefers-color-scheme: dark)` 覆盖 |
 | `prism.css` | 代码高亮暗色主题 | Pygments token 配色（暗色模式），包裹在 `prefers-color-scheme: dark` 中 |
 | `base.css` | 全局重置与动画 | `box-sizing`, 字体栈（LXGW Bright 中文 + Cormorant 仅 header/footer/标题区）, flex 列布局, `fade-in` 动画 |

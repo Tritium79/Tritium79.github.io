@@ -2,7 +2,7 @@
 /* Source: assets/fonts/LXGWBright-Light.ttf; characters: 1830; signature: 3fc06ea656d8 */
 @font-face {
     font-family: "LXGW Bright Subset";
-    src: url("./subset-3fc06ea656d8.woff2") format("woff2");
+    src: url("./subset-lxgw-light.woff2") format("woff2");
     font-weight: 300;
     font-style: normal;
     font-display: block;
@@ -11,7 +11,7 @@
 /* Source: assets/fonts/LXGWBright-Medium.ttf; characters: 508; signature: 68818b843a66 */
 @font-face {
     font-family: "LXGW Bright Subset";
-    src: url("./subset-medium-68818b843a66.woff2") format("woff2");
+    src: url("./subset-lxgw-medium.woff2") format("woff2");
     font-weight: 700;
     font-style: normal;
     font-display: block;

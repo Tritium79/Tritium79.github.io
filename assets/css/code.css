@@ -15,7 +15,7 @@ main code {
     color: var(--text-code);
 }
 
-main p code {
+main :not(pre) > code {
     background-color: var(--bg-sidebar);
     color: var(--text-code);
     padding: 0.15rem 0.4rem;

@@ -15,16 +15,20 @@ _FONT_FACES = [
     {
         'source': ROOT_DIR / 'assets' / 'fonts' / 'LXGWBright-Light.ttf',
         'weight': 300,
-        'prefix': 'subset-',
+        'filename': 'subset-lxgw-light.woff2',
         'bold_only': False,
     },
     {
         'source': ROOT_DIR / 'assets' / 'fonts' / 'LXGWBright-Medium.ttf',
         'weight': 700,
-        'prefix': 'subset-medium-',
+        'filename': 'subset-lxgw-medium.woff2',
         'bold_only': True,
     },
 ]
+_SIGNATURE_RE = re.compile(
+    r'Source:\s*assets/fonts/(?P<source>[^;]+);\s*'
+    r'characters:\s*\d+;\s*signature:\s*(?P<signature>\w+)'
+)
 _IGNORED_TAGS = {'script', 'style', 'template'}
 _VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 _TEXT_ATTRIBUTES = {'alt', 'aria-label', 'placeholder', 'title', 'value'}
@@ -221,10 +225,21 @@ def _write_subset_css(faces):
     temporary_path.replace(SUBSET_CSS)
 
 
-def _existing_subset_matches(filename):
-    if not SUBSET_CSS.exists() or not (FONT_DIR / filename).exists():
+def _existing_signatures():
+    if not SUBSET_CSS.exists():
+        return {}
+    return {
+        match.group('source'): match.group('signature')
+        for match in _SIGNATURE_RE.finditer(SUBSET_CSS.read_text(encoding='utf-8'))
+    }
+
+
+def _existing_subset_matches(filename, source_name, signature):
+    if not (FONT_DIR / filename).exists():
         return False
-    return filename in SUBSET_CSS.read_text(encoding='utf-8')
+    if not SUBSET_CSS.exists() or filename not in SUBSET_CSS.read_text(encoding='utf-8'):
+        return False
+    return _existing_signatures().get(source_name) == signature
 
 
 def run_font_subset(force=False):
@@ -246,8 +261,8 @@ def run_font_subset(force=False):
             continue
 
         signature = _source_signature(face_chars, face['source'])
-        filename = f"{face['prefix']}{signature}.woff2"
-        if force or not _existing_subset_matches(filename):
+        filename = face['filename']
+        if force or not _existing_subset_matches(filename, face['source'].name, signature):
             FONT_DIR.mkdir(parents=True, exist_ok=True)
             _write_subset_font(face_chars, face['source'], FONT_DIR / filename)
             label = '粗体字符' if face['bold_only'] else '全站字符'

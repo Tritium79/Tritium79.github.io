@@ -13,6 +13,7 @@
   python build.py --rebuild                 # 全站模板同步
   python build.py --build-all               # 一键全量构建（模板同步+检查）
   python build.py --subset-font             # 重新生成全站字体子集
+  python build.py --build-css               # 合并 assets/css/ 为 style.css
   python build.py --git                     # Git 提交+推送
   python build.py --lunar-date              # 干支日期
 """
@@ -33,6 +34,7 @@ from management import (
     retitle_article, retitle_article_direct,
 )
 from content import publish_article
+from css_bundle import build_css_bundle
 from font_subset import run_font_subset
 from templint import check_all, rebuild_all
 from git_ops import git_commit_push
@@ -126,6 +128,8 @@ def parse_args():
                         help='一键全量构建（模板同步+检查）')
     parser.add_argument('--subset-font', action='store_true',
                         help='重新生成全站字体子集')
+    parser.add_argument('--build-css', action='store_true',
+                        help='合并 assets/css/ 模块为根目录 style.css')
 
     # 其他
     parser.add_argument('--git', action='store_true',
@@ -199,19 +203,23 @@ def main():
         return
 
     if args.rebuild:
+        build_css_bundle()
         rebuild_all(yes=args.yes)
         run_font_subset()
         return
 
     if args.build_all:
         print('=== 一键全量构建 ===\n')
-        print('[1/3] 同步全站模板...')
+        print('[1/4] 合并全站 CSS...')
+        build_css_bundle()
+        print()
+        print('[2/4] 同步全站模板...')
         rebuild_all(yes=True)
         print()
-        print('[2/3] 更新全站字体子集...')
+        print('[3/4] 更新全站字体子集...')
         run_font_subset()
         print()
-        print('[3/3] 检查模板一致性...')
+        print('[4/4] 检查模板一致性...')
         check_all(interactive=False, yes_to_all=True)
         print('\n全量构建完成!')
         return
@@ -219,6 +227,11 @@ def main():
     if args.subset_font:
         print('=== 重新生成全站字体子集 ===\n')
         run_font_subset(force=True)
+        return
+
+    if args.build_css:
+        print('=== 合并全站 CSS ===\n')
+        build_css_bundle(force=True)
         return
 
     if args.git:
@@ -253,7 +266,8 @@ def main():
         '8':  ('获取日期',     None),
         '9':  ('重建页面',     None),
         '10': ('重建字体',     lambda: run_font_subset(force=True)),
-        '11': ('Git',         git_commit_push),
+        '11': ('重建样式',     lambda: build_css_bundle(force=True)),
+        '12': ('Git',         git_commit_push),
     }
 
     while True:
