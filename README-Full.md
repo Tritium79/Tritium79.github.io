@@ -158,7 +158,7 @@ Tritium79.github.io/
 - `python build.py --git` — Git 提交与推送
 - `python build.py --lunar-date` — 获取当前干支日期
 - 发布文章时会自动检测全站字符集；字符有变化才重新生成 `assets/fonts/lxgw/subset-lxgw-light.woff2`（Light 300 全站字符）与 `subset-lxgw-medium.woff2`（Medium 700 仅粗体字符）；文件名固定（不含内容哈希），是否变化由 `subset.css` 注释中的签名判断
-- 模板对 Light 子集输出 `<link rel="preload" as="font" type="font/woff2" crossorigin>`，因文件名固定，preload 永不失效，换字体无需联动重建
+- 模板对 Light 与 Medium 子集分别输出 `<link rel="preload" as="font" type="font/woff2" crossorigin>`，因文件名固定，preload 永不失效，换字体无需联动重建
 - CSS 入口 `style.css` 为构建产物：`css_bundle.py` 将 `assets/css/` 模块按 `data/settings.json` 的 `css_bundle.sources` 顺序合并，替代运行时 `@import` 链，减少串行请求轮次；请勿直接编辑 `style.css`，改动模块后运行 `--build-css`（或 `--build-all`）
 - `assets/fonts/lxgw/subset.css` 与 `light/medium/result.css` 含相对 `url()`，不参与合并，由模板以独立 `<link>` 引入
 - 所有路径以项目根目录为基准
