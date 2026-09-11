@@ -80,7 +80,7 @@ Timeline: 9999 AT to present  |  Total duration: Ongoing
 > 时间线：9999 AT 至今  |  总跨度：持续中
 
 **Terragen** history now spans over 10,000 years. Civilization is highly diverse, with biological humans, who are in **near-baselines**, both rare and preserved, and a multitude of **posthuman** and artificial forms dominating society. Polities range from deeply structured empires to free distributed networks, all operating under influences that span from local cultures to **transcendent intelligences** at the highest **toposophic levels**.  
-> 地源文明**历史现已跨越一万年，文明形态高度多元，**近基准人类**等原始生物形态的人类已极为稀有，且大多处于受保护状态；而众多**后人类**与人工智能形态则主导着整个社会。文明政体形态各异，从组织严密的帝国到自由分布的松散网络，不一而足；所有这些社会都运作在复杂的影响力交织之下，上至最高**拓扑智识位阶**的**超验智能**，下至各具特色的本土文化。
+> **地源文明**历史现已跨越一万年，文明形态高度多元，**近基准人类**等原始生物形态的人类已极为稀有，且大多处于受保护状态；而众多**后人类**与人工智能形态则主导着整个社会。文明政体形态各异，从组织严密的帝国到自由分布的松散网络，不一而足；所有这些社会都运作在复杂的影响力交织之下，上至最高**拓扑智识位阶**的**超验智能**，下至各具特色的本土文化。
 
 ### Part III.
 
