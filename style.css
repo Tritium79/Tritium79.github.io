@@ -609,7 +609,7 @@ main ol:not(.link-list) ol > li::before {
 }
 
 main ul:not(.link-list) > li:not(:has(input[type="checkbox"]))::before {
-    content: "⬡";
+    content: "⬦";
     margin-right: 0.5rem;
 }
 
