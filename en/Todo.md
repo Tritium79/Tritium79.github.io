@@ -87,4 +87,4 @@ en 站目前每分类仅 1 篇样张，中文站已有 24 篇。需按下列映�
 - [ ] `robots.txt`：确认是否允许爬取 `/en/`、`/la/`
 - [ ] `sitemap.xml` 与 `hreflang`（`<link rel="alternate" hreflang>`）— 若在意 SEO 再补
 - [ ] CNAME / 域名路由验证 `/en`、`/la` 子路径可访问（静态站通常天然可用）
-- [ ] en 各页 KaTeX：目前 4 篇均无数学；若后续译文含公式，需按中文站逻辑注入 KaTeX
+- [ ] en 各页数学公式：目前 4 篇均无数学；KaTeX 已全站移除，若后续译文含公式，需按中文站逻辑在构建时转为原生 MathML

@@ -83,6 +83,7 @@ Tritium79.github.io/
 │   ├── config.py               # 常量：路径、分类定义（从 data/ 加载）
 │   ├── data_loader.py          # 数据加载：从 data/*.json 读取配置
 │   ├── content.py              # 内容生成：Markdown 渲染、图片处理、文章发布
+│   ├── mathml.py               # 数学公式：LaTeX → 浏览器原生 MathML（构建时转换）
 │   ├── css_bundle.py           # 样式合并：将 assets/css/ 模块合并为根目录 style.css
 │   ├── font_subset.py          # 字体处理：扫描全站字符并生成字体子集
 │   ├── management.py           # 文章管理：列表、删除、文件管理器、修改标题/日期
@@ -94,7 +95,7 @@ Tritium79.github.io/
 │   └── venv/                   # Python 虚拟环境
 │
 ├── archetypes/                   # HTML 模板
-│   └── archetype.html           # 统一模板（{{ root_path }}/{{ nav_links }}/{{ footer_content }}，含 KaTeX）
+│   └── archetype.html           # 统一模板（{{ root_path }}/{{ nav_links }}/{{ footer_content }}）
 │
 ├── data/                       # 全站数据配置（JSON）
 │   ├── config.json             # 站点身份：标题、语言、导航、页脚、头像、CSS
@@ -147,7 +148,7 @@ Tritium79.github.io/
 ### 构建脚本
 
 - `build/build.py` — 主构建脚本
-- 工作流：Markdown 文件 → 解析 front matter → 渲染 HTML → 写入 `content/{category}/{slug}/index.html`（同时复制源 `.md` 并本地化图片路径） → 更新汇总页 → 扫描全站字符并按需更新字体子集
+- 工作流：Markdown 文件 → 解析 front matter → LaTeX 转 MathML → 渲染 HTML → 写入 `content/{category}/{slug}/index.html`（同时复制源 `.md` 并本地化图片路径） → 更新汇总页 → 扫描全站字符并按需更新字体子集
   - 交互菜单：
 
 ```
@@ -389,10 +390,15 @@ def hello():
 
 ### 数学公式
 
-支持 KaTeX 渲染：
+构建时由 `build/mathml.py` 将 LaTeX 转换为浏览器原生 MathML（不依赖客户端脚本）：
 
-- 行内：`$...$` 或 `\(...\)`
-- 块级：`$$...$$` 或 `\[...\]`
+- 行内：`$...$` 或 `\(...\)` → `<math display="inline">`
+- 块级：`$$...$$` 或 `\[...\]` → `<math display="block">`
+- 转换使用 `latex2mathml`（见 `build/requirements.txt`），失败或遇到不支持的宏（如 mhchem 的 `\ce`）时回退为原样文本
+- **化学式用标准 LaTeX 书写**，例如 `\mathrm{H_2O}`、`{}^{235}_{92}\mathrm{U}`、`\xrightarrow{\text{催化剂}}`、`\rightleftharpoons`；不支持 mhchem 的 `\ce{...}` 语法
+- 复杂环境在构建时预处理为等价稳定写法：`aligned` → `array{rl}`（避免 `&` 残留）、`\color{name}{...}` → `\textcolor{name}{...}`
+- 字体样式命令（`\mathbf`、`\mathcal`、`\mathbb`、`\mathfrak`、`\mathsf`、`\mathtt` 等）在构建时改写为浏览器可渲染的形式：拉丁字母/数字用 Unicode 数学字母（如 `𝒞`、`𝔹`、`𝔨`），中文等无 Unicode 对应者退回 CSS（`font-weight`／`font-style`／`font-family`），以兼容已移除 `mathvariant` 的 MathML Core 浏览器
+- 模板重建（`--rebuild`）时会自动把历史页面 `<main>` 中残留的 LaTeX 定界符迁移为 MathML，并升级其中旧的 `mathvariant`
 
 ### Obsidian 图片语法
 
@@ -484,7 +490,7 @@ def hello():
 | `menu.css` | 竖屏汉堡菜单覆盖层 | `@media (max-width: 800px)`：全屏菜单本体（淡入淡出、可滚动）、菜单内关闭按钮/头像/站点标题、菜单链接样式 |
 | `main.css` | 主内容区 | 与侧栏对齐（`margin-left: 200px`），常规文档流样式（段落、列表、表格、图片）；正文链接默认黑色 + 淡灰 `dashed` 下划线（`text-underline-offset` 拉开间距），悬停变 `--cyan` 并平滑过渡 |
 | `components.css` | 组件样式 | `.link-list`、`.article-link`、`.article-title`、`.page-title`、`.page-desc`、`.welcome`、`.post-date`、`.article-divider`、`.signature` |
-| `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、KaTeX 溢出处理 |
+| `code.css` | 代码与数学公式 | 代码块背景、行内 code 高亮、原生 MathML（行内字号与块级排版，完整展开不裁切） |
 | `footer.css` | 页脚 | 与 main 同宽对齐（`margin-left: 200px`） |
 | `responsive-portrait.css` | 竖屏模式 | `max-width: 800px`：顶栏、正文与页脚的竖屏布局（汉堡菜单见 `menu.css`） |
 
@@ -537,7 +543,7 @@ def hello():
 | `.article-link` | 汇总页文章列表中的标题链接（Cormorant Garamond，置于 LXGW 前） | `ul li` 内 |
 | `.article-date` | 汇总页文章列表中的日期 | `ul li` 内 |
 | `.signature` | 首页签名/引言（Cormorant 斜体） | `main` 内 |
-| `.arithmatex` / `.katex-display` | 数学公式溢出处理 | 文章页 KaTeX 容器 |
+| `math[display="block"]` | 块级数学公式（原生 MathML）的排版，完整展开不裁切、无内部滚动条 | 文章页 MathML 容器 |
 | `.token.*` | 代码高亮（Prism.js 兼容） | 暗色模式覆盖 |
 
 ### 动画层级

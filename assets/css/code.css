@@ -16,17 +16,17 @@ main code {
 }
 
 main :not(pre) > code {
-    background-color: var(--bg-sidebar);
+    background-color: var(--bg-inline-code);
     color: var(--text-code);
     padding: 0.15rem 0.4rem;
     border-radius: 3px;
 }
 
-main .arithmatex {
-    overflow-x: auto;
+main math {
+    font-size: 0.95rem;
 }
 
-.katex-display {
+main math[display="block"] {
+    display: block;
     margin: 1rem 0;
-    overflow-x: auto;
 }

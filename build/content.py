@@ -27,6 +27,7 @@ from data_loader import (
     get_section_href,
 )
 from font_subset import run_font_subset
+from mathml import protect_math
 
 
 # ── 自定义 Markdown 扩展：任务列表 ───────────────────────
@@ -167,25 +168,9 @@ def process_links(html):
     return re.sub(r'<a\s+(?![^>]*target=)(?![^>]*class="footnote-(?:ref|backref)")([^>]+?)>', r'<a \1 target="_blank">', html)
 
 
-def _protect_math(text):
-    placeholders = {}
-
-    def _save(m):
-        key = f'\x00MATH_{len(placeholders)}\x00'
-        placeholders[key] = m.group(0)
-        return key
-
-    text = re.sub(r'\$\$(.*?)\$\$', _save, text, flags=re.DOTALL)
-    text = re.sub(r'(?<!\$)\$(?!\$)(.+?)(?<!\$)\$(?!\$)', _save, text)
-    text = re.sub(r'\\\[(.*?)\\\]', _save, text, flags=re.DOTALL)
-    text = re.sub(r'\\\((.*?)\\\)', _save, text, flags=re.DOTALL)
-
-    return text, placeholders
-
-
 def render_markdown(text):
     text = process_obsidian_links(text)
-    text, math_blocks = _protect_math(text)
+    text, math_blocks = protect_math(text)
     text = preprocess_inline(text)
     text = ensure_blank_line_before_lists(text)
     extensions = get_settings('markdown_extensions', ['extra', 'codehilite', 'nl2br'])
@@ -265,38 +250,6 @@ def localize_md_images(text, md_path, output_dir):
     return text
 
 
-# ── KaTeX 条件引入 ────────────────────────────────────────
-
-KATEX_HTML = r'''<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
-
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false},
-                        {left: "\\(", right: "\\)", display: false},
-                        {left: "\\[", right: "\\]", display: true}
-                    ],
-                    throwOnError: false,
-                    trust: true,
-                    macros: {
-                        "\\f": "#1f(#2)"
-                    }
-                });
-            });
-        </script>
-
-        <style>
-        .katex-display { overflow: visible !important; }
-        .katex-display > .katex { overflow: visible !important; }
-        .katex { overflow: visible !important; }
-        </style>'''
-
-
 # ── Obsidian Callout 处理 ──────────────────────────────────
 
 def _callout_div(type_, title, content):
@@ -364,11 +317,6 @@ def process_callouts(html):
     return ''.join(result)
 
 
-def has_latex(html):
-    """Check if HTML body contains LaTeX math delimiters ($$, \\[, \\()."""
-    return '$$' in html or '\\[' in html or '\\(' in html
-
-
 # ── 模板渲染 ─────────────────────────────────────────────
 
 def generate_nav_links(current_section, prefix=''):
@@ -392,8 +340,6 @@ def fill_template(template, title, date, content, section):
     full_content += '            <hr class="article-divider" />\n'
     full_content += content
 
-    katex_html = KATEX_HTML if has_latex(content) else ''
-
     html = template
     html = html.replace('{{ title }}', title)
     html = html.replace('{{ body_class }}', '')
@@ -403,7 +349,6 @@ def fill_template(template, title, date, content, section):
     html = html.replace('{{ nav_links }}', generate_nav_links(section, '../../../'))
     html = html.replace('{{ footer_content }}', get_footer_data())
     html = html.replace('{{ root_path }}', '../../../')
-    html = html.replace('{{ katex }}', katex_html)
     return html
 
 

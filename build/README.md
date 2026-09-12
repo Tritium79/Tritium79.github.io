@@ -9,13 +9,14 @@ build/
 ├── config.py          # 常量：路径、分类定义、汇总页条目模板
 ├── data_loader.py     # 数据加载：从 data/*.json 读取全站配置
 ├── content.py         # 内容生成：Markdown 渲染、图片处理、文章发布
+├── mathml.py          # 数学公式：LaTeX → 浏览器原生 MathML（构建时转换）
 ├── css_bundle.py      # 样式合并：将 assets/css/ 模块合并为根目录 style.css
 ├── font_subset.py      # 字体处理：扫描全站字符并生成字体子集
 ├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
 ├── templint.py        # 模板一致性检查 + 全站 Shell 同步引擎
 ├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析、干支日期
 ├── git_ops.py         # Git 提交与推送
-├── requirements.txt   # Python 依赖（含 fonttools、brotli）
+├── requirements.txt   # Python 依赖（含 fonttools、brotli、latex2mathml）
 ├── venv/              # Python 虚拟环境（gitignored）
 └── README.md          # 本文件
 ```
@@ -117,21 +118,42 @@ python build.py --lunar-date              # 干支日期
 
 **发布流水线**：
 ```
-Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
-  → process_images（本地图片复制） → fill_template → 写入 → add_entry_to_page
+Markdown → parse_front_matter → protect_math（LaTeX → MathML）
+  → render_markdown（nl2br/codehilite） → process_images（本地图片复制）
+  → fill_template → 写入 → add_entry_to_page
 ```
 
 | 函数 | 说明 |
 |------|------|
 | `process_obsidian_links(text)` | `![[file.jpg]]` → `![file.jpg](file.jpg)` |
 | `process_links(html)` | 为所有 `<a>` 加 `target="_blank"` |
-| `render_markdown(text)` | MD → HTML（extra + codehilite + nl2br） |
+| `render_markdown(text)` | MD → HTML（extra + codehilite + nl2br），数学公式在保护阶段转为 MathML |
 | `process_images(html, md_path, output_dir)` | 查找本地图片并复制到输出目录 |
 | `generate_nav_links(section, prefix)` | 从 `data/config.json` 生成导航 HTML |
 | `fill_template(template, title, date, content, section)` | 填充 archetype.html 的所有模板变量（标题 div + date + 分隔 hr 拼入 content） |
 | `publish_article(md_path, args, is_cli_mode)` | 主发布函数 |
 
 **图片搜索顺序**：Markdown 同目录 → 项目根目录；远程图片（http/https/data:）跳过。
+
+---
+
+### `mathml.py` — LaTeX → 原生 MathML
+
+构建时（服务端）把数学公式转换为浏览器原生 MathML，不再依赖 KaTeX 等客户端脚本。
+
+| 函数 | 说明 |
+|------|------|
+| `latex_to_mathml(tex, display)` | 单条公式转换；未知宏（如 mhchem `\ce`）或异常时返回 `None` |
+| `protect_math(text)` | Markdown 流水线用：以占位符保护公式并转换为 MathML，渲染后回填 |
+| `convert_math_html(html)` | 重建用：替换 HTML 片段中的公式，跳过 `code/pre/script/style/math` |
+| `convert_math_text(text)` | 替换纯文本/Markdown 中的公式定界符 |
+
+- 定界符：`$...$`、`\(...\)`（行内）；`$$...$$`、`\[...\]`（块级，输出 `display="block"`）
+- 依赖 `latex2mathml`（见 `requirements.txt`）
+- 预处理（`_normalize_latex`）：`\color{name}{...}` → `\textcolor{name}{...}`（矩阵/对齐环境内的 `\color` 会生成畸形 MathML）；`aligned` 环境 → `array{rl}`（否则 `&` 会以字面形式残留）
+- 字体样式：改写 `mathvariant` 以兼容 MathML Core（Chrome 已移除该属性）——拉丁字母/数字转 Unicode 数学字母（`bold`/`italic`/`script`/`fraktur`/`double-struck`/`sans-serif`/`monospace`），中文等无对应者转 CSS 字体属性；仅保留 `normal` 属性
+- 已存在的 `<math>` 块会在重建时就地升级，重复重建幂等
+- 转换失败时保留原始 LaTeX 文本，避免输出乱码；`\ce`（mhchem）不受支持，化学式请用标准 LaTeX（`\mathrm{H_2O}`、`{}^{235}_{92}\mathrm{U}`、`\xrightarrow{\text{...}}`、`\rightleftharpoons` 等）
 
 ---
 
@@ -165,7 +187,7 @@ Markdown → parse_front_matter → render_markdown（nl2br/codehilite）
 |------|------|
 | `check_file(file_path)` | 对照 `data/config.json` 检查单个文件结构完整性 |
 | `check_all(interactive, yes_to_all)` | 扫描全站 HTML 并检查/修复 |
-| `rebuild_from_base(file_path)` | 用当前 archetype.html 模板重建文件，保留 `<main>` 内容 |
+| `rebuild_from_base(file_path)` | 用当前 archetype.html 模板重建文件，保留 `<main>` 内容（并把残留 LaTeX 定界符迁移为 MathML） |
 | `rebuild_all(yes)` | 强制全站 Shell 同步（跳过 archetypes/ 模板） |
 
 **检查依据**：`data/config.json` 的 `nav`（导航）和 `footer`（页脚），而非某个 HTML 参考文件。

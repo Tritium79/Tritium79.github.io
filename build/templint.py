@@ -14,7 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import ROOT_DIR, SECTION_MAP
-from content import generate_nav_links, KATEX_HTML, has_latex
+from content import generate_nav_links
+from mathml import convert_math_html
 from data_loader import (
     get_nav as get_nav_data,
     get_footer as get_footer_data,
@@ -220,8 +221,9 @@ def rebuild_from_base(file_path):
                 '<div class="article-title" id="article-title">', main, 1
             )
 
-    # Inject KaTeX if the main content contains LaTeX delimiters
-    katex_html = KATEX_HTML if has_latex(main) else ''
+    # 迁移历史页面：把 <main> 中残留的 LaTeX 定界符转换为浏览器原生 MathML。
+    # 已转换的 <math> 元素会被跳过，重复重建不会二次转换。
+    main = convert_math_html(main)
 
     template = (ROOT_DIR / 'archetypes' / 'archetype.html').read_text(encoding='utf-8')
 
@@ -234,7 +236,6 @@ def rebuild_from_base(file_path):
     out = out.replace('{{ nav_links }}', generate_nav_links(section, pref))
     out = out.replace('{{ footer_content }}', get_footer_data())
     out = out.replace('{{ root_path }}', pref)
-    out = out.replace('{{ katex }}', katex_html)
 
     return out
 

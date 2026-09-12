@@ -356,7 +356,7 @@ $$
 
 ---
 
-## 16. 定理类环境（用 amsthm 模拟）
+## 16. 定理类环境
 
 
 $$
@@ -372,17 +372,17 @@ $$
 
 ---
 
-## 17. 化学式（用 mhchem 模拟）
+## 17. 化学式
 
 
 $$
-\ce{H2O} \quad \ce{CO2} \quad \ce{^{235}_{92}U} \quad \ce{CH3COOH}
+\mathrm{H_2O} \quad \mathrm{CO_2} \quad {}^{235}_{92}\mathrm{U} \quad \mathrm{CH_3COOH}
 $$
 
 
 
 $$
-\ce{A ->[催化剂] B} \quad \ce{A <=> B} \quad \ce{A + B -> C}
+\mathrm{A} \xrightarrow{\text{催化剂}} \mathrm{B} \quad \mathrm{A} \rightleftharpoons \mathrm{B} \quad \mathrm{A} + \mathrm{B} \rightarrow \mathrm{C}
 $$
 
 

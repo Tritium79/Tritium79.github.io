@@ -37,34 +37,6 @@
         <link rel="stylesheet" href="../../../assets/fonts/lxgw/light/result.css" />
         <link rel="stylesheet" href="../../../assets/fonts/lxgw/medium/result.css" />
         <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
-
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false},
-                        {left: "\\(", right: "\\)", display: false},
-                        {left: "\\[", right: "\\]", display: true}
-                    ],
-                    throwOnError: false,
-                    trust: true,
-                    macros: {
-                        "\\f": "#1f(#2)"
-                    }
-                });
-            });
-        </script>
-
-        <style>
-        .katex-display { overflow: visible !important; }
-        .katex-display > .katex { overflow: visible !important; }
-        .katex { overflow: visible !important; }
-        </style>
     </head>
     <body>
         <header>
@@ -360,18 +332,12 @@
 <hr />
 <h3>数学公式测试</h3>
 <h4>行内公式</h4>
-<p>爱因斯坦的质能方程：$E = mc^2$</p>
-<p>勾股定理：$a^2 + b^2 = c^2$</p>
+<p>爱因斯坦的质能方程：<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow></math></p>
+<p>勾股定理：<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><msup><mi>c</mi><mn>2</mn></msup></mrow></math></p>
 <h4>块级公式</h4>
-<p>$$
-\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
-$$</p>
-<p>$$
-\int_{a}^{b} f(x) \, dx = F(b) - F(a)
-$$</p>
-<p>$$
-\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mi>i</mi><mo>=</mo><mfrac><mrow><mi>n</mi><mo stretchy="false">(</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mo>∫</mo><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><mi>d</mi><mi>x</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo><mo>−</mo><mi>F</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mfrac><mrow><mo>−</mo><mi>b</mi><mi>±</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math></p>
 <hr />
 <h3>缩写测试</h3>
 <p>本文档介绍了 <abbr title="超文本标记语言">HTML</abbr>、<abbr title="层叠样式表">CSS</abbr> 和 <abbr title="JavaScript">JS</abbr> 的基本概念，以及如何使用 <abbr title="应用程序编程接口">API</abbr> 进行开发。</p>

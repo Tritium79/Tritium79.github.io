@@ -1,6 +1,7 @@
 :root {
     --bg-primary: #ffffff;
     --bg-sidebar: #F6F6F6;
+    --bg-inline-code: var(--bg-sidebar);
     --bg-header: #FFFFFF;
     --border-list: #ddd;
     --text-primary: #000;
@@ -37,6 +38,7 @@
     :root {
         --bg-primary: #111111;
         --bg-sidebar: #111111;
+        --bg-inline-code: var(--bg-code);
         --bg-header: #111111;
         --border-list: #222;
         --text-primary: #eeeeee;
@@ -46,7 +48,7 @@
         --text-link: #666;
         --cyan: #4aa9c5;
         --text-sidebar-hover: var(--cyan);
-        --bg-code: #1a1a1a;
+        --bg-code: #222222;
         --text-code: #d4d4d4;
         --callout-abstract: var(--cyan);
         --callout-note: #6b9fff;

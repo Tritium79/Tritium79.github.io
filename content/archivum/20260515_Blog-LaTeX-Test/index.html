@@ -37,34 +37,6 @@
         <link rel="stylesheet" href="../../../assets/fonts/lxgw/light/result.css" />
         <link rel="stylesheet" href="../../../assets/fonts/lxgw/medium/result.css" />
         <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.css" />
-
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/katex.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/auto-render.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.46/dist/contrib/mhchem.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false},
-                        {left: "\\(", right: "\\)", display: false},
-                        {left: "\\[", right: "\\]", display: true}
-                    ],
-                    throwOnError: false,
-                    trust: true,
-                    macros: {
-                        "\\f": "#1f(#2)"
-                    }
-                });
-            });
-        </script>
-
-        <style>
-        .katex-display { overflow: visible !important; }
-        .katex-display > .katex { overflow: visible !important; }
-        .katex { overflow: visible !important; }
-        </style>
     </head>
     <body>
         <header>
@@ -103,246 +75,86 @@
             <p class="post-date">15 May. 2026 / 丙午年 癸巳月 己丑日</p>
             <hr class="article-divider" />
 <h2>1. 字体样式</h2>
-<p>$$
-\mathbf{粗体数学} \quad \mathit{斜体数学} \quad \mathrm{罗马体} \quad \mathsf{无衬线体} \quad \mathtt{打字机体}
-$$</p>
-<p>$$
-\mathcal{CALLIGRAPHIC} \quad \mathbb{BLACKBOARD} \quad \mathfrak{Fraktur}
-$$</p>
-<p>$$
-\text{普通文本} \quad \textbf{粗体文本} \quad \textit{斜体文本} \quad \underline{下划线} \quad \overline{上划线}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mi style="font-weight: bold">粗</mi><mi style="font-weight: bold">体</mi><mi style="font-weight: bold">数</mi><mi style="font-weight: bold">学</mi></mrow><mspace width="1em" /><mrow><mi style="font-style: italic">斜</mi><mi style="font-style: italic">体</mi><mi style="font-style: italic">数</mi><mi style="font-style: italic">学</mi></mrow><mspace width="1em" /><mrow><mi mathvariant="normal">罗</mi><mi mathvariant="normal">马</mi><mi mathvariant="normal">体</mi></mrow><mspace width="1em" /><mrow><mi style="font-family: sans-serif">无</mi><mi style="font-family: sans-serif">衬</mi><mi style="font-family: sans-serif">线</mi><mi style="font-family: sans-serif">体</mi></mrow><mspace width="1em" /><mrow><mi style="font-family: monospace">打</mi><mi style="font-family: monospace">字</mi><mi style="font-family: monospace">机</mi><mi style="font-family: monospace">体</mi></mrow></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mi>𝒞</mi><mi>𝒜</mi><mi>ℒ</mi><mi>ℒ</mi><mi>ℐ</mi><mi>𝒢</mi><mi>ℛ</mi><mi>𝒜</mi><mi>𝒫</mi><mi>ℋ</mi><mi>ℐ</mi><mi>𝒞</mi></mrow><mspace width="1em" /><mrow><mi>𝔹</mi><mi>𝕃</mi><mi>𝔸</mi><mi>ℂ</mi><mi>𝕂</mi><mi>𝔹</mi><mi>𝕆</mi><mi>𝔸</mi><mi>ℝ</mi><mi>𝔻</mi></mrow><mspace width="1em" /><mrow><mi>𝔉</mi><mi>𝔯</mi><mi>𝔞</mi><mi>𝔨</mi><mi>𝔱</mi><mi>𝔲</mi><mi>𝔯</mi></mrow></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>普通文本</mtext><mspace width="1em" /><mtext style="font-weight: bold">粗体文本</mtext><mspace width="1em" /><mtext style="font-style: italic">斜体文本</mtext><mspace width="1em" /><munder><mrow><mi>下</mi><mi>划</mi><mi>线</mi></mrow><mo accent="true">―</mo></munder><mspace width="1em" /><mover><mrow><mi>上</mi><mi>划</mi><mi>线</mi></mrow><mo accent="true">―</mo></mover></mrow></math></p>
 <hr />
 <h2>2. 字号大小</h2>
-<p>$$
-{\tiny tiny} \;
-{\scriptsize scriptsize} \;
-{\footnotesize footnotesize} \;
-{\small small} \;
-{\normalsize normalsize} \;
-{\large large} \;
-{\Large Large} \;
-{\LARGE LARGE} \;
-{\huge huge} \;
-{\Huge Huge}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mstyle mathsize="0.5em"><mi>t</mi><mi>i</mi><mi>n</mi><mi>y</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="0.7em"><mi>s</mi><mi>c</mi><mi>r</mi><mi>i</mi><mi>p</mi><mi>t</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="0.85em"><mi>f</mi><mi>o</mi><mi>o</mi><mi>t</mi><mi>n</mi><mi>o</mi><mi>t</mi><mi>e</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="0.85em"><mi>s</mi><mi>m</mi><mi>a</mi><mi>l</mi><mi>l</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="1em"><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="1.2em"><mi>l</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="1.44em"><mi>L</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="1.73em"><mi>L</mi><mi>A</mi><mi>R</mi><mi>G</mi><mi>E</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="2.07em"><mi>h</mi><mi>u</mi><mi>g</mi><mi>e</mi></mstyle></mrow><mspace width="0.278em" /><mrow><mstyle mathsize="2.49em"><mi>H</mi><mi>u</mi><mi>g</mi><mi>e</mi></mstyle></mrow></mrow></math></p>
 <hr />
 <h2>3. 颜色（需 \color 命令）</h2>
-<p>$$
-\color{red}{红色} \;
-\color{blue}{蓝色} \;
-\color{green}{绿色} \;
-\color{orange}{橙色} \;
-\color{purple}{紫色} \;
-\color{gray}{灰色}
-$$</p>
-<p>$$
-\colorbox{yellow}{黄色背景} \quad
-\colorbox{cyan}{青色背景} \quad
-\colorbox{magenta}{品红背景}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mstyle mathcolor="red"><mrow><mi>红</mi><mi>色</mi></mrow></mstyle><mspace width="0.278em" /><mstyle mathcolor="blue"><mrow><mi>蓝</mi><mi>色</mi></mrow></mstyle><mspace width="0.278em" /><mstyle mathcolor="green"><mrow><mi>绿</mi><mi>色</mi></mrow></mstyle><mspace width="0.278em" /><mstyle mathcolor="orange"><mrow><mi>橙</mi><mi>色</mi></mrow></mstyle><mspace width="0.278em" /><mstyle mathcolor="purple"><mrow><mi>紫</mi><mi>色</mi></mrow></mstyle><mspace width="0.278em" /><mstyle mathcolor="gray"><mrow><mi>灰</mi><mi>色</mi></mrow></mstyle></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mpadded mathbackground="yellow"><mtext>黄色背景</mtext></mpadded><mspace width="1em" /><mpadded mathbackground="cyan"><mtext>青色背景</mtext></mpadded><mspace width="1em" /><mpadded mathbackground="magenta"><mtext>品红背景</mtext></mpadded></mrow></math></p>
 <hr />
 <h2>4. 空格与间距</h2>
-<p>$$
-a \quad b \qquad c \;
-d \: e \, f \! g \hspace{1cm} h
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>a</mi><mspace width="1em" /><mi>b</mi><mspace width="2em" /><mi>c</mi><mspace width="0.278em" /><mi>d</mi><mspace width="0.222em" /><mi>e</mi><mspace width="0.167em" /><mi>f</mi><mspace width="negativethinmathspace" /><mi>g</mi><mspace width="1cm" /><mi>h</mi></mrow></math></p>
 <hr />
 <h2>5. 上下标与堆叠</h2>
-<p>$$
-x^{2} \quad x^{abc} \quad x_{1} \quad x_{ij}^{kl}
-$$</p>
-<p>$$
-\overset{上方}{=} \quad \underset{下方}{=} \quad \overset{上方}{\underset{下方}{=}}
-$$</p>
-<p>$$
-\stackrel{\text{def}}{=} \quad \xrightarrow{\text{映射}} \quad \xleftarrow{\text{反向}}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>x</mi><mrow><mn>2</mn></mrow></msup><mspace width="1em" /><msup><mi>x</mi><mrow><mi>a</mi><mi>b</mi><mi>c</mi></mrow></msup><mspace width="1em" /><msub><mi>x</mi><mrow><mn>1</mn></mrow></msub><mspace width="1em" /><msubsup><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow><mrow><mi>k</mi><mi>l</mi></mrow></msubsup></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mrow><mo>=</mo></mrow><mrow><mi>上</mi><mi>方</mi></mrow></mover><mspace width="1em" /><munder><mrow><mo>=</mo></mrow><mrow><mi>下</mi><mi>方</mi></mrow></munder><mspace width="1em" /><mover><mrow><munder><mrow><mo>=</mo></mrow><mrow><mi>下</mi><mi>方</mi></mrow></munder></mrow><mrow><mi>上</mi><mi>方</mi></mrow></mover></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mrow><mo>=</mo></mrow><mrow><mtext>def</mtext></mrow></mover><mspace width="1em" /><mover><mstyle scriptlevel="0"><mo>→</mo></mstyle><mpadded width="+0.833em" lspace="0.556em" voffset="-.2em" height="-.2em"><mrow><mtext>映射</mtext></mrow><mspace depth=".25em" /></mpadded></mover><mspace width="1em" /><mover><mstyle scriptlevel="0"><mo>←</mo></mstyle><mpadded width="+0.833em" lspace="0.556em" voffset="-.2em" height="-.2em"><mrow><mtext>反向</mtext></mrow><mspace depth=".25em" /></mpadded></mover></mrow></math></p>
 <hr />
 <h2>6. 分式与根式</h2>
-<p>$$
-\frac{a}{b} \quad \frac{1}{1+\frac{1}{x}} \quad \tfrac{小分数}{小分母}
-$$</p>
-<p>$$
-\sqrt{x} \quad \sqrt[3]{x} \quad \sqrt{\frac{a}{b}} \quad \sqrt[4]{\frac{x}{y}}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mspace width="1em" /><mfrac><mrow><mn>1</mn></mrow><mrow><mn>1</mn><mo>+</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>x</mi></mrow></mfrac></mrow></mfrac><mspace width="1em" /><mstyle displaystyle="false" scriptlevel="0"><mfrac><mrow><mi>小</mi><mi>分</mi><mi>数</mi></mrow><mrow><mi>小</mi><mi>分</mi><mi>母</mi></mrow></mfrac></mstyle></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msqrt><mrow><mi>x</mi></mrow></msqrt><mspace width="1em" /><mroot><mrow><mi>x</mi></mrow><mn>3</mn></mroot><mspace width="1em" /><msqrt><mrow><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac></mrow></msqrt><mspace width="1em" /><mroot><mrow><mfrac><mrow><mi>x</mi></mrow><mrow><mi>y</mi></mrow></mfrac></mrow><mn>4</mn></mroot></mrow></math></p>
 <hr />
 <h2>7. 括号与定界符</h2>
-<p>$$
-( \quad ) \quad [ \quad ] \quad \{ \quad \} \quad \langle \quad \rangle \quad \lceil \quad \rceil \quad \lfloor \quad \rfloor
-$$</p>
-<p>$$
-\left( \frac{a}{b} \right) \quad
-\left[ \frac{a}{b} \right] \quad
-\left\{ \frac{a}{b} \right\} \quad
-\left\langle \frac{a}{b} \right\rangle
-$$</p>
-<p>$$
-\left. \frac{df}{dx} \right|_{x=0} \quad
-\underbrace{a + b + c}_{\text{下方注释}} \quad
-\overbrace{a + b + c}^{\text{上方注释}}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo stretchy="false">(</mo><mspace width="1em" /><mo stretchy="false">)</mo><mspace width="1em" /><mo stretchy="false">[</mo><mspace width="1em" /><mo stretchy="false">]</mo><mspace width="1em" /><mo stretchy="false">{</mo><mspace width="1em" /><mo stretchy="false">}</mo><mspace width="1em" /><mi>⟨</mi><mspace width="1em" /><mi>⟩</mi><mspace width="1em" /><mi>⌈</mi><mspace width="1em" /><mi>⌉</mi><mspace width="1em" /><mi>⌊</mi><mspace width="1em" /><mi>⌋</mi></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mo stretchy="true" fence="true" form="prefix">(</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">)</mo></mrow><mspace width="1em" /><mrow><mo stretchy="true" fence="true" form="prefix">[</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">]</mo></mrow><mspace width="1em" /><mrow><mo stretchy="true" fence="true" form="prefix">{</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">}</mo></mrow><mspace width="1em" /><mrow><mo stretchy="true" fence="true" form="prefix">⟨</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">⟩</mo></mrow></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mrow><mo stretchy="true" fence="true" form="prefix" /><mfrac><mrow><mi>d</mi><mi>f</mi></mrow><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">|</mo></mrow><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow></msub><mspace width="1em" /><munder><munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>c</mi></mrow><mo>⏟</mo></munder><mrow><mtext>下方注释</mtext></mrow></munder><mspace width="1em" /><mover><mover><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>c</mi></mrow><mo>⏞</mo></mover><mrow><mtext>上方注释</mtext></mrow></mover></mrow></math></p>
 <hr />
 <h2>8. 希腊字母</h2>
-<p>$$
-\alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \vartheta \iota \kappa \lambda \mu \nu \xi o \pi \varpi \rho \varrho \sigma \varsigma \tau \upsilon \phi \varphi \chi \psi \omega
-$$</p>
-<p>$$
-\Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>α</mi><mi>β</mi><mi>γ</mi><mi>δ</mi><mi>ϵ</mi><mi>ε</mi><mi>ζ</mi><mi>η</mi><mi>θ</mi><mi>ϑ</mi><mi>ι</mi><mi>κ</mi><mi>λ</mi><mi>μ</mi><mi>ν</mi><mi>ξ</mi><mi>o</mi><mi>π</mi><mi>ϖ</mi><mi>ρ</mi><mi>ϱ</mi><mi>σ</mi><mi>ς</mi><mi>τ</mi><mi>υ</mi><mi>ϕ</mi><mi>φ</mi><mi>χ</mi><mi>ψ</mi><mi>ω</mi></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>Γ</mi><mi>Δ</mi><mi>Θ</mi><mi>Λ</mi><mi>Ξ</mi><mi>Π</mi><mi>Σ</mi><mi>Υ</mi><mi>Φ</mi><mi>Ψ</mi><mi>Ω</mi></mrow></math></p>
 <hr />
 <h2>9. 常用符号</h2>
-<p>$$
-\pm \quad \mp \quad \times \quad \div \quad \cdot \quad \circ \quad \bullet \quad \ast \quad \star
-$$</p>
-<p>$$
-\leq \quad \geq \quad \neq \quad \approx \quad \equiv \quad \sim \quad \simeq \quad \propto \quad \ll \quad \gg
-$$</p>
-<p>$$
-\subset \quad \supset \quad \subseteq \quad \supseteq \quad \in \quad \notin \quad \ni \quad \emptyset \quad \varnothing
-$$</p>
-<p>$$
-\forall \quad \exists \quad \nexists \quad \neg \quad \land \quad \lor \quad \implies \quad \iff \quad \top \quad \bot
-$$</p>
-<p>$$
-\infty \quad \partial \quad \nabla \quad \Delta \quad \hbar \quad \ell \quad \wp \quad \Re \quad \Im \quad \aleph
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>±</mi><mspace width="1em" /><mo>∓</mo><mspace width="1em" /><mo>×</mo><mspace width="1em" /><mo>÷</mo><mspace width="1em" /><mo>·</mo><mspace width="1em" /><mo>∘</mo><mspace width="1em" /><mi>•</mi><mspace width="1em" /><mo>*</mo><mspace width="1em" /><mo>⋆</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>≤</mo><mspace width="1em" /><mo>≥</mo><mspace width="1em" /><mo>≠</mo><mspace width="1em" /><mo>≈</mo><mspace width="1em" /><mo>≡</mo><mspace width="1em" /><mi>~</mi><mspace width="1em" /><mo>≃</mo><mspace width="1em" /><mo>∝</mo><mspace width="1em" /><mo>≪</mo><mspace width="1em" /><mo>≫</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>⊂</mo><mspace width="1em" /><mo>⊃</mo><mspace width="1em" /><mo>⊆</mo><mspace width="1em" /><mo>⊇</mo><mspace width="1em" /><mo>∈</mo><mspace width="1em" /><mo>∉</mo><mspace width="1em" /><mo>∋</mo><mspace width="1em" /><mo>∅</mo><mspace width="1em" /><mo>∅</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>∀</mo><mspace width="1em" /><mo>∃</mo><mspace width="1em" /><mo>∄</mo><mspace width="1em" /><mi>¬</mi><mspace width="1em" /><mo>∧</mo><mspace width="1em" /><mo>∨</mo><mspace width="1em" /><mi>⟹</mi><mspace width="1em" /><mi>⟺</mi><mspace width="1em" /><mo>⊤</mo><mspace width="1em" /><mo>⊥</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>∞</mo><mspace width="1em" /><mo>∂</mo><mspace width="1em" /><mo>∇</mo><mspace width="1em" /><mi>Δ</mi><mspace width="1em" /><mi>ℏ</mi><mspace width="1em" /><mi>ℓ</mi><mspace width="1em" /><mi>℘</mi><mspace width="1em" /><mi>ℜ</mi><mspace width="1em" /><mi>ℑ</mi><mspace width="1em" /><mi>ℵ</mi></mrow></math></p>
 <hr />
 <h2>10. 箭头</h2>
-<p>$$
-\leftarrow \quad \rightarrow \quad \leftrightarrow \quad \longleftarrow \quad \longrightarrow \quad \longleftrightarrow
-$$</p>
-<p>$$
-\Leftarrow \quad \Rightarrow \quad \Leftrightarrow \quad \Longleftarrow \quad \Longrightarrow \quad \Longleftrightarrow
-$$</p>
-<p>$$
-\uparrow \quad \downarrow \quad \updownarrow \quad \Uparrow \quad \Downarrow \quad \Updownarrow
-$$</p>
-<p>$$
-\nearrow \quad \searrow \quad \swarrow \quad \nwarrow \quad \mapsto \quad \longmapsto \quad \rightleftharpoons
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>←</mo><mspace width="1em" /><mo>→</mo><mspace width="1em" /><mo>↔</mo><mspace width="1em" /><mi>⟵</mi><mspace width="1em" /><mi>⟶</mi><mspace width="1em" /><mi>⟷</mi></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>⇐</mo><mspace width="1em" /><mo>⇒</mo><mspace width="1em" /><mo>⇔</mo><mspace width="1em" /><mi>⟸</mi><mspace width="1em" /><mi>⟹</mi><mspace width="1em" /><mi>⟺</mi></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>↑</mo><mspace width="1em" /><mo>↓</mo><mspace width="1em" /><mo>↕</mo><mspace width="1em" /><mo>⇑</mo><mspace width="1em" /><mo>⇓</mo><mspace width="1em" /><mo>⇕</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>↗</mo><mspace width="1em" /><mo>↘</mo><mspace width="1em" /><mo>↙</mo><mspace width="1em" /><mo>↖</mo><mspace width="1em" /><mo>↦</mo><mspace width="1em" /><mi>⟼</mi><mspace width="1em" /><mo>⇌</mo></mrow></math></p>
 <hr />
 <h2>11. 大型运算符</h2>
-<p>$$
-\sum_{i=1}^{n} i^2 \qquad \prod_{k=1}^{n} k \qquad \coprod_{i \in I} X_i
-$$</p>
-<p>$$
-\int_{a}^{b} f(x) \, dx \qquad \iint_D f(x,y) \, dx\,dy \qquad \iiint_V f(x,y,z) \, dx\,dy\,dz
-$$</p>
-<p>$$
-\oint_C \vec{F} \cdot d\vec{r} \qquad \bigcap_{i=1}^{n} A_i \qquad \bigcup_{i=1}^{n} A_i \qquad \bigvee \bigwedge
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><msup><mi>i</mi><mn>2</mn></msup><mspace width="2em" /><munderover><mo>∏</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></munderover><mi>k</mi><mspace width="2em" /><msub><mo>∐</mo><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow></msub><msub><mi>X</mi><mi>i</mi></msub></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msubsup><mo>∫</mo><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><mi>d</mi><mi>x</mi><mspace width="2em" /><msub><mo>∬</mo><mi>D</mi></msub><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><mi>d</mi><mi>x</mi><mspace width="0.167em" /><mi>d</mi><mi>y</mi><mspace width="2em" /><msub><mo>∭</mo><mi>V</mi></msub><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><mi>d</mi><mi>x</mi><mspace width="0.167em" /><mi>d</mi><mi>y</mi><mspace width="0.167em" /><mi>d</mi><mi>z</mi></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>∮</mo><mi>C</mi></msub><mover><mrow><mi>F</mi></mrow><mo stretchy="true">→</mo></mover><mo>·</mo><mi>d</mi><mover><mrow><mi>r</mi></mrow><mo stretchy="true">→</mo></mover><mspace width="2em" /><msubsup><mo>⋂</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>A</mi><mi>i</mi></msub><mspace width="2em" /><msubsup><mo>⋃</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><msub><mi>A</mi><mi>i</mi></msub><mspace width="2em" /><mo>⋁</mo><mo>⋀</mo></mrow></math></p>
 <hr />
 <h2>12. 矩阵与行列式</h2>
-<p>$$
-\begin{pmatrix}
-a_{11} & a_{12} & a_{13} \\
-a_{21} & a_{22} & a_{23} \\
-a_{31} & a_{32} & a_{33}
-\end{pmatrix}
-$$</p>
-<p>$$
-\begin{bmatrix}
-a & b \\
-c & d
-\end{bmatrix}
-\quad
-\begin{vmatrix}
-a & b \\
-c & d
-\end{vmatrix}
-\quad
-\begin{Vmatrix}
-a & b \\
-c & d
-\end{Vmatrix}
-$$</p>
-<p>$$
-\begin{Bmatrix}
-x \\ y
-\end{Bmatrix}
-\quad
-\begin{smallmatrix}
-a & b \\
-c & d
-\end{smallmatrix}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>(</mo><mtable><mtr><mtd><msub><mi>a</mi><mrow><mn>11</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>12</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>13</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>a</mi><mrow><mn>21</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>22</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>23</mn></mrow></msub></mtd></mtr><mtr><mtd><msub><mi>a</mi><mrow><mn>31</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>32</mn></mrow></msub></mtd><mtd><msub><mi>a</mi><mrow><mn>33</mn></mrow></msub></mtd></mtr></mtable><mo>)</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>[</mo><mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr></mtable><mo>]</mo><mspace width="1em" /><mo>|</mo><mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr></mtable><mo>|</mo><mspace width="1em" /><mo>‖</mo><mtable><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr></mtable><mo>‖</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>{</mo><mtable><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr></mtable><mo>}</mo><mspace width="1em" /><mstyle scriptlevel="1"><mtable rowspacing="0.1em" columnspacing="0.2778em"><mtr><mtd><mi>a</mi></mtd><mtd><mi>b</mi></mtd></mtr><mtr><mtd><mi>c</mi></mtd><mtd><mi>d</mi></mtd></mtr></mtable></mstyle></mrow></math></p>
 <hr />
 <h2>13. 多行公式对齐</h2>
-<p>$$
-\begin{aligned}
-f(x) &= (a + b)^2 \\
-     &= a^2 + 2ab + b^2
-\end{aligned}
-$$</p>
-<p>$$
-\begin{cases}
-x + y = 5 \\
-2x - 3y = -4
-\end{cases}
-$$</p>
-<p>$$
-\begin{array}{c|c}
-\text{列1} & \text{列2} \\
-\hline
-a & b \\
-c & d
-\end{array}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtable><mtr><mtd columnalign="right"><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>b</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="right" /><mtd columnalign="left"><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mtd></mtr></mtable></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mo stretchy="true" fence="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left"><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mn>5</mn></mtd></mtr><mtr><mtd columnalign="left"><mn>2</mn><mi>x</mi><mo>−</mo><mn>3</mn><mi>y</mi><mo>=</mo><mo>−</mo><mn>4</mn></mtd></mtr></mtable></mrow></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtable columnlines="solid" rowlines="solid none"><mtr><mtd columnalign="center"><mtext>列1</mtext></mtd><mtd columnalign="center"><mtext>列2</mtext></mtd></mtr><mtr><mtd columnalign="center"><mi>a</mi></mtd><mtd columnalign="center"><mi>b</mi></mtd></mtr><mtr><mtd columnalign="center"><mi>c</mi></mtd><mtd columnalign="center"><mi>d</mi></mtd></mtr></mtable></mrow></math></p>
 <hr />
 <h2>14. 特殊装饰</h2>
-<p>$$
-\hat{a} \quad \widehat{abc} \quad \bar{x} \quad \overline{xyz} \quad \vec{v} \quad \overrightarrow{AB} \quad \overleftarrow{BA}
-$$</p>
-<p>$$
-\dot{x} \quad \ddot{x} \quad \dddot{x} \quad \tilde{x} \quad \widetilde{xyz}
-$$</p>
-<p>$$
-\acute{a} \quad \grave{a} \quad \breve{a} \quad \check{a} \quad \mathring{a}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover accent="true"><mrow><mi>a</mi></mrow><mo>^</mo></mover><mspace width="1em" /><mover><mrow><mi>a</mi><mi>b</mi><mi>c</mi></mrow><mo>^</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi></mrow><mo stretchy="true">¯</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi><mi>y</mi><mi>z</mi></mrow><mo accent="true">―</mo></mover><mspace width="1em" /><mover><mrow><mi>v</mi></mrow><mo stretchy="true">→</mo></mover><mspace width="1em" /><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>→</mo></mover><mspace width="1em" /><mover><mrow><mi>B</mi><mi>A</mi></mrow><mo>←</mo></mover></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mrow><mi>x</mi></mrow><mo>˙</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi></mrow><mo>¨</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi></mrow><mo>⃛</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi></mrow><mo stretchy="false">~</mo></mover><mspace width="1em" /><mover><mrow><mi>x</mi><mi>y</mi><mi>z</mi></mrow><mo>~</mo></mover></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mover><mrow><mi>a</mi></mrow><mo>´</mo></mover><mspace width="1em" /><mover><mrow><mi>a</mi></mrow><mo>`</mo></mover><mspace width="1em" /><mover><mrow><mi>a</mi></mrow><mo>˘</mo></mover><mspace width="1em" /><mover><mrow><mi>a</mi></mrow><mo>ˇ</mo></mover><mspace width="1em" /><mover><mrow><mi>a</mi></mrow><mo>˚</mo></mover></mrow></math></p>
 <hr />
 <h2>15. 框与注释</h2>
-<p>$$
-\boxed{E = mc^2} \quad \fbox{文本} \quad \xcancel{删除} \quad \cancel{取消}
-$$</p>
-<p>$$
-\underbrace{a + b + c}_{\text{和}} \qquad \overbrace{a \cdot b \cdot c}^{\text{积}}
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow></menclose><mspace width="1em" /><menclose notation="box"><mtext>文本</mtext></menclose><mspace width="1em" /><menclose notation="updiagonalstrike downdiagonalstrike"><mrow><mi>删</mi><mi>除</mi></mrow></menclose><mspace width="1em" /><menclose notation="updiagonalstrike"><mrow><mi>取</mi><mi>消</mi></mrow></menclose></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><munder><munder><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>c</mi></mrow><mo>⏟</mo></munder><mrow><mtext>和</mtext></mrow></munder><mspace width="2em" /><mover><mover><mrow><mi>a</mi><mo>·</mo><mi>b</mi><mo>·</mo><mi>c</mi></mrow><mo>⏞</mo></mover><mrow><mtext>积</mtext></mrow></mover></mrow></math></p>
 <hr />
-<h2>16. 定理类环境（用 amsthm 模拟）</h2>
-<p>$$
-\textbf{定理 1.} \quad \text{设 } a, b \in \mathbb{R}, \text{ 则 } (a+b)^2 = a^2 + 2ab + b^2.
-$$</p>
-<p>$$
-\textit{证明：} \quad \text{展开即可得证。} \quad \blacksquare
-$$</p>
+<h2>16. 定理类环境</h2>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext style="font-weight: bold">定理 𝟏.</mtext><mspace width="1em" /><mtext>设 </mtext><mi>a</mi><mo>,</mo><mi>b</mi><mo>∈</mo><mi>ℝ</mi><mo>,</mo><mtext> 则 </mtext><mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>b</mi><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>a</mi><mi>b</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>.</mo></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext style="font-style: italic">证明：</mtext><mspace width="1em" /><mtext>展开即可得证。</mtext><mspace width="1em" /><mo>∎</mo></mrow></math></p>
 <hr />
-<h2>17. 化学式（用 mhchem 模拟）</h2>
-<p>$$
-\ce{H2O} \quad \ce{CO2} \quad \ce{^{235}_{92}U} \quad \ce{CH3COOH}
-$$</p>
-<p>$$
-\ce{A ->[催化剂] B} \quad \ce{A <=> B} \quad \ce{A + B -> C}
-$$</p>
+<h2>17. 化学式</h2>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><msub><mi mathvariant="normal">H</mi><mn>2</mn></msub><mi mathvariant="normal">O</mi></mrow><mspace width="1em" /><mrow><mi mathvariant="normal">C</mi><msub><mi mathvariant="normal">O</mi><mn>2</mn></msub></mrow><mspace width="1em" /><msubsup><mrow /><mrow><mn>92</mn></mrow><mrow><mn>235</mn></mrow></msubsup><mi>U</mi><mspace width="1em" /><mrow><mi mathvariant="normal">C</mi><msub><mi mathvariant="normal">H</mi><mn>3</mn></msub><mi mathvariant="normal">C</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">O</mi><mi mathvariant="normal">H</mi></mrow></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mover><mstyle scriptlevel="0"><mo>→</mo></mstyle><mpadded width="+0.833em" lspace="0.556em" voffset="-.2em" height="-.2em"><mrow><mtext>催化剂</mtext></mrow><mspace depth=".25em" /></mpadded></mover><mi>B</mi><mspace width="1em" /><mi>A</mi><mo>⇌</mo><mi>B</mi><mspace width="1em" /><mi>A</mi><mo>+</mo><mi>B</mi><mo>→</mo><mi>C</mi></mrow></math></p>
 <hr />
 <h2>18. 综合复杂示例</h2>
-<p>$$
-\boxed{
-\begin{aligned}
-\mathcal{F}(\xi) &= \int_{-\infty}^{\infty} f(x) \, e^{-2\pi i x \xi} \, dx \\
-\widehat{f}(\omega) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(t) \, e^{-i\omega t} \, dt
-\end{aligned}
-}
-$$</p>
-<p>$$
-\begin{vmatrix}
-\color{red}{\lambda - a_{11}} & -a_{12} & \cdots & -a_{1n} \\
--a_{21} & \color{blue}{\lambda - a_{22}} & \cdots & -a_{2n} \\
-\vdots & \vdots & \ddots & \vdots \\
--a_{n1} & -a_{n2} & \cdots & \color{green}{\lambda - a_{nn}}
-\end{vmatrix}
-= 0
-$$</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtable><mtr><mtd columnalign="right"><mi>ℱ</mi><mo stretchy="false">(</mo><mi>ξ</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><msubsup><mo>∫</mo><mrow><mo>−</mo><mo>∞</mo></mrow><mrow><mo>∞</mo></mrow></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><msup><mi>e</mi><mrow><mo>−</mo><mn>2</mn><mi>π</mi><mi>i</mi><mi>x</mi><mi>ξ</mi></mrow></msup><mspace width="0.167em" /><mi>d</mi><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right"><mover><mrow><mi>f</mi></mrow><mo>^</mo></mover><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><msqrt><mrow><mn>2</mn><mi>π</mi></mrow></msqrt></mrow></mfrac><msubsup><mo>∫</mo><mrow><mo>−</mo><mo>∞</mo></mrow><mrow><mo>∞</mo></mrow></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mspace width="0.167em" /><msup><mi>e</mi><mrow><mo>−</mo><mi>i</mi><mi>ω</mi><mi>t</mi></mrow></msup><mspace width="0.167em" /><mi>d</mi><mi>t</mi></mtd></mtr></mtable></mrow></menclose></mrow></math></p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>|</mo><mtable><mtr><mtd><mstyle mathcolor="red"><mrow><mi>λ</mi><mo>−</mo><msub><mi>a</mi><mrow><mn>11</mn></mrow></msub></mrow></mstyle></mtd><mtd><mo>−</mo><msub><mi>a</mi><mrow><mn>12</mn></mrow></msub></mtd><mtd><mo>⋯</mo></mtd><mtd><mo>−</mo><msub><mi>a</mi><mrow><mn>1</mn><mi>n</mi></mrow></msub></mtd></mtr><mtr><mtd><mo>−</mo><msub><mi>a</mi><mrow><mn>21</mn></mrow></msub></mtd><mtd><mstyle mathcolor="blue"><mrow><mi>λ</mi><mo>−</mo><msub><mi>a</mi><mrow><mn>22</mn></mrow></msub></mrow></mstyle></mtd><mtd><mo>⋯</mo></mtd><mtd><mo>−</mo><msub><mi>a</mi><mrow><mn>2</mn><mi>n</mi></mrow></msub></mtd></mtr><mtr><mtd><mo>⋮</mo></mtd><mtd><mo>⋮</mo></mtd><mtd><mo>⋱</mo></mtd><mtd><mo>⋮</mo></mtd></mtr><mtr><mtd><mo>−</mo><msub><mi>a</mi><mrow><mi>n</mi><mn>1</mn></mrow></msub></mtd><mtd><mo>−</mo><msub><mi>a</mi><mrow><mi>n</mi><mn>2</mn></mrow></msub></mtd><mtd><mo>⋯</mo></mtd><mtd><mstyle mathcolor="green"><mrow><mi>λ</mi><mo>−</mo><msub><mi>a</mi><mrow><mi>n</mi><mi>n</mi></mrow></msub></mrow></mstyle></mtd></mtr></mtable><mo>|</mo><mo>=</mo><mn>0</mn></mrow></math></p>
         </main>
         <footer>
             <p>&copy; 2026 <a href="https://tritium79.com/">Tritium79</a>. All rights reserved.</p>

@@ -29,7 +29,7 @@ _SIGNATURE_RE = re.compile(
     r'Source:\s*assets/fonts/(?P<source>[^;]+);\s*'
     r'characters:\s*\d+;\s*signature:\s*(?P<signature>\w+)'
 )
-_IGNORED_TAGS = {'script', 'style', 'template'}
+_IGNORED_TAGS = {'script', 'style', 'template', 'math'}
 _VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 _TEXT_ATTRIBUTES = {'alt', 'aria-label', 'placeholder', 'title', 'value'}
 _BOLD_TAGS = {'b', 'strong', 'dt', 'th'}
@@ -77,10 +77,12 @@ class _VisibleTextParser(HTMLParser):
                 self.parts.append((value, in_bold))
 
     def handle_endtag(self, tag):
+        if tag in _IGNORED_TAGS:
+            if self._ignored_depth:
+                self._ignored_depth -= 1
+            return
         if self._bold_stack:
             self._bold_stack.pop()
-        if tag in _IGNORED_TAGS and self._ignored_depth:
-            self._ignored_depth -= 1
 
     def handle_data(self, data):
         if not self._ignored_depth:
