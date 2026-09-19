@@ -27,11 +27,11 @@ First, we have to know what monopoles even are.
 
 Monopoles are like knots in the fabric of the universe, which formed when the universe was cooling.
 > 单极子如同编织宇宙结构时产生的纽结，随宇宙的冷却而诞生。
-> tips：[The Fabric of the Cosmos](https://en.wikipedia.org/wiki/The_Fabric_of_the_Cosmos)是一部纪录片，中译名[宇宙的结构](https://zh.wikipedia.org/wiki/%E5%AE%87%E5%AE%99%E7%9A%84%E7%BB%93%E6%9E%84)，因此“Fabric”译为“结构”
+> tips：[The Fabric of the Cosmos](https://en.wikipedia.org/wiki/The_Fabric_of_the_Cosmos)是一部纪录片，中译名[宇宙的结构](https://zh.wikipedia.org/wiki/%E5%AE%87%E5%AE%99%E7%9A%84%E7%BB%93%E6%9E%84)，故“Fabric”译为“结构”。
 
 Imagine you have a pot of molten lava and it cools very fast.
 > 设想一下，有一坩埚熔岩正在快速冷却。
-> tips：lava是熔岩，magma是岩浆，[“熔岩”or“岩浆”？你认知里的Minecraft译名科学吗？【SkyEye_FAST】](https://www.bilibili.com/video/av941056992)
+> tips：lava是“熔岩”，magma是“岩浆”，[“熔岩”or“岩浆”？你认知里的Minecraft译名科学吗？【SkyEye_FAST】](https://www.bilibili.com/video/av941056992)。
 
 Crystalline structures start forming in different regions inside the pot.
 > 坩埚内不同区域开始形成晶体结构。
@@ -50,13 +50,13 @@ These patterns would have different **crystalline structures**, and so you would
 > tips：这一部分不知所云，此段在描述晶粒和晶界的形成，但混淆了“晶体结构”[Crystal structure](https://zh.wikipedia.org/wiki/%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84)与“晶体取向”[Crystal orientation](https://baike.baidu.com/item/%E6%99%B6%E4%BD%93%E5%8F%96%E5%90%91/3329118)。另外，Crystal pattern根本没有标准译法，此处替换为“晶格排列”。除此之外，在此直接使用译者所掌握的晶体学语言，对本段的某些部分进行了重述。
 
 Now imagine this pot is the entire universe,
-> 接下来，设想这口坩埚便是整个宇宙，
+> 接下来，想象这口坩埚便是整个宇宙，
 
 and when the universe cooled billions of years ago, it was separated into different regions, which caused defects in the fabric of spacetime.
 > 在数十亿年前宇宙冷却之时，它被分隔成不同的区域，因而在时空结构中产生了缺陷。
 
 It caused defects in something called the Higgs field.
-> 具体而言，是在被称为“希格斯场”的结构中产生了缺陷。
+> 具体而言，是在名为“希格斯场”的结构中产生了缺陷。
 
 So what even is the Higgs field?
 > 那么，何为希格斯场？
@@ -84,13 +84,13 @@ There are different types of monopoles.
 
 Some are known as dyons, which carry both electric and magnetic charge.
 > 有些同时携带电荷与磁荷，被称为双荷子。
-> tips：[双荷子](https://zh.wikipedia.org/wiki/%E9%9B%99%E8%8D%B7%E5%AD%90)，[Julian Seymour Schwinger](https://zh.wikipedia.org/wiki/%E6%9C%B1%E5%88%A9%E5%AE%89%C2%B7%E6%96%BD%E6%B8%A9%E6%A0%BC)提出的物理概念，是四维理论中同时具有电荷和磁荷的假想粒子
+> tips：[双荷子](https://zh.wikipedia.org/wiki/%E9%9B%99%E8%8D%B7%E5%AD%90)，[Julian Seymour Schwinger](https://zh.wikipedia.org/wiki/%E6%9C%B1%E5%88%A9%E5%AE%89%C2%B7%E6%96%BD%E6%B8%A9%E6%A0%BC)提出的物理概念，是四维理论中同时具有电荷和磁荷的假想粒子。
 
 Some monopoles can even be as massive as an amoeba.
-> 有些单极子的质量甚至可以与一只变形虫相当。
+> 有些单极子的质量甚至大到与一只变形虫相当。
 
 Monopoles can stick to protons or neutrons and then break them apart, releasing a positron and turning the proton or neutron into a special type of particle called a pion.
-> 单极子能够附着于质子或中子上，并将它们瓦解，释放出一个正电子，同时将其转化为被称为π介子的粒子。
+> 单极子能够附着于质子或中子上，并将它们瓦解，释放出一个正电子，同时将质子或中子转化为名为π介子的粒子。
 
 But we are here to talk about a special type of monopole, which is known as Magnetic Monopole.
 > 而我们要探讨的，是一种特殊的单极子——磁单极子。
@@ -99,7 +99,7 @@ These are monopoles which carry only magnetic charge.
 > 这是一种仅携带磁荷的单极子。
 
 What does it mean when we say they carry magnetic charge?
-> 那么，所谓“携带磁荷”究竟意味着什么？
+> 那么，何为“携带磁荷”？
 
 Well, imagine cutting a bar magnet in half.
 > 不妨设想一下，将一根条形磁铁切成两半。
@@ -123,10 +123,10 @@ Many civilizations instead look for monopoles inside gas giants or neutron stars
 > 许多文明转而在气态巨行星或中子星内部搜寻单极子，但均一无所获。
 
 But if monopoles have never been found, then how are they used in technology?
-> 既然单极子从未被发现过，它们又是如何于技术中被应用的呢？
+> 既然单极子从未被发现过，它们又是如何应用于技术中的呢？
 
 They are created.
-> 它们是人工制造的。
+> 它们是人造的。
 
 You can even create your own monopoles at home!
 > 你甚至可以在家里亲手制造单极子！
@@ -208,23 +208,23 @@ Magnetic monopoles are basically tiny magnetic poles, so there's a much more str
 
 Compact, strong magnetic fields are very useful.
 > 紧凑的强磁场极具应用价值。
-> tips：compact译为紧凑，[强磁场科学中心研制出紧凑型动态磁扭矩探测器](http://www.hmfl.cas.cn/dulab/xwydt/202604/t20260415_830661.html)
+> tips：compact译为“紧凑”，[强磁场科学中心研制出紧凑型动态磁扭矩探测器](http://www.hmfl.cas.cn/dulab/xwydt/202604/t20260415_830661.html)。
 
 They can be used to suck up hydrogen from the interstellar medium and launch it out again at very high speeds, powering spacecraft.
 > 它们可用于从星际介质中收集氢，并以极高速度将其喷射出去，从而驱动航天器。
-> tips：[巴萨德冲压发动机](https://en.wikipedia.org/wiki/Bussard_ramjet)的原理
+> tips：[巴萨德冲压发动机](https://en.wikipedia.org/wiki/Bussard_ramjet)的原理。
 
 Once you have monopoles, you do not need to go through the long process of creating them again.
-> 一旦获得了单极子，你便不必再经历漫长的制造过程。
+> 一旦获得了单极子，你便不必再重复先前漫长的制造过程。
 
 You only need a particle accelerator of 10 kilometers or more.
 > 你只需一台10公里及以上的粒子加速器。
 
 Just smash two monopoles together and you can breed more.
-> 只需让两个单极子相互对撞，你就能增殖出更多单极子。
+> 只需让两个单极子相互对撞，就能增殖出更多单极子。
 
 Now you can have many monopoles.
-> 至此，你就可以获得源源不断的单极子了。
+> 至此，即可获得源源不断的单极子。
 
 With all these monopoles, you can create a material known as **magmatter**, which is super strong and dense and can be used for a wide range of technologies.
 > 有了这些单极子，你便能制造出一种名为**磁物质**的材料，其强度与密度极高，广泛应用于诸多技术之中。
@@ -240,7 +240,7 @@ It is made up of tiny particles called **magatoms**, which are just like regular
 
 These **magatoms** are made up of **magnuclei** and **magtrons**, which are analogs of nuclei and electrons in regular atoms.
 > **磁原子**由**磁原子核**与**磁电子**构成，它们分别对应常规原子中的原子核与电子。 
-> tips：atom明显是原子，[nucleon](https://zh.wikipedia.org/wiki/%E6%A0%B8%E5%AD%90)是核子，[nucleus](https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%AD%90%E6%A0%B8)/nuclei（复数）是原子核，故译为磁原子、磁核子、磁原子核；magtron明显根据electron造词，但“磁子”这一译名已经被[magneton](https://en.wikipedia.org/wiki/Magneton)使用，如[核磁子（Nuclear magneton）](https://zh.wikipedia.org/wiki/%E6%A0%B8%E7%A3%81%E5%AD%90)，故退而译为“磁电子”。
+> tips：atom明显是“原子”，[nucleon](https://zh.wikipedia.org/wiki/%E6%A0%B8%E5%AD%90)是“核子”，[nucleus](https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%AD%90%E6%A0%B8)/nuclei（复数）是“原子核”，故译为“磁原子”、“磁核子”、“磁原子核”；magtron明显根据electron造词，但“磁子”这一译名已经被[magneton](https://en.wikipedia.org/wiki/Magneton)使用，如[核磁子（Nuclear magneton）](https://zh.wikipedia.org/wiki/%E6%A0%B8%E7%A3%81%E5%AD%90)，故退而译为“磁电子”。
 
 Both **magtrons** and **magnuclei** are made up of a magnetic monopole and a neutral fermion.
 > **磁电子**与**磁原子核**均由一个磁单极子和一个中性费米子结合而成。
@@ -259,14 +259,14 @@ However, most **magatoms** used are a combination between a **magtron** and a **
 
 **Magatoms** can be 300 million times smaller than regular atoms.
 > **磁原子**的尺寸仅为常规原子的三亿分之一。
-> tips：经典的小XX倍，英文中居然也有这种表达。一些讨论文章：[从英语倍数的翻译看中英文思维的差异 - 知乎](https://zhuanlan.zhihu.com/p/648762267)、[从逻辑上讲解英语的倍数表达&中英翻译的差异 - 知乎](https://zhuanlan.zhihu.com/p/139801852)、[BBC Learning English - 你问我答 / 英语倍数表达辨析：如何准确表达 “几倍”](https://www.bbc.co.uk/learningenglish/chinese/features/q-and-a/ep-260415)
+> tips：经典的语病“小XX倍”，英文中居然也有这种表达。
 
 Because of this, **magmatter** is extremely strong and dense.
-> 正因如此，**磁物质**才拥有极高的强度与密度。
+> 正因如此，**磁物质**拥有极高的强度与密度。
 
 Typical **magmatter** is 2 million times stronger than regular matter and has a density of 10 to the power of 33 kilograms per meter squared(cubed).
 > 磁物质的强度通常比常规物质高200万倍，密度更是高达 $10^{33}\text{ kg/m}^3$。  
-> tips：此处明显笔误/口误
+> tips：此处明显笔误/口误。
 
 That's a lot.
 > 那可是好大一个数字。
@@ -278,7 +278,7 @@ Also, the temperatures required to melt **magmatter** are very high, so **magmat
 > 此外，熔化**磁物质**所需的温度极高，因而通常只有高阶**超智体**或**古智体**才能运用它。
 
 **Magmatter** is usually formed into string or coatings, as too much **magmatter** in one place—such as in a **magmatter** crystal, amorphous solid, or liquid—would be dense enough to collapse into a black hole.
-> 磁物质通常被制成细丝或薄层，因为一旦大量磁物质聚集起来（形成**磁物质**晶体、非晶体或液体等），其密度将直接引发坍缩，形成黑洞。
+> **磁物质**通常被制成细丝或薄层，因为一旦大量**磁物质**聚集起来（形成**磁物质**晶体、非晶体或液体等），其密度将直接引发坍缩，形成黑洞。
 
 There are special types of **magmatter**, such as **magcarbon**.
 > **磁物质**也存在着特殊类型，例如**磁碳**。  
@@ -288,7 +288,7 @@ There are special types of **magmatter**, such as **magcarbon**.
 
 These **magcarbon** atoms can be made into **mag-polymer buckytubes** and **mag-graphene**.
 > 这些**磁碳**原子能够制为**磁聚合物巴基管**以及**磁石墨烯**。
-> tips：巴基管，即碳纳米管（CNT）  
+> tips：巴基管，即碳纳米管（CNT）  。
 
 Normal matter doesn't interact with **magmatter** like it does with other matter.
 > 常规物质与**磁物质**的相互作用，完全不同于常规物质之间的相互作用。
@@ -304,7 +304,7 @@ However, **magmatter** can occupy the same space as regular matter and can even 
 
 Also, magnetic monopoles do not have an electric field, so they do not interact with electrons.
 > 此外，（静止的）磁单极子并不具备电场，因此不会与电子发生相互作用。 
-> tips：此处不太严谨，磁单极子不具备静电场，但是很明显，运动的磁单极子会发生“磁生电”。
+> tips：此处不太严谨，磁单极子不具备静电场，但很明显，运动的磁单极子会发生“磁生电”。
 
 However, magnetic monopoles can interact with normal matter through magnetism.
 > 不过，磁单极子可以通过磁性与常规物质发生相互作用。
@@ -404,7 +404,7 @@ To the organisms, the rest of the **Terragen Sphere** is extremely slow.
 > 在这些生物眼中，**地源地带**的其余部分极其缓慢。
 
 The torus is mostly peaceful.
-> 环体内部大体是和平的。  
+> 环体内部大体上是和平的。  
 
 However, there was a hundred-nanosecond war in Copernicus 9385 over 15 cubic centimeters, formed by a misunderstanding.
 > 不过，在9385**AT**的哥白尼月，起因于误会，曾爆发过一场持续100纳秒、波及15立方厘米的战争。
