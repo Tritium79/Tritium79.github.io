@@ -12,7 +12,6 @@
 Tritium79.github.io/
 ├── index.html                  # 首页（中文站）
 ├── style.css                   # CSS 入口（由 assets/css/ 模块构建时合并生成）
-├── CNAME                       # 自定义域名（tritium79.com）
 │
 ├── assets/                     # 全局静态资源
 │   ├── css/                    # 模块化 CSS 文件
@@ -211,7 +210,7 @@ Tritium79.github.io/
 {
     "site": {
         "title": "Tritium79's Blog",
-        "url": "https://Tritium79.github.io"
+        "url": "https://tritium79.com"
     },
     "html_lang": "zh-CN",
     "avatar": "avatar.png",
@@ -698,7 +697,7 @@ python build.py --rebuild -y
 
 ## 爬虫规则（robots.txt）
 
-`robots.txt` 位于项目根目录，部署后对应 `https://Tritium79.github.io/robots.txt`。
+`robots.txt` 位于项目根目录，部署后对应 `https://tritium79.com/robots.txt`。
 
 当前规则：**仅允许爬虫抓取首页**（`/` 和 `index.html`），其余路径全部 `Disallow`：
 

@@ -42,7 +42,7 @@ def get_site_title(default="Tritium79's Blog"):
     return config.get('site', {}).get('title', default) if config else default
 
 
-def get_site_url(default='https://Tritium79.github.io'):
+def get_site_url(default='https://tritium79.com'):
     config = _load('config.json', {})
     return config.get('site', {}).get('url', default) if config else default
 
@@ -64,7 +64,7 @@ def get_css_file(default='style.css'):
 
 def get_footer(default=None):
     if default is None:
-        default = '&copy; 2026 <a href="https://Tritium79.github.io">Tritium79</a>. All rights reserved.'
+        default = '&copy; 2026 <a href="https://tritium79.com">Tritium79</a>. All rights reserved.'
     config = _load('config.json')
     if config and 'footer' in config:
         return config['footer']
