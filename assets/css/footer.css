@@ -1,0 +1,22 @@
+footer {
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background-color: var(--bg-primary);
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
+    margin-left: 200px;
+    width: calc(100% - 200px);
+}
+
+footer a,
+footer a:visited {
+    color: var(--text-link);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--text-body);
+}

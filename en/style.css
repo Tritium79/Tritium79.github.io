@@ -1,0 +1,29 @@
+@import url("../assets/css/fonts.css");
+@import url("../assets/css/variables.css");
+@import url("../assets/css/prism.css");
+@import url("../assets/css/base.css");
+@import url("../assets/css/header.css");
+@import url("../assets/css/menu.css");
+@import url("../assets/css/main.css");
+@import url("../assets/css/components.css");
+@import url("../assets/css/code.css");
+@import url("../assets/css/footer.css");
+@import url("../assets/css/responsive-portrait.css");
+
+/* ── 英文版覆盖：字体重定 + 正文字体栈 ── */
+
+@font-face {
+    font-family: "Cormorant Garamond";
+    src: url("../assets/fonts/CormorantGaramond-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    font-family:
+        "Cormorant Garamond",
+        -apple-system,
+        "Segoe UI",
+        "Helvetica Neue",
+        sans-serif;
+}

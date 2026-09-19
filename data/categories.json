@@ -1,0 +1,22 @@
+{
+    "sylvae": {
+        "name": "Sylvae",
+        "page": "pages/sylvae.html"
+    },
+    "scripta": {
+        "name": "Scripta",
+        "page": "pages/scripta.html"
+    },
+    "transcripta": {
+        "name": "Transcripta",
+        "page": "pages/transcripta.html"
+    },
+    "commentarii": {
+        "name": "Commentarii",
+        "page": "pages/commentarii.html"
+    },
+    "archivum": {
+        "name": "Archivum",
+        "page": "pages/archivum.html"
+    }
+}

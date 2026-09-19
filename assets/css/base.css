@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    background-color: var(--bg-primary);
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    font-family:
+        "LXGW Bright Subset",
+        "LXGW Bright",
+        -apple-system,
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
+        sans-serif;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+a:focus-visible,
+.nav-toggle-btn:focus-visible {
+    outline: 2px solid var(--text-sidebar-hover);
+    outline-offset: 2px;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    main {
+        animation: fade-in 0.45s ease-out 0.04s both;
+    }
+
+    /* 页面/文章标题与日期行：随 main 同步淡入 */
+    main .page-title,
+    main p.page-desc,
+    main .article-title,
+    main .post-date {
+        animation: fade-in 0.45s ease-out 0.04s both;
+    }
+
+    /* 汇总列表与文章正文 */
+    main .link-list,
+    main .link-list p.article-date,
+    main h2, main h3, main h4, main h5, main h6,
+    main p, main ul, main table, main ol, main pre, main blockquote {
+        animation: fade-in 0.45s ease-out 0.08s both;
+    }
+
+    footer {
+        animation: fade-in 0.45s ease-out 0.24s both;
+    }
+}

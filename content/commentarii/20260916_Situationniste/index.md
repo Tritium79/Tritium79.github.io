@@ -1,0 +1,39 @@
+更新时间：18 Sep. 2026 / 丙午年 丁酉月 乙未日
+- 资料
+	- [Situationist International Archive](https://situationist.org/)
+	- [The Situationist International Text Library](http://library.nothingness.org/articles/SI/)
+	- [Situationniste Blog | A Situationist Book Collector's Blog](https://situationnisteblog.com/)
+- 外文
+	- Anthony P Hayes
+		- [Anthony P Hayes - Independent Researcher - New Papers 2026](https://independentresearcher.academia.edu/AnthonyHayes)
+		- [The Sinister Quarter](https://thesinisterquarter.wordpress.com/)
+- 中文
+	- Yossi
+		- [构境国际《论大学生的贫乏》㈠：揭露并张扬这份耻辱，令人耻上加耻 - 知乎](https://zhuanlan.zhihu.com/p/545250202)
+		- [构境国际对革命组织的最低定义 / 翻译 - 知乎](https://zhuanlan.zhihu.com/p/461244813)
+		- [构境国际官方发表的术语定义 / 翻译 - 知乎](https://zhuanlan.zhihu.com/p/460978549)
+		- [构境国际极简史 - 知乎](https://zhuanlan.zhihu.com/p/522954217)
+		- [构境国际资深研究者安东尼·海斯个人简介 - 知乎](https://zhuanlan.zhihu.com/p/598753471)
+		- [海斯: 何为景观? 重拳出击澄清德波的景观概念，拷打主流学术界（2018） - 知乎](https://zhuanlan.zhihu.com/p/597812949)
+		- [简述对构境国际的“情境”概念的理解：一些阶段性研究成果 - 知乎](https://zhuanlan.zhihu.com/p/460730893)
+		- [构境国际前成员发文批判斯坦福大学教授（2016） - 知乎](https://zhuanlan.zhihu.com/p/553378270)
+		- [构境资料收录网站汇总！阅读构境国际有这些线上渠道（待补充...） - 知乎](https://zhuanlan.zhihu.com/p/569233075)
+		- [居伊·德波逝世28周年：一个坚持欲望的战略家的一生 - 知乎](https://zhuanlan.zhihu.com/p/588056069)
+		- [居伊·德波关于文化革命的一些观点 / 翻译 - 知乎](https://zhuanlan.zhihu.com/p/472567485)
+		- [初步定义革命规划的统一性 / 翻译 - 知乎](https://zhuanlan.zhihu.com/p/461650617)
+		- [「情境主义国际」还是「构境国际」？浅析「situationniste」一词的翻译问题 - 知乎](https://zhuanlan.zhihu.com/p/501665507)
+		- [构境国际在泰晤士报上的自我介绍，向英文世界初步介绍其关键实践 / 翻译 - 知乎](https://zhuanlan.zhihu.com/p/545479773)
+		- [构境国际暂行章程：共事机制、分部架构、会议制度（1969） - 知乎](https://zhuanlan.zhihu.com/p/547855853)
+	- 顾永琳
+		- [《景观社会》解读合集- 文集 哔哩哔哩专栏](https://www.bilibili.com/read/readlist/rl741700)
+	- -Haschwalth-
+		- [［简述］居伊·德波的电影 - 哔哩哔哩](https://www.bilibili.com/opus/787341877204484199)
+	- SuzumiSou
+		- [幻影中的真实之死——居伊·德波、景观与现代性 - 知乎](https://zhuanlan.zhihu.com/p/518298025)
+	- 冬宴Potlatch
+		- [如何评价居伊·德波以及他的《景观社会》一书？ - 冬宴Potlatch的回答 - 知乎](https://www.zhihu.com/question/32065105/answer/3608204633)
+	- dzdxy
+		- [起义的福柯 - 知乎](https://zhuanlan.zhihu.com/p/345021657)
+- 趣闻
+	- [情境主义代表人物居伊•德波终被视为法国国宝——中新网](https://www.chinanews.com.cn/cul/news/2009/02-27/1582243.shtml)
+	- [Leftwing 'anarchist terror cell' is fiction, French judges rule | France | The Guardian](https://www.theguardian.com/world/2018/apr/13/tarnac-nine-leftwing-anarchist-terror-cell-fiction-france)

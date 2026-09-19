@@ -1,0 +1,65 @@
+:root {
+    --bg-primary: #ffffff;
+    --bg-sidebar: #F6F6F6;
+    --bg-inline-code: var(--bg-sidebar);
+    --bg-header: #FFFFFF;
+    --border-list: #ddd;
+    --text-primary: #000;
+    --text-nav: #000;
+    --text-body: #000;
+    --text-muted: #808080;
+    --text-link: #999;
+    --cyan: #4aa9c5;
+    --text-sidebar-hover: var(--cyan);
+    --bg-code: #f5f5f5;
+    --text-code: #1a1a1a;
+    --callout-abstract: var(--cyan);
+    --callout-note: #6b9fff;
+    --callout-warning: #ff9800;
+    --callout-tip: #4caf50;
+    --callout-info: #2196f3;
+    --callout-todo: #9c27b0;
+    --callout-success: #4caf50;
+    --callout-fail: #f44336;
+    --callout-question: #ff9800;
+    --callout-bg: #f8f9fa;
+    --bg-highlight: #C2EAF0;
+
+    /* 竖屏汉堡菜单布局：头像 < 标题 < 链接的纵向节奏 */
+    --menu-avatar-top: 4rem;
+    --menu-title-top: 11rem;
+    --menu-links-top: 15rem;
+    --menu-close-top: 0.5rem;
+    --menu-close-right: 0.75rem;
+    --bar-height: 32px; /* 顶栏内容高度近似值，用于 main 顶部留白 */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #111111;
+        --bg-sidebar: #111111;
+        --bg-inline-code: var(--bg-code);
+        --bg-header: #111111;
+        --border-list: #222;
+        --text-primary: #eeeeee;
+        --text-nav: #eeeeee;
+        --text-body: #eeeeee;
+        --text-muted: #808080;
+        --text-link: #666;
+        --cyan: #4aa9c5;
+        --text-sidebar-hover: var(--cyan);
+        --bg-code: #222222;
+        --text-code: #d4d4d4;
+        --callout-abstract: var(--cyan);
+        --callout-note: #6b9fff;
+        --callout-warning: #ff9800;
+        --callout-tip: #66bb6a;
+        --callout-info: #42a5f5;
+        --callout-todo: #ab47bc;
+        --callout-success: #66bb6a;
+        --callout-fail: #ef5350;
+        --callout-question: #ffa726;
+        --callout-bg: #1a1a1a;
+        --bg-highlight: #3D150F;
+    }
+}

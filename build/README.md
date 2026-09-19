@@ -1,0 +1,266 @@
+# build/ — 博客构建工具
+
+## 文件结构
+
+```
+build/
+├── build.py           # 入口：CLI 参数解析 + 交互菜单循环
+├── build.sh           # Shell 启动脚本（激活 venv 后运行 build.py）
+├── config.py          # 常量：路径、分类定义、汇总页条目模板
+├── data_loader.py     # 数据加载：从 data/*.json 读取全站配置
+├── content.py         # 内容生成：Markdown 渲染、图片处理、文章发布
+├── mathml.py          # 数学公式：LaTeX → 浏览器原生 MathML（构建时转换）
+├── css_bundle.py      # 样式合并：将 assets/css/ 模块合并为根目录 style.css
+├── font_subset.py      # 字体处理：扫描全站字符并生成字体子集
+├── management.py      # 文章管理：列表、删除、文件管理器、标题/日期修改
+├── templint.py        # 模板一致性检查 + 全站 Shell 同步引擎
+├── utils.py           # 工具函数：slugify、ask、confirm、front matter 解析、干支日期
+├── git_ops.py         # Git 提交与推送
+├── requirements.txt   # Python 依赖（含 fonttools、brotli、latex2mathml）
+├── venv/              # Python 虚拟环境（gitignored）
+└── README.md          # 本文件
+```
+
+---
+
+## 模块职责
+
+### `build.py` — 入口
+
+```sh
+python build.py                           # 交互菜单
+python build.py -f article.md -c sylvae   # CLI 发布模式
+python build.py --list                    # 交互式文章列表
+python build.py --list-cat sylvae         # 非交互式列表
+python build.py --delete                  # 交互式删除
+python build.py --delete-by sylvae slug   # 非交互式删除
+python build.py --edit                    # 交互式修改文章（新 md 重新生成）
+python build.py --edit-by sylvae slug -f new.md -y  # 非交互式修改文章
+python build.py --rename                  # 交互式文件管理器
+python build.py --retitle                 # 交互式修改标题/日期
+python build.py --retitle-by slug -t "新标题" -d "日期"  # 非交互式
+python build.py --check-archetypes        # 模板一致性检查
+python build.py --rebuild                 # 全站 Shell 同步
+python build.py --build-all               # 一键全量构建（CSS+模板+字体+检查）
+python build.py --subset-font             # 重新生成全站字体子集
+python build.py --build-css               # 合并 assets/css/ 为根目录 style.css
+python build.py --git                     # Git 提交与推送
+python build.py --lunar-date              # 干支日期
+```
+
+**交互菜单**：
+```
+  0. 退出工具
+  1. 文章列表
+  2. 发布文章
+  3. 修改文章（用新 md 重新生成，保留原标题/日期）
+  4. 删除文章
+  5. 修改标题
+  6. 管理目录
+  7. 检查模板
+  8. 获取日期
+  9. 重建页面（根据模板重建，可选逐个/全部模式）
+  10. 重建字体
+  11. 重建样式（合并 assets/css/ 为 style.css）
+  12. Git
+```
+
+**所有交互功能支持 `q` 中途退出**
+
+**入口逻辑**：
+1. 解析 argparse 参数
+2. 命中非交互 CLI 参数 → 直接执行并返回
+3. `-f` → CLI 发布模式 → `content.publish_article()`
+4. 无参数 → 进入交互菜单循环
+
+---
+
+### `config.py` — 常量
+
+| 变量 | 说明 |
+|------|------|
+| `SCRIPT_DIR` | `build/` 目录绝对路径 |
+| `ROOT_DIR` | 项目根目录 |
+| `ARCHETYPE_PATH` | `archetypes/archetype.html` |
+| `CATEGORIES` | 分类列表 `[(key, name), ...]`，从 `data/categories.json` 加载 |
+| `SECTION_MAP` | 分类 key → 显示名称，从 `data/categories.json` 加载 |
+| `PAGE_MAP` | 分类 key → 对应汇总页路径，从 `data/categories.json` 加载 |
+| `ENTRY_TEMPLATE` | 汇总页 `<li>` 条目模板，含 `%%CATEGORY%%` 等占位符 |
+
+> `CATEGORIES` / `SECTION_MAP` / `PAGE_MAP` 由 `data/categories.json` 驱动，新增分类时编辑该文件即可。
+
+---
+
+### `data_loader.py` — 数据加载
+
+从 `data/*.json` 读取全站配置，所有函数均提供 fallback 默认值，数据文件缺失时不会中断流程。
+
+| 函数 | 来源 | 用途 |
+|------|------|------|
+| `get_site_title()` | `data/config.json` | 博客标题 |
+| `get_site_url()` | `data/config.json` | 站点 URL |
+| `get_html_lang()` | `data/config.json` | HTML 语言属性 |
+| `get_avatar()` | `data/config.json` | 头像文件名 |
+| `get_css_file()` | `data/config.json` | 样式表文件名 |
+| `get_footer()` | `data/config.json` | 页脚 HTML |
+| `get_nav()` | `data/config.json` | 导航列表 `[(href, la), ...]` |
+| `get_section_href(section)` | `data/config.json` | 章节显示名 → 导航页相对路径 |
+| `get_section_key(section)` | — | 章节显示名 → 稳定标识（小写、空格转连字符，用于 `<html data-section>`） |
+| `get_settings(key)` | `data/settings.json` | 构建过程设置（markdown、日期、文件管理器等） |
+| `clear_cache()` | — | 清空文件缓存 |
+
+**设计原则**：
+- `data/config.json` — 站点身份配置（标题、语言、导航、页脚）
+- `data/settings.json` — 构建过程配置（Markdown 扩展、日期格式、文件管理器行为等）
+- 修改后运行 `--build-all` 即可同步全站
+
+---
+
+### `content.py` — 文章发布引擎
+
+**发布流水线**：
+```
+Markdown → parse_front_matter → protect_math（LaTeX → MathML）
+  → render_markdown（nl2br/codehilite） → process_images（本地图片复制）
+  → fill_template → 写入 → add_entry_to_page
+```
+
+| 函数 | 说明 |
+|------|------|
+| `process_obsidian_links(text)` | `![[file.jpg]]` → `![file.jpg](file.jpg)` |
+| `process_links(html)` | 为所有 `<a>` 加 `target="_blank"` |
+| `render_markdown(text)` | MD → HTML（extra + codehilite + nl2br），数学公式在保护阶段转为 MathML |
+| `process_images(html, md_path, output_dir)` | 查找本地图片并复制到输出目录 |
+| `generate_nav_links(section, prefix)` | 从 `data/config.json` 生成导航 HTML |
+| `fill_template(template, title, date, content, section)` | 填充 archetype.html 的所有模板变量（标题 div + date + 分隔 hr 拼入 content） |
+| `publish_article(md_path, args, is_cli_mode)` | 主发布函数 |
+
+**图片搜索顺序**：Markdown 同目录 → 项目根目录；远程图片（http/https/data:）跳过。
+
+---
+
+### `mathml.py` — LaTeX → 原生 MathML
+
+构建时（服务端）把数学公式转换为浏览器原生 MathML，不再依赖 KaTeX 等客户端脚本。
+
+| 函数 | 说明 |
+|------|------|
+| `latex_to_mathml(tex, display)` | 单条公式转换；未知宏（如 mhchem `\ce`）或异常时返回 `None` |
+| `protect_math(text)` | Markdown 流水线用：以占位符保护公式并转换为 MathML，渲染后回填 |
+| `convert_math_html(html)` | 重建用：替换 HTML 片段中的公式，跳过 `code/pre/script/style/math` |
+| `convert_math_text(text)` | 替换纯文本/Markdown 中的公式定界符 |
+
+- 定界符：`$...$`、`\(...\)`（行内）；`$$...$$`、`\[...\]`（块级，输出 `display="block"`）
+- 依赖 `latex2mathml`（见 `requirements.txt`）
+- 预处理（`_normalize_latex`）：`\color{name}{...}` → `\textcolor{name}{...}`（矩阵/对齐环境内的 `\color` 会生成畸形 MathML）；`aligned` 环境 → `array{rl}`（否则 `&` 会以字面形式残留）
+- 字体样式：改写 `mathvariant` 以兼容 MathML Core（Chrome 已移除该属性）——拉丁字母/数字转 Unicode 数学字母（`bold`/`italic`/`script`/`fraktur`/`double-struck`/`sans-serif`/`monospace`），中文等无对应者转 CSS 字体属性；仅保留 `normal` 属性
+- 已存在的 `<math>` 块会在重建时就地升级，重复重建幂等
+- 转换失败时保留原始 LaTeX 文本，避免输出乱码；`\ce`（mhchem）不受支持，化学式请用标准 LaTeX（`\mathrm{H_2O}`、`{}^{235}_{92}\mathrm{U}`、`\xrightarrow{\text{...}}`、`\rightleftharpoons` 等）
+
+---
+
+### `css_bundle.py` — 样式合并
+
+- 按 `data/settings.json` 的 `css_bundle.sources` 顺序，将 `assets/css/` 下的模块合并为 `css_bundle.output`（默认根目录 `style.css`）
+- 替代运行时 `@import` 链，减少串行请求轮次；生成文件开头带 `Generated by` 注释，请勿直接编辑
+- 合并范围**不含** `assets/fonts/lxgw/subset.css`（含相对 `url()`）与 `light/medium/result.css` 分包，它们由模板以独立 `<link>` 引入
+- `--rebuild` 与 `--build-all` 会自动执行；`--build-css` 或交互菜单 11 可强制重建
+- 内容未变化时跳过写入（幂等）
+
+---
+
+### `font_subset.py` — 全站字体子集
+
+- 扫描全站已生成 HTML 和 CSS `content:` 字符串，收集页面实际使用的字符
+- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Light.ttf` 生成**全站字符**单子集（weight 300，固定文件名 `subset-lxgw-light.woff2`）
+- 使用 `fontTools` 从 `assets/fonts/LXGWBright-Medium.ttf` 生成**粗体字符**单子集（weight 700，固定文件名 `subset-lxgw-medium.woff2`），仅收录粗体上下文中出现的字符（`<b>`、`<strong>`、`<dt>`、`<th>`、`.link-list`、`.callout-title`、`.footnote-ref`）
+- 文件名固定（不含内容哈希），字符或源字体变化由 `subset.css` 注释中的签名检测；模板据此输出永不失效的 `<link rel="preload">`
+- 生成的 `subset.css` 包含两个 `@font-face`（同一字体族、不同字重），由模板以独立 `<link>` 引入
+- 子集未覆盖的字符回退到 `light/result.css`（Light）与 `medium/result.css`（Medium）的 LXGW Bright 分包
+- 发布文章、`--rebuild` 和 `--build-all` 会自动检测字符集变化；交互菜单 9 或 `--subset-font` 可强制重建
+
+---
+
+### `templint.py` — 模板检查与 Shell 同步
+
+全站模板一致性检查和自动修复引擎。
+
+| 函数 | 说明 |
+|------|------|
+| `check_file(file_path)` | 对照 `data/config.json` 检查单个文件结构完整性 |
+| `check_all(interactive, yes_to_all)` | 扫描全站 HTML 并检查/修复 |
+| `rebuild_from_base(file_path)` | 用当前 archetype.html 模板重建文件，保留 `<main>` 内容（并把残留 LaTeX 定界符迁移为 MathML） |
+| `rebuild_all(yes)` | 强制全站 Shell 同步（跳过 archetypes/ 模板） |
+
+**检查依据**：`data/config.json` 的 `nav`（导航）和 `footer`（页脚），而非某个 HTML 参考文件。
+
+**扫描白名单**：`_find_html_files()` 仅纳入本站管理的 HTML —— 根目录只扫描 `data/settings.json` 的 `managed_root_files`（默认 `["index.html"]`），另有 `pages/*.html`、`content/**/index.html`、`archetypes/archetype.html`。根目录其他文件（如 Google 验证文件 `google*.html`）一律不纳入检查与重建，避免被误覆盖。
+
+**保护机制**：archetypes/ 下的文件不会被写入覆盖，`{{ nav_links }}` 和 `{{ footer_content }}` 的模板变量跳过检查。
+
+**章节标记**：重建时会把 `{{ section_key }}` 填入 `<html data-section="…">`（由 `get_section_key()` 归一化），供跨文档章节切换动效判断移动方向。`check_file()` 对 `<html lang="…">` 的校验采用正则，允许附带该属性。
+
+---
+
+### `management.py` — 文章管理
+
+| 函数 | 交互 | 说明 |
+|------|------|------|
+| `list_articles(show_all)` | ✔️ | 选分类 → 列出文章 |
+| `list_articles_direct(category)` | ❌ | 直接列出指定分类 |
+| `delete_article()` | ✔️ | 选分类 → 选文章 → 确认删除 |
+| `delete_article_direct(cat, slug, yes)` | ❌ | 直接按 slug 删除 |
+| `edit_article()` | ✔️ | 选分类 → 选文章 → 指定新 md → 重新生成（保留原标题/日期） |
+| `edit_article_direct(cat, slug, md_path, yes)` | ❌ | 直接按 slug 用新 md 重新生成（保留原标题/日期） |
+| `retitle_article()` | ✔️ | 选分类 → 选文章 → 改标题/日期 |
+| `retitle_article_direct(cat, slug, title, date)` | ❌ | 直接按 slug 修改 |
+| `file_manager()` | ✔️ | 文件浏览器：导航、重命名、删除、标记移动 |
+| `add_entry_to_page(path, title, date, cat, folder)` | ❌ | 在汇总页添加/更新条目（去重） |
+
+**引用更新范围**（文件管理器重命名/移动时自动更新）：
+```
+pages/*.html, content/**/*.html, archetypes/*.html
+assets/**/*.html, index.html, style.css, README.md, AGENTS.md
+```
+
+---
+
+### `utils.py` — 工具函数
+
+| 函数 | 说明 |
+|------|------|
+| `slugify(text)` | 生成 PascalCase slug，全大写缩写保留 |
+| `ask(prompt, default)` | 带默认值的输入 |
+| `confirm(prompt, default)` | `[y/n]` 确认 |
+| `parse_front_matter(text)` | 解析 YAML front matter，返回 `(meta, body)` |
+| `get_lunar_date(target_date)` | 干支日期，如 `8 May. 2026 / 丙午年 癸巳月 壬午日` |
+
+---
+
+### `git_ops.py` — Git 操作
+
+| 函数 | 说明 |
+|------|------|
+| `git_commit_push()` | 交互式：git add . → 输入 commit message → 确认 push |
+
+---
+
+## 使用方式
+
+### 终端
+```sh
+cd build
+source venv/bin/activate
+./build.sh --list       # 或直接 python3 build.py --list
+```
+
+### macOS 双击
+双击 `Blog.command` 即可打开终端进入交互菜单。
+
+### 依赖安装
+```sh
+cd build
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```

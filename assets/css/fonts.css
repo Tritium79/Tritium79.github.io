@@ -1,0 +1,22 @@
+/*
+ * LXGW Bright 不再在此处声明：
+ * - 字体子集由 build/font_subset.py 生成：Light 300 全站字符、Medium 700 仅粗体字符，
+ *   规则见 assets/fonts/lxgw/subset.css（style.css 中 @import 引入）。
+ * - 分包回退由 cn-font-split 生成：Light 见 assets/fonts/lxgw/light/result.css，
+ *   Medium 见 assets/fonts/lxgw/medium/result.css。
+ * 源文件 LXGWBright-Light.ttf / LXGWBright-Medium.ttf 保留在 assets/fonts/ 作为备份。
+ */
+
+@font-face {
+    font-family: "Inconsolata";
+    src: url("/assets/fonts/Inconsolata-VF.woff2") format("woff2");
+    font-weight: 275 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Cormorant Garamond";
+    src: url("/assets/fonts/CormorantGaramond-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}

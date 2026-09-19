@@ -1,0 +1,338 @@
+/* 跨文档章节切换过渡：同源页面自动生效，不支持时静默回退为瞬时跳转 */
+@view-transition {
+    navigation: auto;
+}
+
+/* 关闭整页默认 cross-fade：仅让章节下划线参与过渡，页面主体瞬时切换 */
+:root {
+    view-transition-name: none;
+}
+
+.header-bar {
+    display: contents;
+}
+
+.current-section,
+.nav-toggle-btn,
+.nav-toggle {
+    display: none;
+}
+
+header {
+    width: 200px;
+    min-width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3rem 2rem 2rem;
+    background-color: var(--bg-header);
+    font-family: "Cormorant Garamond", "LXGW Bright Subset", "LXGW Bright", serif;
+}
+
+.header-bar > a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s ease;
+}
+
+.header-bar > a:hover {
+    color: var(--text-sidebar-hover);
+}
+
+.header-bar > a.avatar {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: box-shadow 0.2s ease;
+}
+
+header img:hover {
+    box-shadow: 0 0 0 2px var(--text-sidebar-hover);
+}
+
+.site-title {
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    width: 100%;
+}
+
+header nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+header nav a {
+    text-decoration: none;
+    color: var(--text-nav);
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    text-align: left;
+    position: relative;
+    align-self: flex-start;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-sidebar-hover);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+}
+
+header nav a:hover {
+    color: var(--text-sidebar-hover);
+}
+
+header nav a:hover::after,
+header nav a.nav-current::after {
+    transform: scaleX(1);
+}
+
+header nav a.nav-current::after {
+    background-color: var(--text-nav);
+}
+
+header nav a.nav-current:hover {
+    color: var(--text-sidebar-hover);
+}
+
+header nav a.nav-current:hover::after {
+    background-color: var(--text-sidebar-hover);
+}
+
+/* ── 章节切换动效：旧章节下划线按移动方向消散（上移自中间向两端，下移自两端向中间） ── */
+
+/*
+ * 按章节区分名称，避免新旧横线被浏览器当作同一元素平移。
+ * 仅桌面/短视口（宽度 > 800px）参与：竖屏导航是全屏覆盖层，
+ * visibility: hidden 不会让名字失效，会导致菜单关闭后横线残留。
+ */
+@media (min-width: 801px) {
+    header nav a.nav-current[href$="index.html"]::after {
+        view-transition-name: nav-line-domus;
+    }
+
+    header nav a.nav-current[href$="pages/sylvae.html"]::after {
+        view-transition-name: nav-line-sylvae;
+    }
+
+    header nav a.nav-current[href$="pages/scripta.html"]::after {
+        view-transition-name: nav-line-scripta;
+    }
+
+    header nav a.nav-current[href$="pages/transcripta.html"]::after {
+        view-transition-name: nav-line-transcripta;
+    }
+
+    header nav a.nav-current[href$="pages/commentarii.html"]::after {
+        view-transition-name: nav-line-commentarii;
+    }
+
+    header nav a.nav-current[href$="pages/archivum.html"]::after {
+        view-transition-name: nav-line-archivum;
+    }
+
+    header nav a.nav-current[href$="pages/amici.html"]::after {
+        view-transition-name: nav-line-amici;
+    }
+
+    header nav a.nav-current[href$="pages/deme.html"]::after {
+        view-transition-name: nav-line-deme;
+    }
+}
+
+/* 中间透明带宽度：0% 完整显示，50% 完全消失 */
+@property --nav-line-gap {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 0%;
+}
+
+/* 中间→两端：中心透明带渐宽，横线向两端消散 */
+@keyframes nav-line-open {
+    from {
+        --nav-line-gap: 0%;
+    }
+
+    to {
+        --nav-line-gap: 50%;
+    }
+}
+
+/* 两端→中间：整体向中心收缩消失 */
+@keyframes nav-line-shrink {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/*
+ * 方向自适应：目标页由 <html data-section> 标识（旧线快照的样式由目标页决定）。
+ * 导航顺序：domus 0 · sylvae 1 · scripta 2 · transcripta 3
+ *           commentarii 4 · archivum 5 · amici 6 · de-me 7
+ */
+
+/* 向上移动（源在目标下方，序号更大）：旧线自中间向两端消散 */
+html[data-section="domus"]::view-transition-old(nav-line-sylvae),
+html[data-section="domus"]::view-transition-old(nav-line-scripta),
+html[data-section="domus"]::view-transition-old(nav-line-transcripta),
+html[data-section="domus"]::view-transition-old(nav-line-commentarii),
+html[data-section="domus"]::view-transition-old(nav-line-archivum),
+html[data-section="domus"]::view-transition-old(nav-line-amici),
+html[data-section="domus"]::view-transition-old(nav-line-deme),
+html[data-section="sylvae"]::view-transition-old(nav-line-scripta),
+html[data-section="sylvae"]::view-transition-old(nav-line-transcripta),
+html[data-section="sylvae"]::view-transition-old(nav-line-commentarii),
+html[data-section="sylvae"]::view-transition-old(nav-line-archivum),
+html[data-section="sylvae"]::view-transition-old(nav-line-amici),
+html[data-section="sylvae"]::view-transition-old(nav-line-deme),
+html[data-section="scripta"]::view-transition-old(nav-line-transcripta),
+html[data-section="scripta"]::view-transition-old(nav-line-commentarii),
+html[data-section="scripta"]::view-transition-old(nav-line-archivum),
+html[data-section="scripta"]::view-transition-old(nav-line-amici),
+html[data-section="scripta"]::view-transition-old(nav-line-deme),
+html[data-section="transcripta"]::view-transition-old(nav-line-commentarii),
+html[data-section="transcripta"]::view-transition-old(nav-line-archivum),
+html[data-section="transcripta"]::view-transition-old(nav-line-amici),
+html[data-section="transcripta"]::view-transition-old(nav-line-deme),
+html[data-section="commentarii"]::view-transition-old(nav-line-archivum),
+html[data-section="commentarii"]::view-transition-old(nav-line-amici),
+html[data-section="commentarii"]::view-transition-old(nav-line-deme),
+html[data-section="archivum"]::view-transition-old(nav-line-amici),
+html[data-section="archivum"]::view-transition-old(nav-line-deme),
+html[data-section="amici"]::view-transition-old(nav-line-deme) {
+    --nav-line-gap: 0%;
+    -webkit-mask-image: linear-gradient(
+        90deg,
+        #000 0 calc(50% - var(--nav-line-gap)),
+        transparent calc(50% - var(--nav-line-gap)) calc(50% + var(--nav-line-gap)),
+        #000 calc(50% + var(--nav-line-gap)) 100%
+    );
+    mask-image: linear-gradient(
+        90deg,
+        #000 0 calc(50% - var(--nav-line-gap)),
+        transparent calc(50% - var(--nav-line-gap)) calc(50% + var(--nav-line-gap)),
+        #000 calc(50% + var(--nav-line-gap)) 100%
+    );
+    animation: nav-line-open 0.25s ease both;
+    mix-blend-mode: normal;
+}
+
+/* 向下移动（源在目标上方，序号更小）：旧线自两端向中间收缩 */
+html[data-section="sylvae"]::view-transition-old(nav-line-domus),
+html[data-section="scripta"]::view-transition-old(nav-line-domus),
+html[data-section="scripta"]::view-transition-old(nav-line-sylvae),
+html[data-section="transcripta"]::view-transition-old(nav-line-domus),
+html[data-section="transcripta"]::view-transition-old(nav-line-sylvae),
+html[data-section="transcripta"]::view-transition-old(nav-line-scripta),
+html[data-section="commentarii"]::view-transition-old(nav-line-domus),
+html[data-section="commentarii"]::view-transition-old(nav-line-sylvae),
+html[data-section="commentarii"]::view-transition-old(nav-line-scripta),
+html[data-section="commentarii"]::view-transition-old(nav-line-transcripta),
+html[data-section="archivum"]::view-transition-old(nav-line-domus),
+html[data-section="archivum"]::view-transition-old(nav-line-sylvae),
+html[data-section="archivum"]::view-transition-old(nav-line-scripta),
+html[data-section="archivum"]::view-transition-old(nav-line-transcripta),
+html[data-section="archivum"]::view-transition-old(nav-line-commentarii),
+html[data-section="amici"]::view-transition-old(nav-line-domus),
+html[data-section="amici"]::view-transition-old(nav-line-sylvae),
+html[data-section="amici"]::view-transition-old(nav-line-scripta),
+html[data-section="amici"]::view-transition-old(nav-line-transcripta),
+html[data-section="amici"]::view-transition-old(nav-line-commentarii),
+html[data-section="amici"]::view-transition-old(nav-line-archivum),
+html[data-section="de-me"]::view-transition-old(nav-line-domus),
+html[data-section="de-me"]::view-transition-old(nav-line-sylvae),
+html[data-section="de-me"]::view-transition-old(nav-line-scripta),
+html[data-section="de-me"]::view-transition-old(nav-line-transcripta),
+html[data-section="de-me"]::view-transition-old(nav-line-commentarii),
+html[data-section="de-me"]::view-transition-old(nav-line-archivum),
+html[data-section="de-me"]::view-transition-old(nav-line-amici) {
+    animation: nav-line-shrink 0.25s ease both;
+    transform-origin: center;
+    mix-blend-mode: normal;
+}
+
+/* 新章节横线不加动效（悬停本就会显示），直接呈现 */
+::view-transition-new(nav-line-domus),
+::view-transition-new(nav-line-sylvae),
+::view-transition-new(nav-line-scripta),
+::view-transition-new(nav-line-transcripta),
+::view-transition-new(nav-line-commentarii),
+::view-transition-new(nav-line-archivum),
+::view-transition-new(nav-line-amici),
+::view-transition-new(nav-line-deme) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(*),
+    ::view-transition-new(*),
+    ::view-transition-group(*) {
+        animation: none !important;
+    }
+}
+
+@media (min-width: 801px) {
+    header::after {
+        content: "";
+        position: absolute;
+        top: 2.5%;
+        right: 0;
+        height: 95%;
+        border-right: 1px solid var(--text-muted);
+    }
+
+    header nav a.nav-title-link,
+    header nav a.avatar {
+        display: none;
+    }
+
+    header nav a {
+        align-self: center;
+        text-align: center;
+    }
+
+    header nav a::after {
+        transform-origin: center;
+    }
+}
+
+/* 短视口桌面模式：侧栏改为随页面整体滚动（不再固定），底部导航可全部露出 */
+@media (min-width: 801px) and (max-height: 680px) {
+    header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: auto;
+    }
+}
